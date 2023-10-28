@@ -44,8 +44,10 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-# Firebase config file
+# Firebase files
 /android/app/google-services.json
+/lib/src/config/firebase/firebase_options.dart
+
 
 # pubspec lock file
 /pubspec.lock
