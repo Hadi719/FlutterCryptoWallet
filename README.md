@@ -4,5 +4,12 @@ A crypto wallet build with Flutter.
 
 ## Getting Started
 
-- Add Firebase config file to `android/app/`
-- Add Firebase options file to `lib/src/config/firebase/`
+- Run this in Terminal
+```
+dart pub global activate flutterfire_cli
+```
+- Run this in project root directory
+```
+flutterfire configure --project=flutter-crypto-wallet-ccbca
+```
+- Move Firebase options file from `lib/src/` to `lib/src/config/firebase/`
