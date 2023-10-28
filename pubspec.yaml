@@ -21,6 +21,7 @@ dependencies:
   firebase_core: ^2.20.0
   firebase_auth: ^4.12.0
   firebase_ui_oauth_google: ^1.2.13
+  flutter_signin_button: ^2.0.0
 
   # State Management
   bloc: ^8.1.2
