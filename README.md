@@ -3,17 +3,18 @@
 A crypto wallet with Flutter.
 
 ## Setup Firebase
-1. __Step 1:__ Install Firebase CLI in Linux, [more detail info](https://firebase.google.com/docs/cli?authuser=0).
+- __Step 1:__ Install Firebase CLI in Linux.
+    > [More Detail Info In Firebase Website](https://firebase.google.com/docs/cli?authuser=0)
 
-    1\. For install `Firebase CLI` in linux, run code below in `Terminal`.
+    - For install `Firebase CLI` in linux, run code below in `Terminal`.
     ```
     curl -sL https://firebase.tools | bash
     ```
-    2\. Login to firebase
+    - Login to firebase
     ```
     firebase login
     ```
-    3\. Test that the CLI is properly installed and accessing your account by listing your Firebase projects. Run the following command:
+    - Test that the CLI is properly installed and accessing your account by listing your Firebase projects. Run the following command:
     ```
     firebase projects:list
     ```
@@ -21,19 +22,19 @@ A crypto wallet with Flutter.
     ```
     curl -sL https://firebase.tools | upgrade=true bash
     ```
-    4\. Install the FlutterFire CLI by running the following command from any directory:
+    - Install the FlutterFire CLI by running the following command from any directory:
     ```
     dart pub global activate flutterfire_cli
     ```
 
-2. __Step 2:__ Configure your apps to use Firebase:
+- __Step 2:__ Configure your apps to use Firebase:
 
-    1\.To get `firebase_options.dart` file, run code below on project root directory:
+    - To get `firebase_options.dart` file, run code below on project root directory:
     ```
     flutterfire configure
     ```
     then select your project and wait to file be create.
-    2\. Move `firebase_options.dart` file from `lib/src/` to `lib/src/config/firebase/`
+    - Move `firebase_options.dart` file from `lib/src/` to `lib/src/config/firebase/`
 
 ## Firebase Authentication
 
