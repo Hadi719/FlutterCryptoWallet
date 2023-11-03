@@ -67,3 +67,14 @@ dart pub global activate flutterfire_cli
 flutterfire configure --project=<PROJECT_NAME_FROM_FIREBASE>
 ```
 - Move `firebase_options.dart` file from `lib/src/` to `lib/src/config/firebase/`
+
+# Release build note
+- __Obfuscate Dart code:__
+  > ___Flutter’s code obfuscation works only on a release build.___  
+  > [see more detail info](https://docs.flutter.dev/deployment/obfuscate)  
+
+  To obfuscate your app, use the `flutter build` command in release mode with the `--obfuscate` and `--split-debug-info` options. The `--split-debug-info` option specifies the directory where Flutter outputs debug files. In the case of obfuscation, it outputs a symbol map. For example:  
+  
+  ```flutter build apk --obfuscate --split-debug-info=/<project-name>/<directory>```
+    - __Tip 1:__ Once you’ve obfuscated your binary, `save the symbols file`. You need this if you later want to de-obfuscate a stack trace.
+    - __Tip 2:__ The `--split-debug-info` option can also be used without `--obfuscate` to extract Dart program symbols, reducing code size. To learn more about app size, [see Measuring your app’s size](https://docs.flutter.dev/perf/app-size).
