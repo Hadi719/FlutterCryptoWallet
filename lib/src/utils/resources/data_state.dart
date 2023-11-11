@@ -1,8 +1,10 @@
+import 'http_error.dart';
+
 abstract class DataState<T> {
   final T? data;
-  final String? error;
+  final HttpError? httpError;
 
-  const DataState({this.data, this.error});
+  const DataState({this.data, this.httpError});
 }
 
 class DataSuccess<T> extends DataState<T> {
@@ -10,7 +12,7 @@ class DataSuccess<T> extends DataState<T> {
 }
 
 class DataFailed<T> extends DataState<T> {
-  const DataFailed(String error) : super(error: error);
+  const DataFailed(HttpError error) : super(httpError: error);
 }
 
 class DataNotSet<T> extends DataState<T> {
