@@ -1,10 +1,10 @@
-import 'http_error.dart';
+import 'package:dio/dio.dart';
 
 abstract class DataState<T> {
   final T? data;
-  final HttpError? httpError;
+  final DioException? error;
 
-  const DataState({this.data, this.httpError});
+  const DataState({this.data, this.error});
 }
 
 class DataSuccess<T> extends DataState<T> {
@@ -12,7 +12,7 @@ class DataSuccess<T> extends DataState<T> {
 }
 
 class DataFailed<T> extends DataState<T> {
-  const DataFailed(HttpError error) : super(httpError: error);
+  const DataFailed(DioException error) : super(error: error);
 }
 
 class DataNotSet<T> extends DataState<T> {
