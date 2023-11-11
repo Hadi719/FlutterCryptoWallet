@@ -68,6 +68,12 @@ flutterfire configure --project=<PROJECT_NAME_FROM_FIREBASE>
 ```
 - Move `firebase_options.dart` file from `lib/src/` to `lib/src/config/firebase/`
 
+## Run The Generator 
+run below in `project root` directory for building `Retrofit` files.
+```
+dart run build_runner build
+```
+
 # Release build note
 - __Obfuscate Dart code:__
   > ___Flutter’s code obfuscation works only on a release build.___  
