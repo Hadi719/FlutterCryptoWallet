@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 
-class HttpException implements Exception {
-  HttpException({
+class HttpError implements Exception {
+  HttpError({
     required this.request,
     this.response,
     this.error,
@@ -14,14 +14,14 @@ class HttpException implements Exception {
   final StackTrace? stackTrace;
   final String? message;
 
-  HttpException copyWith({
+  HttpError copyWith({
     http.Request? request,
     http.Response? response,
     Object? error,
     StackTrace? stackTrace,
     String? message,
   }) {
-    return HttpException(
+    return HttpError(
       request: request ?? this.request,
       response: response ?? this.response,
       error: error ?? this.error,
