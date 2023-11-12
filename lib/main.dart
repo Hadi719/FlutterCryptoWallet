@@ -5,6 +5,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_crypto_wallet/src/service_locator.dart';
 
 import 'src/app.dart';
 import 'src/config/firebase/firebase_options.dart';
@@ -35,6 +36,9 @@ Future<void> main() async {
     await auth.useAuthEmulator('localhost', 9099);
   }
   */
+
+  // Setup GetIt service locator.
+  await setup();
 
   runApp(const MyApp());
 }
