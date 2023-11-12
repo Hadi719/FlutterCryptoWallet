@@ -1,3 +1,14 @@
+const String iconsDirPath = 'assets/images/icons/crypto_icons/';
+const String btcIconPath = '$iconsDirPath/BTC.png';
+const String ethIconPath = '$iconsDirPath/ETH.png';
+const String bnbIconPath = '$iconsDirPath/BNB.png';
+const String usdcIconPath = '$iconsDirPath/USDC.png';
+const String xrpIconPath = '$iconsDirPath/XRP.png';
+const String adaIconPath = '$iconsDirPath/ADA.png';
+const String solIconPath = '$iconsDirPath/SOL.png';
+const String dotIconPath = '$iconsDirPath/DOT.png';
+const String dogeIconPath = '$iconsDirPath/DOGE.png';
+
 class Crypto {
   Crypto({
     required this.marketName,
@@ -47,16 +58,6 @@ class Crypto {
         '=============================';
   }
 }
-
-const String btcIconPath = 'assets/crypto_icons/BTC.png';
-const String ethIconPath = 'assets/crypto_icons/ETH.png';
-const String bnbIconPath = 'assets/crypto_icons/BNB.png';
-const String usdcIconPath = 'assets/crypto_icons/USDC.png';
-const String xrpIconPath = 'assets/crypto_icons/XRP.png';
-const String adaIconPath = 'assets/crypto_icons/ADA.png';
-const String solIconPath = 'assets/crypto_icons/SOL.png';
-const String dotIconPath = 'assets/crypto_icons/DOT.png';
-const String dogeIconPath = 'assets/crypto_icons/DOGE.png';
 
 /// Forbes Top 10 Cryptocurrencies For December 2022.
 /// 1. Bitcoin (BTC)
