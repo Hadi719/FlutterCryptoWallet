@@ -7,7 +7,7 @@ import 'domain/repositories/api_repository.dart';
 
 final GetIt serviceLocator = GetIt.instance;
 
-Future<void> initializeDependencies() async {
+Future<void> setup() async {
   final dio = Dio();
 
   serviceLocator.registerSingleton<Dio>(dio);
