@@ -2,7 +2,6 @@
 const String kAppTitle = 'Flutter Crypto Wallet';
 
 // Networking & APIs
-const String kCoinExHost = 'api.coinex.com';
-const String kCoinExBaseUrl = '/v1';
+const String kCoinExBaseUrl = 'https://api.coinex.com/v1';
 
 // Storage and Databases
