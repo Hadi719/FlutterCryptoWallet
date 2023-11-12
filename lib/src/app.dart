@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../development/test_coin_ex_Api.dart';
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
@@ -12,7 +14,7 @@ class MyApp extends StatelessWidget {
       ),
       home: const Scaffold(
         body: Center(
-          child: Text("Text Data"),
+          child: TestCoinExApi(),
         ),
       ),
     );
