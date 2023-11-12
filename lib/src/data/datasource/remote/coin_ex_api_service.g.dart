@@ -13,7 +13,7 @@ class _CoinExApiService implements CoinExApiService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= '/v1';
+    baseUrl ??= 'https://api.coinex.com/v1';
   }
 
   final Dio _dio;
@@ -21,11 +21,9 @@ class _CoinExApiService implements CoinExApiService {
   String? baseUrl;
 
   @override
-  Future<HttpResponse<AllMarketListResponse>> getAllMarketList(
-      {String? path}) async {
+  Future<HttpResponse<AllMarketListResponse>> getAllMarketList() async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'path': path};
-    queryParameters.removeWhere((k, v) => v == null);
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -36,7 +34,7 @@ class _CoinExApiService implements CoinExApiService {
     )
             .compose(
               _dio.options,
-              '/all-market-list',
+              '/market/list',
               queryParameters: queryParameters,
               data: _data,
             )
