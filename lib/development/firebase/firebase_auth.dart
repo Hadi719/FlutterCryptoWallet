@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../../../main.dart';
+import '../../../../main.dart';
 
 typedef OAuthSignIn = void Function();
 
