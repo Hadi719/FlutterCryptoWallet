@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../src/domain/models/coinex/crypto.dart';
 import '../src/domain/models/requests/all_market_list_request.dart';
+import '../src/domain/models/requests/single_market_info_request.dart';
+import '../src/domain/models/responses/single_market_info_response.dart';
 import '../src/domain/repositories/api_repository.dart';
 import '../src/service_locator.dart';
 import '../src/utils/resources/data_state.dart';
@@ -16,7 +19,7 @@ class _TestCoinExApiState extends State<TestCoinExApi> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: const RemoteCoinEx().getAllMarketList(),
+      future: const RemoteCoinEx().getSingleMarketInfo(),
       builder: (context, snapshot) {
         return SafeArea(
           child: SingleChildScrollView(
@@ -41,7 +44,20 @@ class RemoteCoinEx {
       request: const AllMarketListRequest(),
     );
     if (response is DataSuccess) {
+      print('getSingleMarketInfo Success');
       return response.data!.allMarketList;
+    } else {
+      print('getSingleMarketInfo Error');
+      throw response.error!;
+    }
+  }
+
+  Future<SingleMarketInfoResponse> getSingleMarketInfo() async {
+    final response = await serviceLocator<ApiRepository>().getSingleMarketInfo(
+      request: SingleMarketInfoRequest(marketName: CryptoDetail.btc.marketName),
+    );
+    if (response is DataSuccess) {
+      return response.data!;
     } else {
       throw response.error!;
     }
