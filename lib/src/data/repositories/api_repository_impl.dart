@@ -1,5 +1,7 @@
+import '../../domain/models/requests/all_market_info_request.dart';
 import '../../domain/models/requests/all_market_list_request.dart';
 import '../../domain/models/requests/single_market_info_request.dart';
+import '../../domain/models/responses/all_market_info_response.dart';
 import '../../domain/models/responses/all_market_list_response.dart';
 import '../../domain/models/responses/single_market_info_response.dart';
 import '../../domain/repositories/api_repository.dart';
@@ -19,6 +21,13 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
     return getStateOf<AllMarketListResponse>(
       request: () => _coinExApiService.getAllMarketList(),
     );
+  }
+
+  @override
+  Future<DataState<AllMarketInfoResponse>> getAllMarketInfo({
+    required AllMarketInfoRequest request,
+  }) {
+    return getStateOf(request: () => _coinExApiService.getAllMarketInfo());
   }
 
   @override

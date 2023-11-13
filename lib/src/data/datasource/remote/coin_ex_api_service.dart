@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
+import '../../../domain/models/responses/all_market_info_response.dart';
 import '../../../domain/models/responses/all_market_list_response.dart';
 import '../../../domain/models/responses/single_market_info_response.dart';
 import '../../../utils/constants/strings.dart';
@@ -13,6 +14,9 @@ abstract class CoinExApiService {
 
   @GET(kCoinExUrlPathAllMarketList)
   Future<HttpResponse<AllMarketListResponse>> getAllMarketList();
+
+  @GET(kCoinExUrlPathAllMarketInfo)
+  Future<HttpResponse<AllMarketInfoResponse>> getAllMarketInfo();
 
   @GET(kCoinExUrlPathSingleMarketInfo)
   Future<HttpResponse<SingleMarketInfoResponse>> getSingleMarketInfo({
