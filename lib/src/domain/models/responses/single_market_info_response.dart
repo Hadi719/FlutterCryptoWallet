@@ -29,7 +29,7 @@ class SingleMarketInfoResponse extends Equatable {
 
   /// {@macro SingleMarketInfoResponse}
   factory SingleMarketInfoResponse.fromMap(Map<String, dynamic> map) {
-    var mapData = map['data'];
+    var mapData = map['data'] ?? map;
     return SingleMarketInfoResponse(
         cryptoDetail: CryptoDetail.fromMarketName(mapData['name']),
         minAmount: double.tryParse(mapData['min_amount']) ?? 0.0,
