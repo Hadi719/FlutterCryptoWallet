@@ -1,6 +1,6 @@
 /// Gets market depth in a single market
-class MarketDepth {
-  const MarketDepth({
+class MarketDepthRequest {
+  const MarketDepthRequest({
     required this.marketName,
     this.merge = MarketDepthMerge.oneOneHundredth,
     this.limit,
