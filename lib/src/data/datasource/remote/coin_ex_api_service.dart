@@ -3,6 +3,7 @@ import 'package:retrofit/retrofit.dart';
 
 import '../../../domain/models/responses/all_market_info_response.dart';
 import '../../../domain/models/responses/all_market_list_response.dart';
+import '../../../domain/models/responses/market_depth_response.dart';
 import '../../../domain/models/responses/single_market_info_response.dart';
 import '../../../utils/constants/strings.dart';
 
@@ -20,6 +21,13 @@ abstract class CoinExApiService {
 
   @GET(kCoinExUrlPathSingleMarketInfo)
   Future<HttpResponse<SingleMarketInfoResponse>> getSingleMarketInfo({
-    @Query("market") String? marketName,
+    @Query('market') required String marketName,
+  });
+
+  @GET(kCoinExUrlPathMarketDepth)
+  Future<HttpResponse<MarketDepthResponse>> getMarketDepth({
+    @Query('market') required String marketName,
+    @Query('merge') String? merge,
+    @Query('limit') int? limit,
   });
 }
