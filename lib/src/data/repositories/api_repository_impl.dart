@@ -1,8 +1,10 @@
 import '../../domain/models/requests/all_market_info_request.dart';
 import '../../domain/models/requests/all_market_list_request.dart';
+import '../../domain/models/requests/market_depth_request.dart';
 import '../../domain/models/requests/single_market_info_request.dart';
 import '../../domain/models/responses/all_market_info_response.dart';
 import '../../domain/models/responses/all_market_list_response.dart';
+import '../../domain/models/responses/market_depth_response.dart';
 import '../../domain/models/responses/single_market_info_response.dart';
 import '../../domain/repositories/api_repository.dart';
 import '../../utils/resources/data_state.dart';
@@ -38,5 +40,16 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
       request: () =>
           _coinExApiService.getSingleMarketInfo(marketName: request.marketName),
     );
+  }
+
+  @override
+  Future<DataState<MarketDepthResponse>> getMarketDepth(
+      {required MarketDepthRequest request}) {
+    return getStateOf(
+        request: () => _coinExApiService.getMarketDepth(
+              marketName: request.marketName,
+              merge: request.merge.value,
+              limit: request.limit?.value,
+            ));
   }
 }
