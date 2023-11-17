@@ -1,1 +1,1 @@
-This folder is contain tools, codes, files and samples that i use for development.
+This folder contains tools, codes, files and samples that i use for development.
