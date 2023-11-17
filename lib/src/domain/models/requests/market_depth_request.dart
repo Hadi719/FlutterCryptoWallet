@@ -6,6 +6,7 @@ class MarketDepthRequest {
     this.limit,
   });
 
+  /// It refers to [CryptoDetail.values.marketName]
   final String marketName;
 
   final MarketDepthMerge merge;
