@@ -28,10 +28,10 @@ class MarketDepthResponse extends Equatable {
       time: DateTime.fromMillisecondsSinceEpoch(data['time']),
       latestTransactionPrice: double.tryParse(data['last']) ?? 0.0,
       askOrders: (data['asks'] as List)
-          .map((e) => MarketDepthOrder.fromJson(e))
+          .map((e) => MarketDepthOrder.fromMap(e))
           .toList(),
       bidOrders: (data['bids'] as List)
-          .map((e) => MarketDepthOrder.fromJson(e))
+          .map((e) => MarketDepthOrder.fromMap(e))
           .toList(),
     );
   }
@@ -40,7 +40,12 @@ class MarketDepthResponse extends Equatable {
   bool? get stringify => true;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [
+        time,
+        latestTransactionPrice,
+        askOrders,
+        bidOrders,
+      ];
 }
 
 class MarketDepthOrder extends Equatable {
@@ -52,18 +57,11 @@ class MarketDepthOrder extends Equatable {
     this.amount = 0.0,
   });
 
-  factory MarketDepthOrder.fromJson(List<String> jsonData) {
+  factory MarketDepthOrder.fromMap(List<dynamic> jsonData) {
     return MarketDepthOrder(
       price: double.tryParse(jsonData[0][0]) ?? 0.0,
       amount: double.tryParse(jsonData[0][1]) ?? 0.0,
     );
-  }
-
-  @override
-  String toString() {
-    return '\n\n=======   $this   =======\n'
-        'Order [price:$price, amount:$amount]\n'
-        '=========================================';
   }
 
   @override
