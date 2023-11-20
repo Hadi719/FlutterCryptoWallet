@@ -12,6 +12,28 @@ enum LatestTransactionDataType {
   }
 }
 
+class LatestTransactionDataResponse extends Equatable {
+  final List<LatestTransactionData> latestTransactionDataList;
+
+  const LatestTransactionDataResponse(
+      {this.latestTransactionDataList = const <LatestTransactionData>[]});
+
+  factory LatestTransactionDataResponse.fromMap(Map<String, dynamic> map) {
+    var mapData = map['data'] ?? map;
+    return LatestTransactionDataResponse(
+      latestTransactionDataList: (mapData as List)
+          .map((e) => LatestTransactionData.fromMap(e))
+          .toList(),
+    );
+  }
+
+  @override
+  bool? get stringify => true;
+
+  @override
+  List<Object?> get props => [latestTransactionDataList];
+}
+
 /// {@template LatestTransactionDataResponse}
 ///
 /// Gets the latest transaction data of a single market.
@@ -20,7 +42,7 @@ enum LatestTransactionDataType {
 /// * Max.return: 1000
 ///
 /// {@endtemplate}
-class LatestTransactionDataResponse extends Equatable {
+class LatestTransactionData extends Equatable {
   final int id;
   final int dateTime;
   final DateTime dateTimeMilliseconds;
@@ -29,7 +51,7 @@ class LatestTransactionDataResponse extends Equatable {
   final LatestTransactionDataType type;
 
   /// {@macro: LatestTransactionDataResponse}
-  const LatestTransactionDataResponse({
+  const LatestTransactionData({
     required this.id,
     required this.dateTime,
     required this.dateTimeMilliseconds,
@@ -39,8 +61,8 @@ class LatestTransactionDataResponse extends Equatable {
   });
 
   /// {@macro: LatestTransactionDataResponse}
-  factory LatestTransactionDataResponse.fromMap(Map<String, dynamic> map) {
-    return LatestTransactionDataResponse(
+  factory LatestTransactionData.fromMap(Map<String, dynamic> map) {
+    return LatestTransactionData(
       id: map['id'] ?? 0,
       dateTime: map['date'] ?? 0,
       dateTimeMilliseconds: DateTime.fromMillisecondsSinceEpoch(map['date_ms']),
