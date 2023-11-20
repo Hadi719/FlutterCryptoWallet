@@ -32,7 +32,7 @@ abstract class CoinExApiService {
     @Query('limit') int? limit,
   });
 
-  @GET(kCoinExUrlPathMarketDepth)
+  @GET(kCoinExUrlLatestTransactionData)
   Future<HttpResponse<LatestTransactionDataResponse>> getLatestTransactionData({
     @Query('market') required String marketName,
     @Query('last_id') int? lastId,
