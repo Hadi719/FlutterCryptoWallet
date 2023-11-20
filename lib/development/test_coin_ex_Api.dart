@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import '../src/domain/models/coinex/crypto.dart';
 import '../src/domain/models/requests/all_market_info_request.dart';
 import '../src/domain/models/requests/all_market_list_request.dart';
+import '../src/domain/models/requests/latest_transaction_data_request.dart';
 import '../src/domain/models/requests/market_depth_request.dart';
 import '../src/domain/models/requests/single_market_info_request.dart';
 import '../src/domain/models/responses/all_market_info_response.dart';
 import '../src/domain/models/responses/all_market_list_response.dart';
+import '../src/domain/models/responses/latest_transaction_data_response.dart';
 import '../src/domain/models/responses/market_depth_response.dart';
 import '../src/domain/models/responses/single_market_info_response.dart';
 import '../src/domain/repositories/api_repository.dart';
@@ -24,7 +26,7 @@ class _TestCoinExApiState extends State<TestCoinExApi> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: const RemoteCoinEx().getMarketDepth(),
+      future: const RemoteCoinEx().getLatestTransactionData(),
       builder: (context, snapshot) {
         return SafeArea(
           child: SingleChildScrollView(
@@ -50,10 +52,10 @@ class RemoteCoinEx {
       request: const AllMarketListRequest(),
     );
     if (response is DataSuccess) {
-      debugPrint('SUCCESS: getAllMarketList');
+      debugPrint('SUCCESS: $getAllMarketList');
       return response.data!.allMarketList;
     } else {
-      debugPrint('FAILED: getAllMarketList');
+      debugPrint('FAILED: $getAllMarketList');
       throw response.error!;
     }
   }
@@ -64,10 +66,10 @@ class RemoteCoinEx {
       request: const AllMarketInfoRequest(),
     );
     if (response is DataSuccess) {
-      debugPrint('SUCCESS: getAllMarketInfo');
+      debugPrint('SUCCESS: $getAllMarketInfo');
       return response.data!.singleMarketsInfo;
     } else {
-      debugPrint('FAILED: getAllMarketInfo');
+      debugPrint('FAILED: $getAllMarketInfo');
       throw response.error!;
     }
   }
@@ -78,10 +80,10 @@ class RemoteCoinEx {
       request: SingleMarketInfoRequest(marketName: CryptoDetail.btc.marketName),
     );
     if (response is DataSuccess) {
-      debugPrint('SUCCESS: getSingleMarketInfo');
+      debugPrint('SUCCESS: $getSingleMarketInfo');
       return response.data!;
     } else {
-      debugPrint('FAILED: getSingleMarketInfo');
+      debugPrint('FAILED: $getSingleMarketInfo');
       throw response.error!;
     }
   }
@@ -94,10 +96,26 @@ class RemoteCoinEx {
       ),
     );
     if (response is DataSuccess) {
-      debugPrint('SUCCESS: getMarketDepth');
+      debugPrint('SUCCESS: $getMarketDepth');
       return response.data!;
     } else {
-      debugPrint('FAILED: getMarketDepth');
+      debugPrint('FAILED: $getMarketDepth');
+      throw response.error!;
+    }
+  }
+
+  Future<LatestTransactionDataResponse> getLatestTransactionData() async {
+    final DataState<LatestTransactionDataResponse> response =
+        await serviceLocator<ApiRepository>().getLatestTransactionData(
+      request: LatestTransactionDataRequest(
+        marketName: CryptoDetail.btc.marketName,
+      ),
+    );
+    if (response is DataSuccess) {
+      debugPrint('SUCCESS: $getLatestTransactionData');
+      return response.data!;
+    } else {
+      debugPrint('FAILED: $getLatestTransactionData');
       throw response.error!;
     }
   }
