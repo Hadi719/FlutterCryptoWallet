@@ -165,7 +165,7 @@ class _CoinExApiService implements CoinExApiService {
     )
             .compose(
               _dio.options,
-              '/market/depth',
+              '/market/deals',
               queryParameters: queryParameters,
               data: _data,
             )
