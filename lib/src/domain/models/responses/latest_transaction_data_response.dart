@@ -12,12 +12,22 @@ enum LatestTransactionDataType {
   }
 }
 
+/// {@template LatestTransactionDataResponse}
+///
+/// Gets the latest transaction data of a single market.
+///
+/// * Signature required: No
+/// * Max.return: 1000
+///
+/// {@endtemplate}
 class LatestTransactionDataResponse extends Equatable {
   final List<LatestTransactionData> latestTransactionDataList;
 
+  /// {@macro: LatestTransactionDataResponse}
   const LatestTransactionDataResponse(
       {this.latestTransactionDataList = const <LatestTransactionData>[]});
 
+  /// {@macro: LatestTransactionDataResponse}
   factory LatestTransactionDataResponse.fromMap(Map<String, dynamic> map) {
     var mapData = map['data'] ?? map;
     return LatestTransactionDataResponse(
@@ -34,14 +44,7 @@ class LatestTransactionDataResponse extends Equatable {
   List<Object?> get props => [latestTransactionDataList];
 }
 
-/// {@template LatestTransactionDataResponse}
-///
-/// Gets the latest transaction data of a single market.
-///
-/// * Signature required: No
-/// * Max.return: 1000
-///
-/// {@endtemplate}
+/// {@macro: LatestTransactionDataResponse}
 class LatestTransactionData extends Equatable {
   final int id;
   final int dateTime;
