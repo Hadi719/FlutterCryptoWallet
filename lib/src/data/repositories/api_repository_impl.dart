@@ -1,9 +1,11 @@
 import '../../domain/models/requests/all_market_info_request.dart';
 import '../../domain/models/requests/all_market_list_request.dart';
+import '../../domain/models/requests/latest_transaction_data_request.dart';
 import '../../domain/models/requests/market_depth_request.dart';
 import '../../domain/models/requests/single_market_info_request.dart';
 import '../../domain/models/responses/all_market_info_response.dart';
 import '../../domain/models/responses/all_market_list_response.dart';
+import '../../domain/models/responses/latest_transaction_data_response.dart';
 import '../../domain/models/responses/market_depth_response.dart';
 import '../../domain/models/responses/single_market_info_response.dart';
 import '../../domain/repositories/api_repository.dart';
@@ -50,6 +52,17 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
               marketName: request.marketName,
               merge: request.merge.value,
               limit: request.limit?.value,
+            ));
+  }
+
+  @override
+  Future<DataState<LatestTransactionDataResponse>> getLatestTransactionData(
+      {required LatestTransactionDataRequest request}) {
+    return getStateOf(
+        request: () => _coinExApiService.getLatestTransactionData(
+              marketName: request.marketName,
+              lastId: request.lastId,
+              limit: request.limit,
             ));
   }
 }
