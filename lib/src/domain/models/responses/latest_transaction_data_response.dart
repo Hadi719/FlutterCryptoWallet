@@ -17,6 +17,7 @@ enum LatestTransactionDataType {
 /// Gets the latest transaction data of a single market.
 ///
 /// * Signature required: No
+/// * Max.return: 1000
 ///
 /// {@endtemplate}
 class LatestTransactionDataResponse extends Equatable {
