@@ -8,5 +8,6 @@ const String kCoinExUrlPathAllMarketInfo = '/market/info';
 const String kCoinExUrlPathSingleMarketInfo = '/market/detail';
 const String kCoinExUrlPathMarketDepth = '/market/depth';
 const String kCoinExUrlLatestTransactionData = '/market/deals';
+const String kCoinExUrlKLineData = '/market/kline';
 
 // Storage and Databases
