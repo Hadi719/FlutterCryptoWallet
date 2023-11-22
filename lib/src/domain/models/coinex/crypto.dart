@@ -1,16 +1,10 @@
-const String iconsDirPath = 'assets/images/icons/crypto_icons/';
-const String btcIconPath = '$iconsDirPath/BTC.png';
-const String ethIconPath = '$iconsDirPath/ETH.png';
-const String bnbIconPath = '$iconsDirPath/BNB.png';
-const String usdcIconPath = '$iconsDirPath/USDC.png';
-const String xrpIconPath = '$iconsDirPath/XRP.png';
-const String adaIconPath = '$iconsDirPath/ADA.png';
-const String solIconPath = '$iconsDirPath/SOL.png';
-const String dotIconPath = '$iconsDirPath/DOT.png';
-const String dogeIconPath = '$iconsDirPath/DOGE.png';
+import 'package:equatable/equatable.dart';
 
-class Crypto {
-  Crypto({
+import '../../../utils/constants/strings.dart';
+
+/// Crypto model based on CoinEx api.
+class Crypto extends Equatable {
+  const Crypto({
     required this.marketName,
     required this.minAmount,
     required this.markerFeeRate,
@@ -43,7 +37,22 @@ class Crypto {
       tradingDecimal: data['trading_decimal'] ?? 0,
     );
   }
+  @override
+  bool? get stringify => true;
 
+  @override
+  List<Object?> get props => [
+        marketName,
+        minAmount,
+        markerFeeRate,
+        takerFeeRate,
+        pricingName,
+        pricingDecimal,
+        tradingName,
+        tradingDecimal,
+      ];
+
+  /*
   @override
   String toString() {
     return '\n\n=======   $this   =======\n'
@@ -57,6 +66,7 @@ class Crypto {
         'tradingDecimal: $tradingDecimal\n'
         '=============================';
   }
+  */
 }
 
 /// Forbes Top 10 Cryptocurrencies For December 2022.
@@ -132,114 +142,45 @@ enum CryptoDetail {
     iconPath: 'unknown',
   );
 
+  final String name;
+  final String marketName;
+  final String tradingName;
+  final String iconPath;
+
   const CryptoDetail({
     required this.name,
     required this.tradingName,
     required this.marketName,
     required this.iconPath,
   });
-  final String name;
-  final String marketName;
-  final String tradingName;
-  final String iconPath;
 
   factory CryptoDetail.fromName(String name) {
-    if (name == CryptoDetail.btc.name) {
-      return CryptoDetail.btc;
-    }
-    if (name == CryptoDetail.eth.name) {
-      return CryptoDetail.eth;
-    }
-    if (name == CryptoDetail.bnb.name) {
-      return CryptoDetail.bnb;
-    }
-    if (name == CryptoDetail.usdc.name) {
-      return CryptoDetail.usdc;
-    }
-    if (name == CryptoDetail.xrp.name) {
-      return CryptoDetail.xrp;
-    }
-    if (name == CryptoDetail.ada.name) {
-      return CryptoDetail.ada;
-    }
-    if (name == CryptoDetail.sol.name) {
-      return CryptoDetail.sol;
-    }
-    if (name == CryptoDetail.dot.name) {
-      return CryptoDetail.dot;
-    }
-    if (name == CryptoDetail.doge.name) {
-      return CryptoDetail.doge;
+    for (CryptoDetail cd in CryptoDetail.values) {
+      if (cd.name == name) {
+        return cd;
+      }
     }
 
     return CryptoDetail.unknown;
   }
 
   factory CryptoDetail.fromTradingName(String tradingName) {
-    if (tradingName == CryptoDetail.btc.tradingName) {
-      return CryptoDetail.btc;
-    }
-    if (tradingName == CryptoDetail.eth.tradingName) {
-      return CryptoDetail.eth;
-    }
-    if (tradingName == CryptoDetail.bnb.tradingName) {
-      return CryptoDetail.bnb;
-    }
-    if (tradingName == CryptoDetail.usdc.tradingName) {
-      return CryptoDetail.usdc;
-    }
-    if (tradingName == CryptoDetail.xrp.tradingName) {
-      return CryptoDetail.xrp;
-    }
-    if (tradingName == CryptoDetail.ada.tradingName) {
-      return CryptoDetail.ada;
-    }
-    if (tradingName == CryptoDetail.sol.tradingName) {
-      return CryptoDetail.sol;
-    }
-    if (tradingName == CryptoDetail.dot.tradingName) {
-      return CryptoDetail.dot;
-    }
-    if (tradingName == CryptoDetail.doge.tradingName) {
-      return CryptoDetail.doge;
+    for (CryptoDetail cd in CryptoDetail.values) {
+      if (cd.tradingName == tradingName) {
+        return cd;
+      }
     }
 
     return CryptoDetail.unknown;
   }
 
   factory CryptoDetail.fromMarketName(String marketName) {
-    if (marketName == CryptoDetail.btc.marketName) {
-      return CryptoDetail.btc;
-    }
-    if (marketName == CryptoDetail.eth.marketName) {
-      return CryptoDetail.eth;
-    }
-    if (marketName == CryptoDetail.bnb.marketName) {
-      return CryptoDetail.bnb;
-    }
-    if (marketName == CryptoDetail.usdc.marketName) {
-      return CryptoDetail.usdc;
-    }
-    if (marketName == CryptoDetail.xrp.marketName) {
-      return CryptoDetail.xrp;
-    }
-    if (marketName == CryptoDetail.ada.marketName) {
-      return CryptoDetail.ada;
-    }
-    if (marketName == CryptoDetail.sol.marketName) {
-      return CryptoDetail.sol;
-    }
-    if (marketName == CryptoDetail.dot.marketName) {
-      return CryptoDetail.dot;
-    }
-    if (marketName == CryptoDetail.doge.marketName) {
-      return CryptoDetail.doge;
+    for (CryptoDetail cd in CryptoDetail.values) {
+      if (cd.marketName == marketName) {
+        return cd;
+      }
     }
 
     return CryptoDetail.unknown;
   }
-}
-
-extension GetConstTradingName on CryptoDetail {
-  String get getTradingNameConst => tradingName;
 }

@@ -11,4 +11,17 @@ const String kCoinExUrlLatestTransactionData = '/market/deals';
 const String kCoinExUrlKLineData = '/market/kline';
 const String kCoinExUrlSingleMarketStatistics = '/market/ticker';
 
+// Assets - Icons
+const String iconsDirPath = 'assets/images/icons/crypto_icons/';
+const String btcIconPath = '$iconsDirPath/BTC.png';
+const String ethIconPath = '$iconsDirPath/ETH.png';
+const String bnbIconPath = '$iconsDirPath/BNB.png';
+const String usdtIconPath = '$iconsDirPath/USDT.png';
+const String usdcIconPath = '$iconsDirPath/USDC.png';
+const String xrpIconPath = '$iconsDirPath/XRP.png';
+const String adaIconPath = '$iconsDirPath/ADA.png';
+const String solIconPath = '$iconsDirPath/SOL.png';
+const String dotIconPath = '$iconsDirPath/DOT.png';
+const String dogeIconPath = '$iconsDirPath/DOGE.png';
+
 // Storage and Databases
