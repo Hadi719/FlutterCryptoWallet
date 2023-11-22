@@ -17,6 +17,7 @@ class KLineDataRequest {
   });
 }
 
+/// Defines k-line data type parameter.
 enum KLineDataType {
   oneMin('1min'),
   threeMin('3min'),

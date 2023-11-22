@@ -69,7 +69,7 @@ class RemoteCoinEx {
     );
     if (response is DataSuccess) {
       debugPrint('SUCCESS: $getAllMarketInfo');
-      return response.data!.singleMarketsInfo;
+      return response.data!.singleMarketInfoList;
     } else {
       debugPrint('FAILED: $getAllMarketInfo');
       throw response.error!;

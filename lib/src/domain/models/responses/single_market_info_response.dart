@@ -10,6 +10,13 @@ import '../coinex/crypto.dart';
 ///
 /// {@endtemplate}
 class SingleMarketInfoResponse extends Equatable {
+  final CryptoDetail cryptoDetail;
+  final double minAmount;
+  final double takerFeeRate;
+  final double makerFeeRate;
+  final int tradingDecimal;
+  final int pricingDecimal;
+
   /// {@macro SingleMarketInfoResponse}
   const SingleMarketInfoResponse({
     required this.cryptoDetail,
@@ -19,13 +26,6 @@ class SingleMarketInfoResponse extends Equatable {
     required this.tradingDecimal,
     required this.pricingDecimal,
   });
-
-  final CryptoDetail cryptoDetail;
-  final double minAmount;
-  final double takerFeeRate;
-  final double makerFeeRate;
-  final int tradingDecimal;
-  final int pricingDecimal;
 
   /// {@macro SingleMarketInfoResponse}
   factory SingleMarketInfoResponse.fromMap(Map<String, dynamic> map) {

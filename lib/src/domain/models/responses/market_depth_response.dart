@@ -48,6 +48,10 @@ class MarketDepthResponse extends Equatable {
       ];
 }
 
+/// Defines market depth parameters:
+///
+/// * [MarketDepthResponse.askOrders]
+/// * [MarketDepthResponse.bidOrders]
 class MarketDepthOrder extends Equatable {
   final double price;
   final double amount;

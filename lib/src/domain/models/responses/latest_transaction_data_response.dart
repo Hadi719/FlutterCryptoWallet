@@ -1,17 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-enum LatestTransactionDataType {
-  unknown,
-  buy,
-  sell;
-
-  factory LatestTransactionDataType.fromString(String type) {
-    if (type == 'buy') return LatestTransactionDataType.buy;
-    if (type == 'sell') return LatestTransactionDataType.sell;
-    return LatestTransactionDataType.unknown;
-  }
-}
-
 /// {@template LatestTransactionDataResponse}
 ///
 /// Gets the latest transaction data of a single market.
@@ -87,4 +75,17 @@ class LatestTransactionData extends Equatable {
         price,
         type,
       ];
+}
+
+/// Defines latest transaction data parameter [LatestTransactionData.type].
+enum LatestTransactionDataType {
+  unknown,
+  buy,
+  sell;
+
+  factory LatestTransactionDataType.fromString(String type) {
+    if (type == 'buy') return LatestTransactionDataType.buy;
+    if (type == 'sell') return LatestTransactionDataType.sell;
+    return LatestTransactionDataType.unknown;
+  }
 }

@@ -8,10 +8,10 @@ import 'package:equatable/equatable.dart';
 ///
 /// {@endtemplate}
 class AllMarketListResponse extends Equatable {
+  final List<String> allMarketList;
+
   /// {@macro AllMarketListResponse}
   const AllMarketListResponse({this.allMarketList = const <String>[]});
-
-  final List<String> allMarketList;
 
   /// {@macro AllMarketListResponse}
   factory AllMarketListResponse.fromMap(Map<String, dynamic> map) {

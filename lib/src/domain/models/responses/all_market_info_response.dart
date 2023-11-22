@@ -11,18 +11,18 @@ import 'single_market_info_response.dart';
 ///
 /// {@endtemplate}
 class AllMarketInfoResponse extends Equatable {
-  /// {@macro AllMarketInfoResponse}
-  const AllMarketInfoResponse({required this.singleMarketsInfo});
+  final List<SingleMarketInfoResponse> singleMarketInfoList;
 
-  final List<SingleMarketInfoResponse> singleMarketsInfo;
+  /// {@macro AllMarketInfoResponse}
+  const AllMarketInfoResponse({required this.singleMarketInfoList});
 
   /// {@macro AllMarketInfoResponse}
   factory AllMarketInfoResponse.fromMap(Map<String, dynamic> map) {
     Map<String, dynamic> mapData = map['data'] ?? map;
-    var selected = _getSelected(mapData);
+    var cryptos = _getNeededCryptos(mapData);
     return AllMarketInfoResponse(
-      singleMarketsInfo: List.from(
-        selected.map(
+      singleMarketInfoList: List.from(
+        cryptos.map(
           (e) => SingleMarketInfoResponse.fromMap(e.value),
         ),
       ),
@@ -33,10 +33,11 @@ class AllMarketInfoResponse extends Equatable {
   bool? get stringify => true;
 
   @override
-  List<Object?> get props => [singleMarketsInfo];
+  List<Object?> get props => [singleMarketInfoList];
 }
 
-List<MapEntry<String, dynamic>> _getSelected(Map<String, dynamic> map) {
+/// Gets only the cryptos from [CryptoDetail].
+List<MapEntry<String, dynamic>> _getNeededCryptos(Map<String, dynamic> map) {
   var allCrypto = CryptoDetail.values.toList();
   var selected = map.entries
       .where(

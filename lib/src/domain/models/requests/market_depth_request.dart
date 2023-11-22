@@ -1,11 +1,5 @@
 /// Gets market depth in a single market
 class MarketDepthRequest {
-  const MarketDepthRequest({
-    required this.marketName,
-    this.merge = MarketDepthMerge.oneOneHundredth,
-    this.limit,
-  });
-
   /// It refers to [CryptoDetail.values.marketName]
   final String marketName;
 
@@ -13,8 +7,14 @@ class MarketDepthRequest {
 
   /// Has Default value of 20.
   final MarketDepthLimit? limit;
+  const MarketDepthRequest({
+    required this.marketName,
+    this.merge = MarketDepthMerge.oneOneHundredth,
+    this.limit,
+  });
 }
 
+/// Defines market depth parameter [MarketDepthRequest.merge].
 enum MarketDepthMerge {
   zero('0'),
   oneTenth('0.1'),
@@ -31,6 +31,7 @@ enum MarketDepthMerge {
   const MarketDepthMerge(this.value);
 }
 
+/// Defines market depth parameter [MarketDepthRequest.limit].
 enum MarketDepthLimit {
   five(5),
   ten(10),
