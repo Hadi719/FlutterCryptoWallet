@@ -1,10 +1,12 @@
 import '../../domain/models/requests/all_market_info_request.dart';
 import '../../domain/models/requests/all_market_list_request.dart';
+import '../../domain/models/requests/k_line_data_request.dart';
 import '../../domain/models/requests/latest_transaction_data_request.dart';
 import '../../domain/models/requests/market_depth_request.dart';
 import '../../domain/models/requests/single_market_info_request.dart';
 import '../../domain/models/responses/all_market_info_response.dart';
 import '../../domain/models/responses/all_market_list_response.dart';
+import '../../domain/models/responses/k_line_data_response.dart';
 import '../../domain/models/responses/latest_transaction_data_response.dart';
 import '../../domain/models/responses/market_depth_response.dart';
 import '../../domain/models/responses/single_market_info_response.dart';
@@ -63,6 +65,17 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
               marketName: request.marketName,
               lastId: request.lastId,
               limit: request.limit,
+            ));
+  }
+
+  @override
+  Future<DataState<KLineDataResponse>> getKLineData(
+      {required KLineDataRequest request}) {
+    return getStateOf(
+        request: () => _coinExApiService.getKLineData(
+              marketName: request.marketName,
+              limit: request.limit,
+              type: request.type.value,
             ));
   }
 }

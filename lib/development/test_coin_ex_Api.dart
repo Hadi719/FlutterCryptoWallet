@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import '../src/domain/models/coinex/crypto.dart';
 import '../src/domain/models/requests/all_market_info_request.dart';
 import '../src/domain/models/requests/all_market_list_request.dart';
+import '../src/domain/models/requests/k_line_data_request.dart';
 import '../src/domain/models/requests/latest_transaction_data_request.dart';
 import '../src/domain/models/requests/market_depth_request.dart';
 import '../src/domain/models/requests/single_market_info_request.dart';
 import '../src/domain/models/responses/all_market_info_response.dart';
 import '../src/domain/models/responses/all_market_list_response.dart';
+import '../src/domain/models/responses/k_line_data_response.dart';
 import '../src/domain/models/responses/latest_transaction_data_response.dart';
 import '../src/domain/models/responses/market_depth_response.dart';
 import '../src/domain/models/responses/single_market_info_response.dart';
@@ -26,8 +28,8 @@ class _TestCoinExApiState extends State<TestCoinExApi> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: const RemoteCoinEx().getLatestTransactionData(),
-      builder: (context, snapshot) {
+      future: const RemoteCoinEx().getKLineData(),
+      builder: (BuildContext context, snapshot) {
         return SafeArea(
           child: SingleChildScrollView(
             child: Text(
@@ -116,6 +118,22 @@ class RemoteCoinEx {
       return response.data!;
     } else {
       debugPrint('FAILED: $getLatestTransactionData');
+      throw response.error!;
+    }
+  }
+
+  Future<KLineDataResponse> getKLineData() async {
+    final DataState<KLineDataResponse> response =
+        await serviceLocator<ApiRepository>().getKLineData(
+      request: KLineDataRequest(
+        marketName: CryptoDetail.btc.marketName,
+      ),
+    );
+    if (response is DataSuccess) {
+      debugPrint('SUCCESS: $getKLineData');
+      return response.data!;
+    } else {
+      debugPrint('FAILED: $getKLineData');
       throw response.error!;
     }
   }

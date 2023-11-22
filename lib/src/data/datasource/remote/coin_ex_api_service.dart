@@ -3,6 +3,7 @@ import 'package:retrofit/retrofit.dart';
 
 import '../../../domain/models/responses/all_market_info_response.dart';
 import '../../../domain/models/responses/all_market_list_response.dart';
+import '../../../domain/models/responses/k_line_data_response.dart';
 import '../../../domain/models/responses/latest_transaction_data_response.dart';
 import '../../../domain/models/responses/market_depth_response.dart';
 import '../../../domain/models/responses/single_market_info_response.dart';
@@ -37,5 +38,12 @@ abstract class CoinExApiService {
     @Query('market') required String marketName,
     @Query('last_id') int? lastId,
     @Query('limit') int? limit,
+  });
+
+  @GET(kCoinExUrlKLineData)
+  Future<HttpResponse<KLineDataResponse>> getKLineData({
+    @Query('market') required String marketName,
+    @Query('limit') int? limit,
+    @Query('type') required String type,
   });
 }
