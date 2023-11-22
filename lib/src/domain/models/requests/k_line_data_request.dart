@@ -18,17 +18,20 @@ class KLineDataRequest {
 }
 
 enum KLineDataType {
-  oneMin,
-  threeMin,
-  fiveMin,
-  fifteenMin,
-  thirtyMin,
-  oneHour,
-  twoHour,
-  threeHour,
-  fourHour,
-  sixHour,
-  oneDay,
-  threeDay,
-  oneWeek,
+  oneMin('1min'),
+  threeMin('3min'),
+  fiveMin('5min'),
+  fifteenMin('15min'),
+  thirtyMin('30min'),
+  oneHour('1hour'),
+  twoHour('2hour'),
+  threeHour('3hour'),
+  fourHour('4hour'),
+  sixHour('6hour'),
+  oneDay('1day'),
+  threeDay('3day'),
+  oneWeek('1week');
+
+  final String value;
+  const KLineDataType(this.value);
 }
