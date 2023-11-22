@@ -9,6 +9,29 @@ import 'package:equatable/equatable.dart';
 ///
 /// {@endtemplate}
 class KLineDataResponse extends Equatable {
+  final List<KLineData> kLineDataList;
+
+  /// {@macro KLineData}
+  const KLineDataResponse({this.kLineDataList = const <KLineData>[]});
+
+  /// {@macro KLineData}
+  factory KLineDataResponse.fromMap(Map<String, dynamic> map) {
+    var mapData = map['data'] ?? map;
+    return KLineDataResponse(
+      kLineDataList:
+          (mapData as List).map((e) => KLineData.fromMap(e)).toList(),
+    );
+  }
+
+  @override
+  bool? get stringify => true;
+
+  @override
+  List<Object?> get props => [kLineDataList];
+}
+
+/// {@macro KLineData}
+class KLineData extends Equatable {
   final DateTime dateTime;
   final double openingPrice;
   final double closingPrice;
@@ -18,7 +41,7 @@ class KLineDataResponse extends Equatable {
   final double tradingAmount;
 
   /// {@macro KLineData}
-  const KLineDataResponse({
+  const KLineData({
     required this.dateTime,
     required this.openingPrice,
     required this.closingPrice,
@@ -29,8 +52,8 @@ class KLineDataResponse extends Equatable {
   });
 
   /// {@macro KLineData}
-  factory KLineDataResponse.fromMap(List<dynamic> map) {
-    return KLineDataResponse(
+  factory KLineData.fromMap(List<dynamic> map) {
+    return KLineData(
       dateTime: DateTime.fromMillisecondsSinceEpoch(
         map[0] * 1000,
         isUtc: true,
@@ -45,17 +68,7 @@ class KLineDataResponse extends Equatable {
   }
 
   @override
-  String toString() {
-    return '\n\n=======   $this   =======\n'
-        'DateTime: $dateTime \n'
-        'Opening Price: $openingPrice\n'
-        'Closing Price: $closingPrice\n'
-        'Highest Price: $highestPrice\n'
-        'Lowest Price: $lowestPrice\n'
-        'Trading Volume: $tradingVolume\n'
-        'Trading Amount: $tradingAmount\n'
-        '=============================';
-  }
+  bool? get stringify => true;
 
   @override
   List<Object?> get props => [
