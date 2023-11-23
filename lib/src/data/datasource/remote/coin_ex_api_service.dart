@@ -1,15 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
-import '../../../domain/models/responses/all_market_info_response.dart';
-import '../../../domain/models/responses/all_market_list_response.dart';
-import '../../../domain/models/responses/all_market_statistics_response.dart';
-import '../../../domain/models/responses/currency_rate_response.dart';
-import '../../../domain/models/responses/k_line_data_response.dart';
-import '../../../domain/models/responses/latest_transaction_data_response.dart';
-import '../../../domain/models/responses/market_depth_response.dart';
-import '../../../domain/models/responses/single_market_info_response.dart';
-import '../../../domain/models/responses/single_market_statistics_response.dart';
+import '../../../domain/models/responses/responses.dart';
 import '../../../utils/constants/strings.dart';
 
 part 'coin_ex_api_service.g.dart';

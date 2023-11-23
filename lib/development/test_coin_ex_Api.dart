@@ -1,24 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../src/domain/models/coinex/crypto.dart';
-import '../src/domain/models/requests/all_market_info_request.dart';
-import '../src/domain/models/requests/all_market_list_request.dart';
-import '../src/domain/models/requests/all_market_statistics_request.dart';
-import '../src/domain/models/requests/currency_rate_request.dart';
-import '../src/domain/models/requests/k_line_data_request.dart';
-import '../src/domain/models/requests/latest_transaction_data_request.dart';
-import '../src/domain/models/requests/market_depth_request.dart';
-import '../src/domain/models/requests/single_market_info_request.dart';
-import '../src/domain/models/requests/single_market_statistics_request.dart';
-import '../src/domain/models/responses/all_market_info_response.dart';
-import '../src/domain/models/responses/all_market_list_response.dart';
-import '../src/domain/models/responses/all_market_statistics_response.dart';
-import '../src/domain/models/responses/currency_rate_response.dart';
-import '../src/domain/models/responses/k_line_data_response.dart';
-import '../src/domain/models/responses/latest_transaction_data_response.dart';
-import '../src/domain/models/responses/market_depth_response.dart';
-import '../src/domain/models/responses/single_market_info_response.dart';
-import '../src/domain/models/responses/single_market_statistics_response.dart';
+import '../src/domain/models/requests/requests.dart';
+import '../src/domain/models/responses/responses.dart';
 import '../src/domain/repositories/api_repository.dart';
 import '../src/service_locator.dart';
 import '../src/utils/resources/data_state.dart';
