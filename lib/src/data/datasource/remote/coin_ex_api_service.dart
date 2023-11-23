@@ -4,6 +4,7 @@ import 'package:retrofit/retrofit.dart';
 import '../../../domain/models/responses/all_market_info_response.dart';
 import '../../../domain/models/responses/all_market_list_response.dart';
 import '../../../domain/models/responses/all_market_statistics_response.dart';
+import '../../../domain/models/responses/currency_rate_response.dart';
 import '../../../domain/models/responses/k_line_data_response.dart';
 import '../../../domain/models/responses/latest_transaction_data_response.dart';
 import '../../../domain/models/responses/market_depth_response.dart';
@@ -57,4 +58,7 @@ abstract class CoinExApiService {
 
   @GET(kCoinExUrlAllMarketStatistics)
   Future<HttpResponse<AllMarketStatisticsResponse>> getAllMarketStatistics();
+
+  @GET(kCoinExUrlCurrencyRate)
+  Future<HttpResponse<CurrencyRateResponse>> getCurrencyRate();
 }

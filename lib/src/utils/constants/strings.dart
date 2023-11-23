@@ -11,6 +11,7 @@ const String kCoinExUrlLatestTransactionData = '/market/deals';
 const String kCoinExUrlKLineData = '/market/kline';
 const String kCoinExUrlSingleMarketStatistics = '/market/ticker';
 const String kCoinExUrlAllMarketStatistics = '/market/ticker/all';
+const String kCoinExUrlCurrencyRate = '/common/currency/rate';
 
 // Assets - Icons
 const String iconsDirPath = 'assets/images/icons/crypto_icons/';
