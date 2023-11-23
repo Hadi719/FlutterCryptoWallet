@@ -240,7 +240,8 @@ class _CoinExApiService implements CoinExApiService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = SingleMarketStatisticsResponse.fromMap(_result.data!);
+    final value =
+        SingleMarketStatisticsResponse.fromMap(_result.data!, marketName);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }

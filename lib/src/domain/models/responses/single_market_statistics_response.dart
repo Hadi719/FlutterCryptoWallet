@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import '../coinex/crypto.dart';
+
 /// {@template SingleMarketStatistics}
 ///
 /// Statistics on a single market.
@@ -8,7 +10,7 @@ import 'package:equatable/equatable.dart';
 ///
 /// {@endtemplate}
 class SingleMarketStatisticsResponse extends Equatable {
-  // final CryptoDetail cryptoDetail;
+  final CryptoDetail cryptoDetail;
   final DateTime? serverTime;
   final double latestTransactionPrice;
   final double buyPrice;
@@ -22,7 +24,7 @@ class SingleMarketStatisticsResponse extends Equatable {
 
   /// {@macro SingleMarketStatistics}
   const SingleMarketStatisticsResponse({
-    // this.cryptoDetail = CryptoDetail.unknown,
+    this.cryptoDetail = CryptoDetail.unknown,
     this.serverTime,
     required this.latestTransactionPrice,
     required this.buyPrice,
@@ -36,12 +38,13 @@ class SingleMarketStatisticsResponse extends Equatable {
   });
 
   /// {@macro SingleMarketStatistics}
-  factory SingleMarketStatisticsResponse.fromMap(Map<String, dynamic> map) {
+  factory SingleMarketStatisticsResponse.fromMap(
+      Map<String, dynamic> map, String marketName) {
     Map<String, dynamic> data = map['data']['ticker'];
     int? time = map['data']['date'];
 
-    /// Todo: its not have the [CryptoDetail], do something about it.
     return SingleMarketStatisticsResponse(
+      cryptoDetail: CryptoDetail.fromMarketName(marketName),
       serverTime: time != null
           ? DateTime.fromMillisecondsSinceEpoch(time)
           : DateTime.now(),
@@ -62,6 +65,7 @@ class SingleMarketStatisticsResponse extends Equatable {
 
   @override
   List<Object?> get props => [
+        cryptoDetail,
         serverTime,
         latestTransactionPrice,
         buyPrice,
