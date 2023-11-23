@@ -9,17 +9,17 @@ import 'package:equatable/equatable.dart';
 ///
 /// {@endtemplate}
 class KLineDataResponse extends Equatable {
-  final List<KLineData> kLineDataList;
+  /// List of [KLineData].
+  final List<KLineData> data;
 
   /// {@macro KLineData}
-  const KLineDataResponse({this.kLineDataList = const <KLineData>[]});
+  const KLineDataResponse({this.data = const <KLineData>[]});
 
   /// {@macro KLineData}
   factory KLineDataResponse.fromMap(Map<String, dynamic> map) {
     var mapData = map['data'] ?? map;
     return KLineDataResponse(
-      kLineDataList:
-          (mapData as List).map((e) => KLineData.fromMap(e)).toList(),
+      data: (mapData as List).map((e) => KLineData.fromMap(e)).toList(),
     );
   }
 
@@ -27,7 +27,7 @@ class KLineDataResponse extends Equatable {
   bool? get stringify => true;
 
   @override
-  List<Object?> get props => [kLineDataList];
+  List<Object?> get props => [data];
 }
 
 /// {@macro KLineData}

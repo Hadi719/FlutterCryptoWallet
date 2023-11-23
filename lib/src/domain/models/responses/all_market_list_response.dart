@@ -8,15 +8,16 @@ import 'package:equatable/equatable.dart';
 ///
 /// {@endtemplate}
 class AllMarketListResponse extends Equatable {
-  final List<String> allMarketList;
+  /// List of cryptos market name.
+  final List<String> data;
 
   /// {@macro AllMarketListResponse}
-  const AllMarketListResponse({this.allMarketList = const <String>[]});
+  const AllMarketListResponse({this.data = const <String>[]});
 
   /// {@macro AllMarketListResponse}
   factory AllMarketListResponse.fromMap(Map<String, dynamic> map) {
     return AllMarketListResponse(
-      allMarketList: map['data'] != null ? List<String>.from(map['data']) : [],
+      data: map['data'] != null ? List<String>.from(map['data']) : [],
     );
   }
 
@@ -24,5 +25,5 @@ class AllMarketListResponse extends Equatable {
   bool? get stringify => true;
 
   @override
-  List<Object?> get props => [allMarketList];
+  List<Object?> get props => [data];
 }

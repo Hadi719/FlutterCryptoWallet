@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../coinex/crypto.dart' show CryptoDetail;
+import '../coinex/crypto.dart';
 import 'single_market_info_response.dart';
 
 /// {@template AllMarketInfoResponse}
@@ -11,17 +11,18 @@ import 'single_market_info_response.dart';
 ///
 /// {@endtemplate}
 class AllMarketInfoResponse extends Equatable {
-  final List<SingleMarketInfoResponse> singleMarketInfoList;
+  /// List of [SingleMarketInfoResponse].
+  final List<SingleMarketInfoResponse> data;
 
   /// {@macro AllMarketInfoResponse}
-  const AllMarketInfoResponse({required this.singleMarketInfoList});
+  const AllMarketInfoResponse({required this.data});
 
   /// {@macro AllMarketInfoResponse}
   factory AllMarketInfoResponse.fromMap(Map<String, dynamic> map) {
     Map<String, dynamic> mapData = map['data'] ?? map;
     var cryptos = _getNeededCryptos(mapData);
     return AllMarketInfoResponse(
-      singleMarketInfoList: List.from(
+      data: List.from(
         cryptos.map(
           (e) => SingleMarketInfoResponse.fromMap(e.value),
         ),
@@ -33,12 +34,12 @@ class AllMarketInfoResponse extends Equatable {
   bool? get stringify => true;
 
   @override
-  List<Object?> get props => [singleMarketInfoList];
+  List<Object?> get props => [data];
 }
 
 /// Gets only the cryptos from [CryptoDetail].
 List<MapEntry<String, dynamic>> _getNeededCryptos(Map<String, dynamic> map) {
-  var allCrypto = CryptoDetail.values.toList();
+  List<CryptoDetail> allCrypto = CryptoDetail.values.toList();
   var selected = map.entries
       .where(
         (item) => allCrypto.any(

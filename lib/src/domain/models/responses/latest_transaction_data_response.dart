@@ -9,17 +9,18 @@ import 'package:equatable/equatable.dart';
 ///
 /// {@endtemplate}
 class LatestTransactionDataResponse extends Equatable {
-  final List<LatestTransactionData> latestTransactionDataList;
+  /// List of [LatestTransactionData].
+  final List<LatestTransactionData> data;
 
   /// {@macro: LatestTransactionDataResponse}
   const LatestTransactionDataResponse(
-      {this.latestTransactionDataList = const <LatestTransactionData>[]});
+      {this.data = const <LatestTransactionData>[]});
 
   /// {@macro: LatestTransactionDataResponse}
   factory LatestTransactionDataResponse.fromMap(Map<String, dynamic> map) {
     var mapData = map['data'] ?? map;
     return LatestTransactionDataResponse(
-      latestTransactionDataList: (mapData as List)
+      data: (mapData as List)
           .map((e) => LatestTransactionData.fromMap(e))
           .toList(),
     );
@@ -29,7 +30,7 @@ class LatestTransactionDataResponse extends Equatable {
   bool? get stringify => true;
 
   @override
-  List<Object?> get props => [latestTransactionDataList];
+  List<Object?> get props => [data];
 }
 
 /// {@macro: LatestTransactionDataResponse}
