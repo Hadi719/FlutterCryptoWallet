@@ -7,6 +7,7 @@ import '../../../domain/models/responses/k_line_data_response.dart';
 import '../../../domain/models/responses/latest_transaction_data_response.dart';
 import '../../../domain/models/responses/market_depth_response.dart';
 import '../../../domain/models/responses/single_market_info_response.dart';
+import '../../../domain/models/responses/single_market_statistics_response.dart';
 import '../../../utils/constants/strings.dart';
 
 part 'coin_ex_api_service.g.dart';
@@ -45,5 +46,11 @@ abstract class CoinExApiService {
     @Query('market') required String marketName,
     @Query('limit') int? limit,
     @Query('type') required String type,
+  });
+
+  @GET(kCoinExUrlSingleMarketStatistics)
+  Future<HttpResponse<SingleMarketStatisticsResponse>>
+      getSingleMarketStatistics({
+    @Query('market') required String marketName,
   });
 }
