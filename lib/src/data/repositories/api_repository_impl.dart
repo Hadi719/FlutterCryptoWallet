@@ -1,5 +1,6 @@
 import '../../domain/models/requests/all_market_info_request.dart';
 import '../../domain/models/requests/all_market_list_request.dart';
+import '../../domain/models/requests/all_market_statistics_request.dart';
 import '../../domain/models/requests/k_line_data_request.dart';
 import '../../domain/models/requests/latest_transaction_data_request.dart';
 import '../../domain/models/requests/market_depth_request.dart';
@@ -7,6 +8,7 @@ import '../../domain/models/requests/single_market_info_request.dart';
 import '../../domain/models/requests/single_market_statistics_request.dart';
 import '../../domain/models/responses/all_market_info_response.dart';
 import '../../domain/models/responses/all_market_list_response.dart';
+import '../../domain/models/responses/all_market_statistics_response.dart';
 import '../../domain/models/responses/k_line_data_response.dart';
 import '../../domain/models/responses/latest_transaction_data_response.dart';
 import '../../domain/models/responses/market_depth_response.dart';
@@ -27,8 +29,7 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
     required AllMarketListRequest request,
   }) {
     return getStateOf<AllMarketListResponse>(
-      request: () => _coinExApiService.getAllMarketList(),
-    );
+        request: () => _coinExApiService.getAllMarketList());
   }
 
   @override
@@ -88,5 +89,12 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
         request: () => _coinExApiService.getSingleMarketStatistics(
               marketName: request.marketName,
             ));
+  }
+
+  @override
+  Future<DataState<AllMarketStatisticsResponse>> getAllMarketStatistics(
+      {required AllMarketStatisticsRequest request}) {
+    return getStateOf(
+        request: () => _coinExApiService.getAllMarketStatistics());
   }
 }

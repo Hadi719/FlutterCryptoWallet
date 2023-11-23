@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../src/domain/models/coinex/crypto.dart';
 import '../src/domain/models/requests/all_market_info_request.dart';
 import '../src/domain/models/requests/all_market_list_request.dart';
+import '../src/domain/models/requests/all_market_statistics_request.dart';
 import '../src/domain/models/requests/k_line_data_request.dart';
 import '../src/domain/models/requests/latest_transaction_data_request.dart';
 import '../src/domain/models/requests/market_depth_request.dart';
@@ -10,6 +11,7 @@ import '../src/domain/models/requests/single_market_info_request.dart';
 import '../src/domain/models/requests/single_market_statistics_request.dart';
 import '../src/domain/models/responses/all_market_info_response.dart';
 import '../src/domain/models/responses/all_market_list_response.dart';
+import '../src/domain/models/responses/all_market_statistics_response.dart';
 import '../src/domain/models/responses/k_line_data_response.dart';
 import '../src/domain/models/responses/latest_transaction_data_response.dart';
 import '../src/domain/models/responses/market_depth_response.dart';
@@ -30,7 +32,7 @@ class _TestCoinExApiState extends State<TestCoinExApi> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: const RemoteCoinEx().getSingleMarketStatistics(),
+      future: const RemoteCoinEx().getAllMarketStatistics(),
       builder: (BuildContext context, snapshot) {
         return SafeArea(
           child: SingleChildScrollView(
@@ -152,6 +154,20 @@ class RemoteCoinEx {
       return response.data!;
     } else {
       debugPrint('FAILED: $getSingleMarketStatistics');
+      throw response.error!;
+    }
+  }
+
+  Future<AllMarketStatisticsResponse> getAllMarketStatistics() async {
+    final DataState<AllMarketStatisticsResponse> response =
+        await serviceLocator<ApiRepository>().getAllMarketStatistics(
+      request: const AllMarketStatisticsRequest(),
+    );
+    if (response is DataSuccess) {
+      debugPrint('SUCCESS: $getAllMarketStatistics');
+      return response.data!;
+    } else {
+      debugPrint('FAILED: $getAllMarketStatistics');
       throw response.error!;
     }
   }
