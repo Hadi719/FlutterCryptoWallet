@@ -60,6 +60,29 @@ class SingleMarketStatisticsResponse extends Equatable {
     );
   }
 
+  /// {@macro SingleMarketStatistics}
+  factory SingleMarketStatisticsResponse.fromAllMarket(
+    Map<String, dynamic> map, {
+    required CryptoDetail cryptoDetail,
+    int? time,
+  }) {
+    return SingleMarketStatisticsResponse(
+      cryptoDetail: cryptoDetail,
+      serverTime: time != null
+          ? DateTime.fromMillisecondsSinceEpoch(time)
+          : DateTime.now(),
+      latestTransactionPrice: double.tryParse(map['last']) ?? 0.0,
+      buyPrice: double.tryParse(map['buy']) ?? 0.0,
+      buyAmount: double.tryParse(map['buy_amount']) ?? 0.0,
+      sellPrice: double.tryParse(map['sell']) ?? 0.0,
+      sellAmount: double.tryParse(map['sell_amount']) ?? 0.0,
+      openingPrice24H: double.tryParse(map['open']) ?? 0.0,
+      highestPrice24H: double.tryParse(map['high']) ?? 0.0,
+      lowestPrice24H: double.tryParse(map['low']) ?? 0.0,
+      volume24H: double.tryParse(map['vol']) ?? 0.0,
+    );
+  }
+
   @override
   bool? get stringify => true;
 
