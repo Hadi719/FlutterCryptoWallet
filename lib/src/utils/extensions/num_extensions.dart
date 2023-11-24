@@ -10,20 +10,20 @@ extension NumExtensions on num {
   /// Adds comma on every three digits on numbers.
   String get asThousands {
     String number = toString();
-    List<String> splitedNumberOnPoint = number.split('.');
-    String numberWithoutDecimals = splitedNumberOnPoint[0];
-    String numberDecimals = splitedNumberOnPoint[1];
-    String numberInText = "";
+    List<String> splitNumberOnPoint = number.split('.');
+    String numberWithoutDecimals = splitNumberOnPoint[0];
+    String numberDecimals = splitNumberOnPoint[1];
+    String numberInText = '';
     int counter = 0;
     for (int i = (numberWithoutDecimals.length - 1); i >= 0; i--) {
       counter++;
       String str = numberWithoutDecimals[i];
       if ((counter % 3) != 0 && i != 0) {
-        numberInText = "$str$numberInText";
+        numberInText = '$str$numberInText';
       } else if (i == 0) {
-        numberInText = "$str$numberInText";
+        numberInText = '$str$numberInText';
       } else {
-        numberInText = ",$str$numberInText";
+        numberInText = ',$str$numberInText';
       }
     }
     // Remove whitespace at leading or trailing with trim method.
