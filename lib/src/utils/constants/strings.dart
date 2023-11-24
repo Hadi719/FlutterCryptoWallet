@@ -14,16 +14,16 @@ const String kCoinExUrlAllMarketStatistics = '/market/ticker/all';
 const String kCoinExUrlCurrencyRate = '/common/currency/rate';
 
 // Assets - Icons
-const String iconsDirPath = 'assets/images/icons/crypto_icons/';
-const String btcIconPath = '$iconsDirPath/BTC.png';
-const String ethIconPath = '$iconsDirPath/ETH.png';
-const String bnbIconPath = '$iconsDirPath/BNB.png';
-const String usdtIconPath = '$iconsDirPath/USDT.png';
-const String usdcIconPath = '$iconsDirPath/USDC.png';
-const String xrpIconPath = '$iconsDirPath/XRP.png';
-const String adaIconPath = '$iconsDirPath/ADA.png';
-const String solIconPath = '$iconsDirPath/SOL.png';
-const String dotIconPath = '$iconsDirPath/DOT.png';
-const String dogeIconPath = '$iconsDirPath/DOGE.png';
+const String kIconsDirPath = 'assets/images/icons/crypto_icons/';
+const String kIconPathBTC = '$kIconsDirPath/BTC.png';
+const String kIconPathETH = '$kIconsDirPath/ETH.png';
+const String kIconPathBNB = '$kIconsDirPath/BNB.png';
+const String kIconPathUSDT = '$kIconsDirPath/USDT.png';
+const String kIconPathUSDC = '$kIconsDirPath/USDC.png';
+const String kIconPathXRP = '$kIconsDirPath/XRP.png';
+const String kIconPathADA = '$kIconsDirPath/ADA.png';
+const String kIconPathSOL = '$kIconsDirPath/SOL.png';
+const String kIconPathDOT = '$kIconsDirPath/DOT.png';
+const String kIconPathDOGE = '$kIconsDirPath/DOGE.png';
 
 // Storage and Databases
