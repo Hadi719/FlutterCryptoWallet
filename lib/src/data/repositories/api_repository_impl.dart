@@ -22,14 +22,15 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
   Future<DataState<AllMarketInfoResponse>> getAllMarketInfo({
     required AllMarketInfoRequest request,
   }) {
-    return getStateOf(request: () => _coinExApiService.getAllMarketInfo());
+    return getStateOf<AllMarketInfoResponse>(
+        request: () => _coinExApiService.getAllMarketInfo());
   }
 
   @override
   Future<DataState<SingleMarketInfoResponse>> getSingleMarketInfo({
     required SingleMarketInfoRequest request,
   }) {
-    return getStateOf(
+    return getStateOf<SingleMarketInfoResponse>(
       request: () =>
           _coinExApiService.getSingleMarketInfo(marketName: request.marketName),
     );
@@ -38,7 +39,7 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
   @override
   Future<DataState<MarketDepthResponse>> getMarketDepth(
       {required MarketDepthRequest request}) {
-    return getStateOf(
+    return getStateOf<MarketDepthResponse>(
         request: () => _coinExApiService.getMarketDepth(
               marketName: request.marketName,
               merge: request.merge.value,
@@ -49,7 +50,7 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
   @override
   Future<DataState<LatestTransactionDataResponse>> getLatestTransactionData(
       {required LatestTransactionDataRequest request}) {
-    return getStateOf(
+    return getStateOf<LatestTransactionDataResponse>(
         request: () => _coinExApiService.getLatestTransactionData(
               marketName: request.marketName,
               lastId: request.lastId,
@@ -60,7 +61,7 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
   @override
   Future<DataState<KLineDataResponse>> getKLineData(
       {required KLineDataRequest request}) {
-    return getStateOf(
+    return getStateOf<KLineDataResponse>(
         request: () => _coinExApiService.getKLineData(
               marketName: request.marketName,
               limit: request.limit,
@@ -71,7 +72,7 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
   @override
   Future<DataState<SingleMarketStatisticsResponse>> getSingleMarketStatistics(
       {required SingleMarketStatisticsRequest request}) {
-    return getStateOf(
+    return getStateOf<SingleMarketStatisticsResponse>(
         request: () => _coinExApiService.getSingleMarketStatistics(
               marketName: request.marketName,
             ));
@@ -80,13 +81,14 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
   @override
   Future<DataState<AllMarketStatisticsResponse>> getAllMarketStatistics(
       {required AllMarketStatisticsRequest request}) {
-    return getStateOf(
+    return getStateOf<AllMarketStatisticsResponse>(
         request: () => _coinExApiService.getAllMarketStatistics());
   }
 
   @override
   Future<DataState<CurrencyRateResponse>> getCurrencyRate(
       {required CurrencyRateRequest request}) {
-    return getStateOf(request: () => _coinExApiService.getCurrencyRate());
+    return getStateOf<CurrencyRateResponse>(
+        request: () => _coinExApiService.getCurrencyRate());
   }
 }
