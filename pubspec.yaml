@@ -37,6 +37,7 @@ dependencies:
 
   # Other
   meta: ^1.10.0
+  collection: ^1.18.0
   get_it: ^7.6.4
   equatable: ^2.0.5
 
