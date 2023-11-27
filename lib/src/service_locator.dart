@@ -12,12 +12,15 @@ final GetIt serviceLocator = GetIt.instance;
 
 Future<void> setup() async {
   final Dio dio = Dio();
-  final FirebaseApp firebaseApp = await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
 
   serviceLocator.registerSingleton<Dio>(dio);
 
+  _setupCoinExApi();
+
+  await _setupFirebase();
+}
+
+void _setupCoinExApi() {
   serviceLocator.registerSingleton<CoinExApiService>(
     CoinExApiService(
       serviceLocator<Dio>(),
@@ -28,6 +31,12 @@ Future<void> setup() async {
     ApiRepositoryImpl(
       serviceLocator<CoinExApiService>(),
     ),
+  );
+}
+
+Future<void> _setupFirebase() async {
+  final FirebaseApp firebaseApp = await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
   );
 
   serviceLocator.registerSingleton<FirebaseApp>(firebaseApp);
