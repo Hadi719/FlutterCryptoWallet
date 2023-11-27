@@ -9,7 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../../../../main.dart';
+import '../../src/service_locator.dart';
 import 'firebase_auth.dart';
 
 /// Displayed as a profile image if the user doesn't have one.
@@ -30,6 +30,8 @@ class _ProfilePageState extends State<ProfilePage> {
   late User user;
   late TextEditingController controller;
   final phoneController = TextEditingController();
+
+  final FirebaseAuth auth = serviceLocator<FirebaseAuth>();
 
   String? photoURL;
 

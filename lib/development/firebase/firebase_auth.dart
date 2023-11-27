@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../../../../main.dart';
+import '../../src/service_locator.dart';
 
 typedef OAuthSignIn = void Function();
 
@@ -88,6 +88,7 @@ class _AuthGateState extends State<AuthGate> {
   }
 
   late Map<Buttons, OAuthSignIn> authButtons;
+  final FirebaseAuth auth = serviceLocator<FirebaseAuth>();
 
   @override
   void initState() {
