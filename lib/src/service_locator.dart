@@ -10,6 +10,7 @@ import 'domain/repositories/api_repository.dart';
 
 final GetIt serviceLocator = GetIt.instance;
 
+/// Setups GetIt service locator.
 Future<void> setup() async {
   final Dio dio = Dio();
 
