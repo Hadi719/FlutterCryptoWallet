@@ -1,7 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 
-import 'development/firebase/firebase_example.dart';
+import 'development/app_bloc_observer.dart';
+import 'src/coinex_app.dart';
 import 'src/service_locator.dart';
 
 Future<void> main() async {
@@ -10,5 +11,8 @@ Future<void> main() async {
   // Setup GetIt service locator.
   await setup();
 
-  runApp(AuthExampleApp(auth: serviceLocator<FirebaseAuth>()));
+  // Add bloc observer for dev debugging.
+  Bloc.observer = const AppBlocObserver();
+
+  runApp(CoinExApp());
 }
