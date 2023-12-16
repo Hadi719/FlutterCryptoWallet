@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../development/test_coin_ex_api.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class CoinExApp extends StatelessWidget {
+  const CoinExApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
