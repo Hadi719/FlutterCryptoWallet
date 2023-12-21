@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../development/test_coin_ex_api.dart';
-import 'utils/constants/strings.dart';
+import 'utils/constants/strings.dart' show kAppTitle;
 
 class CoinExApp extends StatelessWidget {
   const CoinExApp({super.key});
