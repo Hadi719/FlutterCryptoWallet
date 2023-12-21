@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'test_ce_bloc.dart';
+import 'test_ce_bloc/test_ce_bloc.dart';
 
 class TestCoinExApi extends StatelessWidget {
   const TestCoinExApi({super.key});

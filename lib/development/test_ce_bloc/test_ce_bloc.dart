@@ -4,12 +4,12 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
-import '../src/domain/models/coinex/crypto.dart';
-import '../src/domain/models/requests/requests.dart';
-import '../src/domain/models/responses/responses.dart';
-import '../src/domain/repositories/api_repository.dart';
-import '../src/service_locator.dart';
-import '../src/utils/resources/data_state.dart';
+import '../../src/domain/models/coinex/crypto.dart';
+import '../../src/domain/models/requests/requests.dart';
+import '../../src/domain/models/responses/responses.dart';
+import '../../src/domain/repositories/api_repository.dart';
+import '../../src/service_locator.dart';
+import '../../src/utils/resources/data_state.dart';
 
 part 'test_ce_event.dart';
 part 'test_ce_state.dart';
