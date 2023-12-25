@@ -1,3 +1,4 @@
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -12,16 +13,17 @@ final GetIt serviceLocator = GetIt.instance;
 
 /// Setups GetIt service locator.
 Future<void> setup() async {
-  final Dio dio = Dio();
-
-  serviceLocator.registerSingleton<Dio>(dio);
-
   _setupCoinExApi();
 
   await _setupFirebase();
+
+  await _setupAuthenticationRepository();
 }
 
 void _setupCoinExApi() {
+  final Dio dio = Dio();
+  serviceLocator.registerSingleton<Dio>(dio);
+
   serviceLocator.registerSingleton<CoinExApiService>(
     CoinExApiService(
       serviceLocator<Dio>(),
@@ -47,4 +49,10 @@ Future<void> _setupFirebase() async {
       app: serviceLocator<FirebaseApp>(),
     ),
   );
+}
+
+Future<void> _setupAuthenticationRepository() async {
+  serviceLocator
+      .registerSingleton<AuthenticationRepository>(AuthenticationRepository());
+  await serviceLocator<AuthenticationRepository>().user.first;
 }
