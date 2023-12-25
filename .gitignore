@@ -55,4 +55,5 @@ app.*.map.json
 
 # pubspec lock file
 /pubspec.lock
+/packages/*/*.lock
 
