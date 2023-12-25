@@ -41,6 +41,11 @@ dependencies:
   get_it: ^7.6.4
   equatable: ^2.0.5
 
+  # local
+  authentication_repository:
+    path: packages/authentication_repository
+  form_inputs:
+    path: packages/form_inputs
 
 dev_dependencies:
   flutter_test:
