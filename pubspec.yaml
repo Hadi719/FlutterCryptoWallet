@@ -13,10 +13,10 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # State Management
+  # State Management & routing
   bloc: ^8.1.2
   flutter_bloc: ^8.1.3
-
+  flow_builder: ^0.0.10
   # Networking
   http: ^1.1.2
   dio: ^5.4.0
