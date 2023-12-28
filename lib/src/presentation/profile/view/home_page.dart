@@ -4,10 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../app/bloc/app_bloc.dart';
 import '../widgets/avatar.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
 
-  static Page<void> page() => const MaterialPage<void>(child: HomePage());
+  static Page<void> page() => const MaterialPage<void>(
+        child: ProfilePage(),
+        name: '/Profile',
+      );
 
   @override
   Widget build(BuildContext context) {
