@@ -5,7 +5,6 @@ import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'package:formz/formz.dart';
 
-import '../../widgets/helper_scaffold_snack_bar.dart';
 import '../cubit/auth_cubit.dart';
 
 class AuthForm extends StatelessWidget {
@@ -15,33 +14,32 @@ class AuthForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
-        if (state.status.isFailure) {
-          HelperScaffoldSnackBar(context).show(
-            state.errorMessage ?? 'Authentication Failure',
-          );
-        }
+        // if (state.status.isFailure) {
+        //   HelperScaffoldSnackBar(context).show(
+        //     state.errorMessage ?? 'Authentication Failure',
+        //   );
+        // }
       },
-      child: Align(
-        alignment: const Alignment(0, -1 / 3),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              /// Todo: Add Logo.
-              const FlutterLogo(size: 120),
-              const SizedBox(height: 16),
-              _GoogleLoginButton(),
-              const SizedBox(height: 16),
-              _EmailInput(),
-              const SizedBox(height: 8),
-              _PasswordInput(),
-              const SizedBox(height: 8),
-              _LoginOrRegisterButton(),
-              const SizedBox(height: 4),
-              _LoginOrRegisterMode(),
-            ],
-          ),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _ErrorMessageBanner(),
+
+            /// Todo: Add Logo.
+            const FlutterLogo(size: 120),
+            const SizedBox(height: 16),
+            _GoogleLoginButton(),
+            const SizedBox(height: 16),
+            _EmailInput(),
+            const SizedBox(height: 8),
+            _PasswordInput(),
+            const SizedBox(height: 8),
+            _LoginOrRegisterButton(),
+            const SizedBox(height: 4),
+            _LoginOrRegisterMode(),
+          ],
         ),
       ),
     );
@@ -178,5 +176,36 @@ class _LoginOrRegisterMode extends StatelessWidget {
             ),
           );
         });
+  }
+}
+
+class _ErrorMessageBanner extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<AuthCubit, AuthState>(
+      builder: (context, state) {
+        return Visibility(
+          visible: state.status == FormzSubmissionStatus.failure,
+          child: MaterialBanner(
+            backgroundColor: Theme.of(context).colorScheme.error,
+            content:
+                SelectableText(state.errorMessage ?? 'Not sure what happened'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  context.read<AuthCubit>().deleteError();
+                },
+                child: const Text(
+                  'dismiss',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ],
+            contentTextStyle: const TextStyle(color: Colors.white),
+            padding: const EdgeInsets.all(10),
+          ),
+        );
+      },
+    );
   }
 }

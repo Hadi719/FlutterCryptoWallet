@@ -38,6 +38,13 @@ class AuthCubit extends Cubit<AuthState> {
     emit(state.copyWith(mode: mode));
   }
 
+  void deleteError() {
+    emit(state.copyWith(
+      errorMessage: '',
+      status: FormzSubmissionStatus.initial,
+    ));
+  }
+
   Future<void> authWithCredentials() async {
     if (!state.isValid) return;
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));

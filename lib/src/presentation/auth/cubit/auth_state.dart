@@ -12,7 +12,6 @@ final class AuthState extends Equatable {
 
   final Email email;
   final Password password;
-
   final AuthMode mode;
   final FormzSubmissionStatus status;
   final bool isValid;
@@ -25,7 +24,6 @@ final class AuthState extends Equatable {
   AuthState copyWith({
     Email? email,
     Password? password,
-    ConfirmedPassword? confirmedPassword,
     AuthMode? mode,
     FormzSubmissionStatus? status,
     bool? isValid,
