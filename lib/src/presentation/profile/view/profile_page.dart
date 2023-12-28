@@ -18,10 +18,10 @@ class ProfilePage extends StatelessWidget {
     final user = context.select((AppBloc bloc) => bloc.state.user);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: const Text('Profile'),
         actions: <Widget>[
           IconButton(
-            key: const Key('homePage_logout_iconButton'),
+            key: const Key('profilePage_logout_iconButton'),
             icon: const Icon(Icons.exit_to_app),
             onPressed: () {
               context.read<AppBloc>().add(const AppLogoutRequested());
