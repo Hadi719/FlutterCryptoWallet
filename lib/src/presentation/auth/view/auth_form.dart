@@ -20,33 +20,37 @@ class AuthForm extends StatelessWidget {
         //   );
         // }
       },
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _ErrorMessageBanner(),
-
-            /// Todo: Add Logo.
-            const FlutterLogo(size: 120),
-            const SizedBox(height: 16),
-            _GoogleLoginButton(),
-            const SizedBox(height: 16),
-            _EmailInput(),
-            const SizedBox(height: 8),
-            _PasswordInput(),
-            const SizedBox(height: 8),
-            _LoginOrRegisterButton(),
-            const SizedBox(height: 4),
-            _LoginOrRegisterMode(),
-          ],
-        ),
+      child: const Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                /// Todo: Add Logo.
+                FlutterLogo(size: 120),
+                SizedBox(height: 16),
+                _GoogleLoginButton(),
+                SizedBox(height: 16),
+                _EmailInput(),
+                SizedBox(height: 8),
+                _PasswordInput(),
+                SizedBox(height: 8),
+                _LoginOrRegisterButton(),
+                SizedBox(height: 4),
+                _LoginOrRegisterMode(),
+              ],
+            ),
+          ),
+          _ErrorMessageBanner(),
+        ],
       ),
     );
   }
 }
 
 class _GoogleLoginButton extends StatelessWidget {
+  const _GoogleLoginButton();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit, AuthState>(
@@ -74,6 +78,7 @@ class _GoogleLoginButton extends StatelessWidget {
 }
 
 class _EmailInput extends StatelessWidget {
+  const _EmailInput();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit, AuthState>(
@@ -97,6 +102,7 @@ class _EmailInput extends StatelessWidget {
 }
 
 class _PasswordInput extends StatelessWidget {
+  const _PasswordInput();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit, AuthState>(
@@ -121,6 +127,7 @@ class _PasswordInput extends StatelessWidget {
 }
 
 class _LoginOrRegisterButton extends StatelessWidget {
+  const _LoginOrRegisterButton();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit, AuthState>(
@@ -144,6 +151,7 @@ class _LoginOrRegisterButton extends StatelessWidget {
 }
 
 class _LoginOrRegisterMode extends StatelessWidget {
+  const _LoginOrRegisterMode();
   @override
   Widget build(BuildContext context) {
     return BlocSelector<AuthCubit, AuthState, AuthMode>(
@@ -180,6 +188,7 @@ class _LoginOrRegisterMode extends StatelessWidget {
 }
 
 class _ErrorMessageBanner extends StatelessWidget {
+  const _ErrorMessageBanner();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit, AuthState>(
