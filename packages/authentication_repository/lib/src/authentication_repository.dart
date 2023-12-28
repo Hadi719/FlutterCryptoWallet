@@ -224,7 +224,11 @@ class AuthenticationRepository {
         credential = userCredential.credential!;
       } else {
         final googleUser = await _googleSignIn.signIn();
-        final googleAuth = await googleUser!.authentication;
+        if (googleUser == null) {
+          throw LogInWithGoogleFailure(
+              'You didn\'t select any account, Please try again.');
+        }
+        final googleAuth = await googleUser.authentication;
         credential = firebase_auth.GoogleAuthProvider.credential(
           accessToken: googleAuth.accessToken,
           idToken: googleAuth.idToken,
@@ -234,8 +238,9 @@ class AuthenticationRepository {
       await _firebaseAuth.signInWithCredential(credential);
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw LogInWithGoogleFailure.fromCode(e.code);
-    } catch (_) {
-      throw const LogInWithGoogleFailure();
+    } catch (e) {
+      if (e is LogInWithGoogleFailure) throw e;
+      throw LogInWithGoogleFailure();
     }
   }
 
