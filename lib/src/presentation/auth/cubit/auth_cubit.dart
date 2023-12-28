@@ -6,16 +6,16 @@ import 'package:formz/formz.dart';
 
 import '../../../service_locator.dart';
 
-part 'login_state.dart';
+part 'auth_state.dart';
 
-class LoginCubit extends Cubit<LoginState> {
-  LoginCubit() : super(const LoginState());
+class AuthCubit extends Cubit<AuthState> {
+  AuthCubit() : super(const AuthState());
 
   final AuthenticationRepository _authenticationRepository =
       serviceLocator<AuthenticationRepository>();
 
   void emailChanged(String value) {
-    final email = Email.dirty(value);
+    final Email email = Email.dirty(value);
     emit(
       state.copyWith(
         email: email,
@@ -25,7 +25,7 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   void passwordChanged(String value) {
-    final password = Password.dirty(value);
+    final Password password = Password.dirty(value);
     emit(
       state.copyWith(
         password: password,
@@ -34,14 +34,27 @@ class LoginCubit extends Cubit<LoginState> {
     );
   }
 
-  Future<void> logInWithCredentials() async {
+  void authModeChanged(AuthMode mode) {
+    emit(state.copyWith(mode: mode));
+  }
+
+  Future<void> authWithCredentials() async {
     if (!state.isValid) return;
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
-      await _authenticationRepository.logInWithEmailAndPassword(
-        email: state.email.value,
-        password: state.password.value,
-      );
+      // Register
+      if (state.mode == AuthMode.register) {
+        await _authenticationRepository.signUp(
+          email: state.email.value,
+          password: state.password.value,
+        );
+      } else {
+        // Login
+        await _authenticationRepository.logInWithEmailAndPassword(
+          email: state.email.value,
+          password: state.password.value,
+        );
+      }
       emit(state.copyWith(status: FormzSubmissionStatus.success));
     } on LogInWithEmailAndPasswordFailure catch (e) {
       emit(
@@ -55,7 +68,7 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
-  Future<void> logInWithGoogle() async {
+  Future<void> authWithGoogle() async {
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
       await _authenticationRepository.logInWithGoogle();

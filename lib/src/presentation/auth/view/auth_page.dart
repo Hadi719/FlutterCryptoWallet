@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../cubit/login_cubit.dart';
-import 'login_form.dart';
+import '../cubit/auth_cubit.dart';
+import 'auth_form.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -15,9 +15,11 @@ class LoginPage extends StatelessWidget {
       appBar: AppBar(title: const Text('Login')),
       body: Padding(
         padding: const EdgeInsets.all(8),
-        child: BlocProvider(
-          create: (_) => LoginCubit(),
-          child: const LoginForm(),
+        child: SafeArea(
+          child: BlocProvider(
+            create: (_) => AuthCubit(),
+            child: const AuthForm(),
+          ),
         ),
       ),
     );

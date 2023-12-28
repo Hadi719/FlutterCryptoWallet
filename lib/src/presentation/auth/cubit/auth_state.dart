@@ -1,9 +1,10 @@
-part of 'login_cubit.dart';
+part of 'auth_cubit.dart';
 
-final class LoginState extends Equatable {
-  const LoginState({
+final class AuthState extends Equatable {
+  const AuthState({
     this.email = const Email.pure(),
     this.password = const Password.pure(),
+    this.mode = AuthMode.login,
     this.status = FormzSubmissionStatus.initial,
     this.isValid = false,
     this.errorMessage,
@@ -11,26 +12,34 @@ final class LoginState extends Equatable {
 
   final Email email;
   final Password password;
+
+  final AuthMode mode;
   final FormzSubmissionStatus status;
   final bool isValid;
   final String? errorMessage;
 
   @override
-  List<Object?> get props => [email, password, status, isValid, errorMessage];
+  List<Object?> get props =>
+      [email, password, mode, status, isValid, errorMessage];
 
-  LoginState copyWith({
+  AuthState copyWith({
     Email? email,
     Password? password,
+    ConfirmedPassword? confirmedPassword,
+    AuthMode? mode,
     FormzSubmissionStatus? status,
     bool? isValid,
     String? errorMessage,
   }) {
-    return LoginState(
+    return AuthState(
       email: email ?? this.email,
       password: password ?? this.password,
+      mode: mode ?? this.mode,
       status: status ?? this.status,
       isValid: isValid ?? this.isValid,
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 }
+
+enum AuthMode { login, register }
