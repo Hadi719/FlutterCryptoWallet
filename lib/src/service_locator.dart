@@ -1,5 +1,6 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get_it/get_it.dart';
@@ -38,6 +39,7 @@ void _setupCoinExApi() {
 }
 
 Future<void> _setupFirebase() async {
+  // Initialize Firebase App
   final FirebaseApp firebaseApp = await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -49,6 +51,14 @@ Future<void> _setupFirebase() async {
       app: serviceLocator<FirebaseApp>(),
     ),
   );
+
+  // Add Firebase Analytics
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  serviceLocator.registerSingleton<FirebaseAnalytics>(analytics);
+
+  // Add Firebase Analytics Observer
+  serviceLocator.registerSingleton<FirebaseAnalyticsObserver>(
+      FirebaseAnalyticsObserver(analytics: analytics));
 }
 
 Future<void> _setupAuthenticationRepository() async {
