@@ -1,0 +1,39 @@
+import 'package:flow_builder/flow_builder.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../config/router/router.dart';
+import '../../../utils/constants/strings.dart' show kAppTitle;
+import '../bloc/app_bloc.dart';
+
+class App extends StatelessWidget {
+  const App({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => AppBloc(),
+      child: const AppView(),
+    );
+  }
+}
+
+class AppView extends StatelessWidget {
+  const AppView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: kAppTitle,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: FlowBuilder<AppStatus>(
+        /// TODO: Add Firebase Navigation Observer.
+        state: context.select((AppBloc bloc) => bloc.state.status),
+        onGeneratePages: onGenerateAppViewPages,
+      ),
+    );
+  }
+}
