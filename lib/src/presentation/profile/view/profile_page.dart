@@ -7,9 +7,11 @@ import '../widgets/avatar.dart';
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
+  static const String screenName = '/Profile';
+
   static Page<void> page() => const MaterialPage<void>(
         child: ProfilePage(),
-        name: '/Profile',
+        name: screenName,
       );
 
   @override

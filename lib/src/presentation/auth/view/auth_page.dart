@@ -7,8 +7,12 @@ import 'auth_form.dart';
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
 
-  static Page<void> page() =>
-      const MaterialPage<void>(child: AuthPage(), name: '/Auth');
+  static const String screenName = '/Auth';
+
+  static Page<void> page() => const MaterialPage<void>(
+        child: AuthPage(),
+        name: screenName,
+      );
 
   @override
   Widget build(BuildContext context) {
