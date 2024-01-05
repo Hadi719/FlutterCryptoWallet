@@ -81,6 +81,10 @@ class LogInWithEmailAndPasswordFailure implements Exception {
         return const LogInWithEmailAndPasswordFailure(
           'Incorrect password, please try again.',
         );
+      case 'invalid-credential':
+        return const LogInWithEmailAndPasswordFailure(
+          'The supplied auth credential is incorrect, malformed or has expired.',
+        );
       default:
         return const LogInWithEmailAndPasswordFailure();
     }
