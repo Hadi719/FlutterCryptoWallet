@@ -20,8 +20,8 @@ List<Page<dynamic>> onGenerateAppViewPages(
   }
 }
 
-void _setCurrentScreen(String routeName) {
+void _setCurrentScreen(String screenName) {
   serviceLocator<FirebaseAnalytics>().setCurrentScreen(
-    screenName: routeName,
+    screenName: screenName,
   );
 }
