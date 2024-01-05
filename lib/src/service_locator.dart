@@ -53,16 +53,18 @@ Future<void> _setupFirebase() async {
   );
 
   // Add Firebase Analytics
-  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  serviceLocator.registerSingleton<FirebaseAnalytics>(analytics);
-
-  // Add Firebase Analytics Observer
-  serviceLocator.registerSingleton<FirebaseAnalyticsObserver>(
-      FirebaseAnalyticsObserver(analytics: analytics));
+  serviceLocator.registerSingleton<FirebaseAnalytics>(
+    FirebaseAnalytics.instanceFor(
+      app: serviceLocator<FirebaseApp>(),
+    ),
+  );
 }
 
 Future<void> _setupAuthenticationRepository() async {
-  serviceLocator
-      .registerSingleton<AuthenticationRepository>(AuthenticationRepository());
+  serviceLocator.registerSingleton<AuthenticationRepository>(
+    AuthenticationRepository(
+      firebaseAuth: serviceLocator<FirebaseAuth>(),
+    ),
+  );
   await serviceLocator<AuthenticationRepository>().user.first;
 }
