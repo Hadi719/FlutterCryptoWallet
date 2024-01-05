@@ -1,8 +1,10 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../config/router/router.dart';
+import '../../../service_locator.dart';
 import '../../../utils/constants/strings.dart' show kAppTitle;
 import '../bloc/app_bloc.dart';
 
@@ -33,6 +35,11 @@ class AppView extends StatelessWidget {
         /// TODO: Add Firebase Navigation Observer.
         state: context.select((AppBloc bloc) => bloc.state.status),
         onGeneratePages: onGenerateAppViewPages,
+        observers: [
+          FirebaseAnalyticsObserver(
+            analytics: serviceLocator<FirebaseAnalytics>(),
+          ),
+        ],
       ),
     );
   }
