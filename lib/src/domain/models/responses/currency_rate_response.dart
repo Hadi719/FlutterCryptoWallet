@@ -4,17 +4,26 @@ import 'package:equatable/equatable.dart';
 
 /// {@template CurrencyRate}
 ///
-/// The exchange rate of all cryptocurrencies to USD.
-///
-/// * Signature required: No
+/// The exchange rate of all cryptocurrencies to __USD__.
 ///
 /// {@endtemplate}
 class CurrencyRateResponse extends Equatable {
+  /// exchange rate of USDT to USD
   final double? USDT;
+
+  /// exchange rate of USDC to USD
   final double? USDC;
+
+  /// exchange rate of BTC to USD
   final double? BTC;
+
+  /// exchange rate of BCH to USD
   final double? BCH;
+
+  /// exchange rate of ETH to USD
   final double? ETH;
+
+  /// exchange rate of CET to USD
   final double? CET;
 
   /// {@macro CurrencyRate}
