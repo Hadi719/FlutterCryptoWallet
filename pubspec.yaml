@@ -25,10 +25,10 @@ dependencies:
 
   # firebase
   firebase_core: ^2.24.2
-  firebase_auth: ^4.15.3
-  firebase_messaging: ^14.7.9
-  firebase_analytics: ^10.7.4
-  firebase_crashlytics: ^3.4.8
+  firebase_auth: ^4.16.0
+  firebase_messaging: ^14.7.10
+  firebase_analytics: ^10.8.0
+  firebase_crashlytics: ^3.4.9
   google_sign_in: ^6.2.1
 
   # Themes & Icons & Widgets
@@ -39,7 +39,7 @@ dependencies:
   # Other
   meta: ^1.10.0
   collection: ^1.18.0
-  get_it: ^7.6.4
+  get_it: ^7.6.6
   equatable: ^2.0.5
   formz: ^0.6.1
 
@@ -55,16 +55,15 @@ dev_dependencies:
 
   flutter_lints: ^3.0.1
   retrofit_generator: ^8.0.6
-  build_runner: ^2.4.7
+  build_runner: ^2.4.8
 
 
 flutter:
 
   uses-material-design: true
 
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+assets:
+   - images/icons/crypto_icons/
 
   # example:
   # fonts:
