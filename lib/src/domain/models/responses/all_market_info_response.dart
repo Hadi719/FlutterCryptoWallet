@@ -37,9 +37,9 @@ class AllMarketInfoResponse extends Equatable {
   List<Object?> get props => [data];
 }
 
-/// Gets only the cryptos from [CryptoDetail].
+/// Gets only the cryptos from [CoinExCryptoDetail].
 List<MapEntry<String, dynamic>> _getNeededCryptos(Map<String, dynamic> map) {
-  List<CryptoDetail> allCrypto = CryptoDetail.values.toList();
+  List<CoinExCryptoDetail> allCrypto = CoinExCryptoDetail.values.toList();
   var selected = map.entries
       .where(
         (item) => allCrypto.any(

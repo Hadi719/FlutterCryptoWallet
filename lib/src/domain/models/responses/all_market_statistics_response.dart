@@ -23,11 +23,11 @@ class AllMarketStatisticsResponse extends Equatable {
     List<SingleMarketStatisticsResponse> myList = [];
     int? time = map['data']['date'];
     Map<String, dynamic> dataMap = map['data']['ticker'];
-    CryptoDetail cryptoDetail = CryptoDetail.unknown;
+    CoinExCryptoDetail cryptoDetail = CoinExCryptoDetail.unknown;
 
     dataMap.forEach((key, value) {
-      cryptoDetail = CryptoDetail.fromMarketName(key);
-      if (cryptoDetail != CryptoDetail.unknown) {
+      cryptoDetail = CoinExCryptoDetail.fromMarketName(key);
+      if (cryptoDetail != CoinExCryptoDetail.unknown) {
         myList.add(
           SingleMarketStatisticsResponse.fromAllMarket(
             value,

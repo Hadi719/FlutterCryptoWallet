@@ -10,7 +10,7 @@ import '../coinex/crypto.dart';
 ///
 /// {@endtemplate}
 class SingleMarketStatisticsResponse extends Equatable {
-  final CryptoDetail cryptoDetail;
+  final CoinExCryptoDetail cryptoDetail;
   final DateTime? serverTime;
   final double latestTransactionPrice;
   final double buyPrice;
@@ -24,7 +24,7 @@ class SingleMarketStatisticsResponse extends Equatable {
 
   /// {@macro SingleMarketStatistics}
   const SingleMarketStatisticsResponse({
-    this.cryptoDetail = CryptoDetail.unknown,
+    this.cryptoDetail = CoinExCryptoDetail.unknown,
     this.serverTime,
     required this.latestTransactionPrice,
     required this.buyPrice,
@@ -44,7 +44,7 @@ class SingleMarketStatisticsResponse extends Equatable {
     int? time = map['data']['date'];
 
     return SingleMarketStatisticsResponse(
-      cryptoDetail: CryptoDetail.fromMarketName(marketName),
+      cryptoDetail: CoinExCryptoDetail.fromMarketName(marketName),
       serverTime: time != null
           ? DateTime.fromMillisecondsSinceEpoch(time)
           : DateTime.now(),
@@ -63,7 +63,7 @@ class SingleMarketStatisticsResponse extends Equatable {
   /// {@macro SingleMarketStatistics}
   factory SingleMarketStatisticsResponse.fromAllMarket(
     Map<String, dynamic> map, {
-    required CryptoDetail cryptoDetail,
+    required CoinExCryptoDetail cryptoDetail,
     int? time,
   }) {
     return SingleMarketStatisticsResponse(

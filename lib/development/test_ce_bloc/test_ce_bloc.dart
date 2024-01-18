@@ -233,7 +233,8 @@ class RemoteCoinEx {
   static Future<SingleMarketInfoResponse> getSingleMarketInfo() async {
     final DataState<SingleMarketInfoResponse> response =
         await serviceLocator<ApiRepository>().getSingleMarketInfo(
-      request: SingleMarketInfoRequest(marketName: CryptoDetail.btc.marketName),
+      request: SingleMarketInfoRequest(
+          marketName: CoinExCryptoDetail.btc.marketName),
     );
     if (response is DataSuccess) {
       debugPrint('SUCCESS: $getSingleMarketInfo');
@@ -248,7 +249,7 @@ class RemoteCoinEx {
     final DataState<MarketDepthResponse> response =
         await serviceLocator<ApiRepository>().getMarketDepth(
       request: MarketDepthRequest(
-        marketName: CryptoDetail.btc.marketName,
+        marketName: CoinExCryptoDetail.btc.marketName,
       ),
     );
     if (response is DataSuccess) {
@@ -265,7 +266,7 @@ class RemoteCoinEx {
     final DataState<LatestTransactionDataResponse> response =
         await serviceLocator<ApiRepository>().getLatestTransactionData(
       request: LatestTransactionDataRequest(
-        marketName: CryptoDetail.btc.marketName,
+        marketName: CoinExCryptoDetail.btc.marketName,
       ),
     );
     if (response is DataSuccess) {
@@ -281,7 +282,7 @@ class RemoteCoinEx {
     final DataState<KLineDataResponse> response =
         await serviceLocator<ApiRepository>().getKLineData(
       request: KLineDataRequest(
-        marketName: CryptoDetail.btc.marketName,
+        marketName: CoinExCryptoDetail.btc.marketName,
       ),
     );
     if (response is DataSuccess) {
@@ -298,7 +299,7 @@ class RemoteCoinEx {
     final DataState<SingleMarketStatisticsResponse> response =
         await serviceLocator<ApiRepository>().getSingleMarketStatistics(
       request: SingleMarketStatisticsRequest(
-        marketName: CryptoDetail.btc.marketName,
+        marketName: CoinExCryptoDetail.btc.marketName,
       ),
     );
     if (response is DataSuccess) {

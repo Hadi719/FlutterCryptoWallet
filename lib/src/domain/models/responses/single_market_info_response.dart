@@ -10,7 +10,7 @@ import '../coinex/crypto.dart';
 ///
 /// {@endtemplate}
 class SingleMarketInfoResponse extends Equatable {
-  final CryptoDetail cryptoDetail;
+  final CoinExCryptoDetail cryptoDetail;
   final double minAmount;
   final double takerFeeRate;
   final double makerFeeRate;
@@ -31,7 +31,7 @@ class SingleMarketInfoResponse extends Equatable {
   factory SingleMarketInfoResponse.fromMap(Map<String, dynamic> map) {
     var mapData = map['data'] ?? map;
     return SingleMarketInfoResponse(
-        cryptoDetail: CryptoDetail.fromMarketName(mapData['name']),
+        cryptoDetail: CoinExCryptoDetail.fromMarketName(mapData['name']),
         minAmount: double.tryParse(mapData['min_amount']) ?? 0.0,
         takerFeeRate: double.tryParse(mapData['taker_fee_rate']) ?? 0.0,
         makerFeeRate: double.tryParse(mapData['maker_fee_rate']) ?? 0.0,

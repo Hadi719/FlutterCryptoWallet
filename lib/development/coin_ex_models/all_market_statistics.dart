@@ -22,8 +22,8 @@ class AllMarketStatistics {
     int? time = jsonData['date'];
     Map<String, dynamic> dataMap = jsonData['ticker'];
     dataMap.forEach((key, value) {
-      CryptoDetail cryptoDetail = CryptoDetail.fromMarketName(key);
-      if (cryptoDetail != CryptoDetail.unknown) {
+      CoinExCryptoDetail cryptoDetail = CoinExCryptoDetail.fromMarketName(key);
+      if (cryptoDetail != CoinExCryptoDetail.unknown) {
         myList.add(
           SingleMarketStatistics.fromAllMarket(
             value,

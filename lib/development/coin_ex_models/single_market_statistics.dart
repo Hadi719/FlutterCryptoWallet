@@ -10,7 +10,7 @@ import '../../src/domain/models/coinex/crypto.dart';
 class SingleMarketStatistics {
   /// {@macro SingleMarketStatistics}
   const SingleMarketStatistics({
-    this.cryptoDetail = CryptoDetail.unknown,
+    this.cryptoDetail = CoinExCryptoDetail.unknown,
     required this.serverTime,
     required this.latestTransactionPrice,
     required this.buyPrice,
@@ -25,7 +25,7 @@ class SingleMarketStatistics {
 
   static const urlPath = '/market/ticker';
 
-  final CryptoDetail cryptoDetail;
+  final CoinExCryptoDetail cryptoDetail;
   final DateTime serverTime;
   final double latestTransactionPrice;
   final double buyPrice;
@@ -39,7 +39,7 @@ class SingleMarketStatistics {
 
   factory SingleMarketStatistics.fromJson(
     Map<String, dynamic> jsonData, {
-    CryptoDetail cryptoDetail = CryptoDetail.unknown,
+    CoinExCryptoDetail cryptoDetail = CoinExCryptoDetail.unknown,
   }) {
     Map<String, dynamic> data = jsonData['ticker'];
     int? time = jsonData['date'];
@@ -62,11 +62,11 @@ class SingleMarketStatistics {
   }
   factory SingleMarketStatistics.fromAllMarket(
     Map<String, dynamic> jsonData, {
-    CryptoDetail? cryptoDetail,
+    CoinExCryptoDetail? cryptoDetail,
     int? time,
   }) {
     return SingleMarketStatistics(
-      cryptoDetail: cryptoDetail ?? CryptoDetail.unknown,
+      cryptoDetail: cryptoDetail ?? CoinExCryptoDetail.unknown,
       serverTime: time != null
           ? DateTime.fromMillisecondsSinceEpoch(time)
           : DateTime.now(),
