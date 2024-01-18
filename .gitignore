@@ -57,3 +57,6 @@ app.*.map.json
 /pubspec.lock
 /packages/*/*.lock
 
+# api files
+/lib/src/config/api
+
