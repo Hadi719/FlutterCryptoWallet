@@ -6,7 +6,7 @@ import 'package:retrofit/retrofit.dart';
 
 import '../../../utils/resources/data_state.dart';
 
-abstract class BaseApiRepository {
+abstract class BaseDataSourceRepository {
   /// This method is responsible of handling the given `request`, in which
   /// it returns generic based `DataState`.
   ///

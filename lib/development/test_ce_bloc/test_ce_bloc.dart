@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart';
 import '../../src/domain/models/coinex/crypto.dart';
 import '../../src/domain/models/coinex/requests/requests.dart';
 import '../../src/domain/models/coinex/responses/responses.dart';
-import '../../src/domain/repositories/api_repository.dart';
+import '../../src/domain/repositories/coinex_api_repository.dart';
 import '../../src/service_locator.dart';
 import '../../src/utils/resources/data_state.dart';
 
@@ -204,7 +204,7 @@ class RemoteCoinEx {
 
   static Future<List<String>> getAllMarketList() async {
     final DataState<AllMarketListResponse> response =
-        await serviceLocator<ApiRepository>().getAllMarketList(
+        await serviceLocator<CoinExApiRepository>().getAllMarketList(
       request: const AllMarketListRequest(),
     );
     if (response is DataSuccess) {
@@ -218,7 +218,7 @@ class RemoteCoinEx {
 
   static Future<List<SingleMarketInfoResponse>> getAllMarketInfo() async {
     final DataState<AllMarketInfoResponse> response =
-        await serviceLocator<ApiRepository>().getAllMarketInfo(
+        await serviceLocator<CoinExApiRepository>().getAllMarketInfo(
       request: const AllMarketInfoRequest(),
     );
     if (response is DataSuccess) {
@@ -232,7 +232,7 @@ class RemoteCoinEx {
 
   static Future<SingleMarketInfoResponse> getSingleMarketInfo() async {
     final DataState<SingleMarketInfoResponse> response =
-        await serviceLocator<ApiRepository>().getSingleMarketInfo(
+        await serviceLocator<CoinExApiRepository>().getSingleMarketInfo(
       request: SingleMarketInfoRequest(
           marketName: CoinExCryptoDetail.btc.marketName),
     );
@@ -247,7 +247,7 @@ class RemoteCoinEx {
 
   static Future<MarketDepthResponse> getMarketDepth() async {
     final DataState<MarketDepthResponse> response =
-        await serviceLocator<ApiRepository>().getMarketDepth(
+        await serviceLocator<CoinExApiRepository>().getMarketDepth(
       request: MarketDepthRequest(
         marketName: CoinExCryptoDetail.btc.marketName,
       ),
@@ -264,7 +264,7 @@ class RemoteCoinEx {
   static Future<LatestTransactionDataResponse>
       getLatestTransactionData() async {
     final DataState<LatestTransactionDataResponse> response =
-        await serviceLocator<ApiRepository>().getLatestTransactionData(
+        await serviceLocator<CoinExApiRepository>().getLatestTransactionData(
       request: LatestTransactionDataRequest(
         marketName: CoinExCryptoDetail.btc.marketName,
       ),
@@ -280,7 +280,7 @@ class RemoteCoinEx {
 
   static Future<KLineDataResponse> getKLineData() async {
     final DataState<KLineDataResponse> response =
-        await serviceLocator<ApiRepository>().getKLineData(
+        await serviceLocator<CoinExApiRepository>().getKLineData(
       request: KLineDataRequest(
         marketName: CoinExCryptoDetail.btc.marketName,
       ),
@@ -297,7 +297,7 @@ class RemoteCoinEx {
   static Future<SingleMarketStatisticsResponse>
       getSingleMarketStatistics() async {
     final DataState<SingleMarketStatisticsResponse> response =
-        await serviceLocator<ApiRepository>().getSingleMarketStatistics(
+        await serviceLocator<CoinExApiRepository>().getSingleMarketStatistics(
       request: SingleMarketStatisticsRequest(
         marketName: CoinExCryptoDetail.btc.marketName,
       ),
@@ -313,7 +313,7 @@ class RemoteCoinEx {
 
   static Future<AllMarketStatisticsResponse> getAllMarketStatistics() async {
     final DataState<AllMarketStatisticsResponse> response =
-        await serviceLocator<ApiRepository>().getAllMarketStatistics(
+        await serviceLocator<CoinExApiRepository>().getAllMarketStatistics(
       request: const AllMarketStatisticsRequest(),
     );
     if (response is DataSuccess) {
@@ -327,7 +327,7 @@ class RemoteCoinEx {
 
   static Future<CurrencyRateResponse> getCurrencyRate() async {
     final DataState<CurrencyRateResponse> response =
-        await serviceLocator<ApiRepository>().getCurrencyRate(
+        await serviceLocator<CoinExApiRepository>().getCurrencyRate(
       request: const CurrencyRateRequest(),
     );
     if (response is DataSuccess) {

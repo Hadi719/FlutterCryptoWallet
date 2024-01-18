@@ -2,7 +2,7 @@ import '../../utils/resources/data_state.dart';
 import '../models/coinex/requests/requests.dart';
 import '../models/coinex/responses/responses.dart';
 
-abstract class ApiRepository {
+abstract class CoinExApiRepository {
   Future<DataState<AllMarketListResponse>> getAllMarketList({
     required AllMarketListRequest request,
   });

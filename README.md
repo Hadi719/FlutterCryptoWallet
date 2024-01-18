@@ -69,12 +69,12 @@ flutterfire configure --project=<PROJECT_NAME_FROM_FIREBASE>
 - Move `firebase_options.dart` file from `lib/src/` to `lib/src/config/firebase/`
 
 ## Run The Generator 
-> First go to `lib/src/data/datasource/remote` directory. if `coin_ex_api_service.g.dart` file is not build, follow the below instruction.
-- run below in `project root` directory for building `Retrofit` file `coin_ex_api_service.g.dart`.
+> First go to `lib/src/data/datasource/remote` directory. if `coinex_remote_datasource.g.dart` file is not build, follow the below instruction.
+- run below in `project root` directory for building `Retrofit` file `coinex_remote_datasource.g.dart`.
 ```
 dart run build_runner build
 ```
-- after that go to `lib/src/data/datasource/remote/coin_ex_api_service.g.dart` file,  
+- after that go to `lib/src/data/datasource/remote/coinex_remote_datasource.g.dart` file,  
   - go to `getSingleMarketStatistics()` function.
   - change this `final value = SingleMarketStatisticsResponse.fromMap(_result.data!)` to:
   ```dart
