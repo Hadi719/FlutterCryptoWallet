@@ -31,6 +31,10 @@ class AppView extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      darkTheme: ThemeData.dark(
+        useMaterial3: true,
+      ),
+      themeMode: ThemeMode.dark,
       home: FlowBuilder<AppStatus>(
         /// TODO: Add Firebase Navigation Observer.
         state: context.select((AppBloc bloc) => bloc.state.status),
