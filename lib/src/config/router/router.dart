@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 
 import '../../presentation/app/bloc/app_bloc.dart';
 import '../../presentation/auth/auth.dart';
-import '../../presentation/profile/profile.dart';
+import '../../presentation/home/home.dart';
 import '../../service_locator.dart';
 
 List<Page<dynamic>> onGenerateAppViewPages(
@@ -12,8 +12,8 @@ List<Page<dynamic>> onGenerateAppViewPages(
 ) {
   switch (state) {
     case AppStatus.authenticated:
-      _setCurrentScreen(ProfilePage.screenName);
-      return [ProfilePage.page()];
+      _setCurrentScreen(HomePage.screenName);
+      return [HomePage.page()];
     case AppStatus.unauthenticated:
       _setCurrentScreen(AuthPage.screenName);
       return [AuthPage.page()];
