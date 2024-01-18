@@ -6,25 +6,34 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:get_it/get_it.dart';
 
 import 'config/firebase/firebase_options.dart';
+import 'data/datasource/remote/coincap_remote_datasource.dart';
 import 'data/datasource/remote/coinex_remote_datasource.dart';
+import 'data/repositories/coincap_datasource_repository_impl.dart';
 import 'data/repositories/coinex_datasource_repository_impl.dart';
+import 'domain/repositories/coincap_api_repository.dart';
 import 'domain/repositories/coinex_api_repository.dart';
 
 final GetIt serviceLocator = GetIt.instance;
 
 /// Setups GetIt service locator.
 Future<void> setup() async {
+  _setupDio();
+
   _setupCoinExApi();
+
+  _setupCoinCapApi();
 
   await _setupFirebase();
 
   await _setupAuthenticationRepository();
 }
 
-void _setupCoinExApi() {
+void _setupDio() {
   final Dio dio = Dio();
   serviceLocator.registerSingleton<Dio>(dio);
+}
 
+void _setupCoinExApi() {
   serviceLocator.registerSingleton<CoinExRemoteDataSource>(
     CoinExRemoteDataSource(
       serviceLocator<Dio>(),
@@ -34,6 +43,20 @@ void _setupCoinExApi() {
   serviceLocator.registerSingleton<CoinExApiRepository>(
     CoinExDataSourceRepositoryImpl(
       serviceLocator<CoinExRemoteDataSource>(),
+    ),
+  );
+}
+
+void _setupCoinCapApi() {
+  serviceLocator.registerSingleton<CoinCapRemoteDataSource>(
+    CoinCapRemoteDataSource(
+      serviceLocator<Dio>(),
+    ),
+  );
+
+  serviceLocator.registerSingleton<CoinCapApiRepository>(
+    CoinCapDataSourceRepositoryImpl(
+      serviceLocator<CoinCapRemoteDataSource>(),
     ),
   );
 }
