@@ -4,203 +4,241 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
+import '../../src/domain/models/coincap/requests/requests.dart';
+import '../../src/domain/models/coincap/responses/responses.dart';
 import '../../src/domain/models/coinex/crypto.dart';
 import '../../src/domain/models/coinex/requests/requests.dart';
 import '../../src/domain/models/coinex/responses/responses.dart';
+import '../../src/domain/repositories/coincap_api_repository.dart';
 import '../../src/domain/repositories/coinex_api_repository.dart';
 import '../../src/service_locator.dart';
 import '../../src/utils/resources/data_state.dart';
 
-part 'test_ce_event.dart';
-part 'test_ce_state.dart';
+part 'dev_coin_event.dart';
+part 'dev_coin_state.dart';
 
-class TestCeBloc extends Bloc<TestCeEvent, TestCeState> {
-  TestCeBloc() : super(const TestCeState()) {
-    on<TestCeAllMarketList>(_onTestCeAllMarketList);
-    on<TestCeAllMarketInfo>(_onTestCeAllMarketInfo);
-    on<TestCeSingleMarketInfo>(_onTestCeSingleMarketInfo);
-    on<TestCeMarketDepth>(_onTestCeMarketDepth);
-    on<TestCeLatestTransactionData>(_onTestCeLatestTransactionData);
-    on<TestCeKLineData>(_onTestCeKLineData);
-    on<TestCeSingleMarketStatistics>(_onTestCeSingleMarketStatistics);
-    on<TestCeAllMarketStatistics>(_onTestCeAllMarketStatistics);
-    on<TestCeCurrencyRate>(_onTestCeCurrencyRate);
+class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
+  DevCoinBloc() : super(const DevCoinState()) {
+    on<DevCoinChangeApi>(_onDevCoinChangeApi);
+
+    // CoinCap
+    on<DevCoinCapAssetsList>(_onDevCoinCapAssetsList);
+
+    // CoinEX
+    on<DevCoinExAllMarketList>(_onDevCoinExAllMarketList);
+    on<DevCoinExAllMarketInfo>(_onDevCoinExAllMarketInfo);
+    on<DevCoinExSingleMarketInfo>(_onDevCoinExSingleMarketInfo);
+    on<DevCoinExMarketDepth>(_onDevCoinExMarketDepth);
+    on<DevCoinExLatestTransactionData>(_onDevCoinExLatestTransactionData);
+    on<DevCoinExKLineData>(_onDevCoinExKLineData);
+    on<DevCoinExSingleMarketStatistics>(_onDevCoinExSingleMarketStatistics);
+    on<DevCoinExAllMarketStatistics>(_onDevCoinExAllMarketStatistics);
+    on<DevCoinExCurrencyRate>(_onDevCoinExCurrencyRate);
   }
 
-  Future<void> _onTestCeAllMarketList(
-    TestCeAllMarketList event,
-    Emitter<TestCeState> emit,
+  void _onDevCoinChangeApi(
+    DevCoinChangeApi event,
+    Emitter<DevCoinState> emit,
+  ) {
+    emit(state.copyWith(
+      coinApi:
+          state.coinApi == CoinApi.coinCap ? CoinApi.coinEx : CoinApi.coinCap,
+    ));
+  }
+
+  Future<void> _onDevCoinCapAssetsList(
+    DevCoinCapAssetsList event,
+    Emitter<DevCoinState> emit,
   ) async {
     try {
       emit(state.copyWith(
-        status: TestCeStatus.loading,
-        lastEvent: TestCeAllMarketList(),
+        status: DevCoinStatus.loading,
+        lastEvent: DevCoinCapAssetsList(),
       ));
-      final data = await RemoteCoinEx.getAllMarketList();
+      final data = await _RemoteCoinCap.getAssetsList();
       emit(state.copyWith(
-        status: TestCeStatus.success,
+        status: DevCoinStatus.success,
         data: data,
       ));
     } catch (_) {
-      emit(state.copyWith(status: TestCeStatus.failure));
+      emit(state.copyWith(status: DevCoinStatus.failure));
     }
   }
 
-  Future<void> _onTestCeAllMarketInfo(
-    TestCeAllMarketInfo event,
-    Emitter<TestCeState> emit,
+  Future<void> _onDevCoinExAllMarketList(
+    DevCoinExAllMarketList event,
+    Emitter<DevCoinState> emit,
   ) async {
     try {
       emit(state.copyWith(
-        status: TestCeStatus.loading,
-        lastEvent: TestCeAllMarketInfo(),
+        status: DevCoinStatus.loading,
+        lastEvent: DevCoinExAllMarketList(),
       ));
-      final data = await RemoteCoinEx.getAllMarketInfo();
+      final data = await _RemoteCoinEx.getAllMarketList();
       emit(state.copyWith(
-        status: TestCeStatus.success,
+        status: DevCoinStatus.success,
         data: data,
       ));
     } catch (_) {
-      emit(state.copyWith(status: TestCeStatus.failure));
+      emit(state.copyWith(status: DevCoinStatus.failure));
     }
   }
 
-  Future<void> _onTestCeSingleMarketInfo(
-    TestCeSingleMarketInfo event,
-    Emitter<TestCeState> emit,
+  Future<void> _onDevCoinExAllMarketInfo(
+    DevCoinExAllMarketInfo event,
+    Emitter<DevCoinState> emit,
   ) async {
     try {
       emit(state.copyWith(
-        status: TestCeStatus.loading,
-        lastEvent: TestCeSingleMarketInfo(),
+        status: DevCoinStatus.loading,
+        lastEvent: DevCoinExAllMarketInfo(),
       ));
-      final data = await RemoteCoinEx.getSingleMarketInfo();
+      final data = await _RemoteCoinEx.getAllMarketInfo();
       emit(state.copyWith(
-        status: TestCeStatus.success,
+        status: DevCoinStatus.success,
         data: data,
       ));
     } catch (_) {
-      emit(state.copyWith(status: TestCeStatus.failure));
+      emit(state.copyWith(status: DevCoinStatus.failure));
     }
   }
 
-  Future<void> _onTestCeMarketDepth(
-    TestCeMarketDepth event,
-    Emitter<TestCeState> emit,
+  Future<void> _onDevCoinExSingleMarketInfo(
+    DevCoinExSingleMarketInfo event,
+    Emitter<DevCoinState> emit,
   ) async {
     try {
       emit(state.copyWith(
-        status: TestCeStatus.loading,
-        lastEvent: TestCeMarketDepth(),
+        status: DevCoinStatus.loading,
+        lastEvent: DevCoinExSingleMarketInfo(),
       ));
-      final data = await RemoteCoinEx.getMarketDepth();
+      final data = await _RemoteCoinEx.getSingleMarketInfo();
       emit(state.copyWith(
-        status: TestCeStatus.success,
+        status: DevCoinStatus.success,
         data: data,
       ));
     } catch (_) {
-      emit(state.copyWith(status: TestCeStatus.failure));
+      emit(state.copyWith(status: DevCoinStatus.failure));
     }
   }
 
-  Future<void> _onTestCeLatestTransactionData(
-    TestCeLatestTransactionData event,
-    Emitter<TestCeState> emit,
+  Future<void> _onDevCoinExMarketDepth(
+    DevCoinExMarketDepth event,
+    Emitter<DevCoinState> emit,
   ) async {
     try {
       emit(state.copyWith(
-        status: TestCeStatus.loading,
-        lastEvent: TestCeLatestTransactionData(),
+        status: DevCoinStatus.loading,
+        lastEvent: DevCoinExMarketDepth(),
       ));
-      final data = await RemoteCoinEx.getLatestTransactionData();
+      final data = await _RemoteCoinEx.getMarketDepth();
       emit(state.copyWith(
-        status: TestCeStatus.success,
+        status: DevCoinStatus.success,
         data: data,
       ));
     } catch (_) {
-      emit(state.copyWith(status: TestCeStatus.failure));
+      emit(state.copyWith(status: DevCoinStatus.failure));
     }
   }
 
-  Future<void> _onTestCeKLineData(
-    TestCeKLineData event,
-    Emitter<TestCeState> emit,
+  Future<void> _onDevCoinExLatestTransactionData(
+    DevCoinExLatestTransactionData event,
+    Emitter<DevCoinState> emit,
   ) async {
     try {
       emit(state.copyWith(
-        status: TestCeStatus.loading,
-        lastEvent: TestCeKLineData(),
+        status: DevCoinStatus.loading,
+        lastEvent: DevCoinExLatestTransactionData(),
       ));
-      final data = await RemoteCoinEx.getKLineData();
+      final data = await _RemoteCoinEx.getLatestTransactionData();
       emit(state.copyWith(
-        status: TestCeStatus.success,
+        status: DevCoinStatus.success,
         data: data,
       ));
     } catch (_) {
-      emit(state.copyWith(status: TestCeStatus.failure));
+      emit(state.copyWith(status: DevCoinStatus.failure));
     }
   }
 
-  Future<void> _onTestCeSingleMarketStatistics(
-    TestCeSingleMarketStatistics event,
-    Emitter<TestCeState> emit,
+  Future<void> _onDevCoinExKLineData(
+    DevCoinExKLineData event,
+    Emitter<DevCoinState> emit,
   ) async {
     try {
       emit(state.copyWith(
-        status: TestCeStatus.loading,
-        lastEvent: TestCeSingleMarketStatistics(),
+        status: DevCoinStatus.loading,
+        lastEvent: DevCoinExKLineData(),
       ));
-      final data = await RemoteCoinEx.getSingleMarketStatistics();
+      final data = await _RemoteCoinEx.getKLineData();
       emit(state.copyWith(
-        status: TestCeStatus.success,
+        status: DevCoinStatus.success,
         data: data,
       ));
     } catch (_) {
-      emit(state.copyWith(status: TestCeStatus.failure));
+      emit(state.copyWith(status: DevCoinStatus.failure));
     }
   }
 
-  Future<void> _onTestCeAllMarketStatistics(
-    TestCeAllMarketStatistics event,
-    Emitter<TestCeState> emit,
+  Future<void> _onDevCoinExSingleMarketStatistics(
+    DevCoinExSingleMarketStatistics event,
+    Emitter<DevCoinState> emit,
   ) async {
     try {
       emit(state.copyWith(
-        status: TestCeStatus.loading,
-        lastEvent: TestCeAllMarketStatistics(),
+        status: DevCoinStatus.loading,
+        lastEvent: DevCoinExSingleMarketStatistics(),
       ));
-      final data = await RemoteCoinEx.getAllMarketStatistics();
+      final data = await _RemoteCoinEx.getSingleMarketStatistics();
       emit(state.copyWith(
-        status: TestCeStatus.success,
+        status: DevCoinStatus.success,
         data: data,
       ));
     } catch (_) {
-      emit(state.copyWith(status: TestCeStatus.failure));
+      emit(state.copyWith(status: DevCoinStatus.failure));
     }
   }
 
-  Future<void> _onTestCeCurrencyRate(
-    TestCeCurrencyRate event,
-    Emitter<TestCeState> emit,
+  Future<void> _onDevCoinExAllMarketStatistics(
+    DevCoinExAllMarketStatistics event,
+    Emitter<DevCoinState> emit,
   ) async {
     try {
       emit(state.copyWith(
-        status: TestCeStatus.loading,
-        lastEvent: TestCeCurrencyRate(),
+        status: DevCoinStatus.loading,
+        lastEvent: DevCoinExAllMarketStatistics(),
       ));
-      final data = await RemoteCoinEx.getCurrencyRate();
+      final data = await _RemoteCoinEx.getAllMarketStatistics();
       emit(state.copyWith(
-        status: TestCeStatus.success,
+        status: DevCoinStatus.success,
         data: data,
       ));
     } catch (_) {
-      emit(state.copyWith(status: TestCeStatus.failure));
+      emit(state.copyWith(status: DevCoinStatus.failure));
+    }
+  }
+
+  Future<void> _onDevCoinExCurrencyRate(
+    DevCoinExCurrencyRate event,
+    Emitter<DevCoinState> emit,
+  ) async {
+    try {
+      emit(state.copyWith(
+        status: DevCoinStatus.loading,
+        lastEvent: DevCoinExCurrencyRate(),
+      ));
+      final data = await _RemoteCoinEx.getCurrencyRate();
+      emit(state.copyWith(
+        status: DevCoinStatus.success,
+        data: data,
+      ));
+    } catch (_) {
+      emit(state.copyWith(status: DevCoinStatus.failure));
     }
   }
 }
 
-class RemoteCoinEx {
-  const RemoteCoinEx();
+class _RemoteCoinEx {
+  const _RemoteCoinEx();
 
   static Future<List<String>> getAllMarketList() async {
     final DataState<AllMarketListResponse> response =
@@ -335,6 +373,22 @@ class RemoteCoinEx {
       return response.data!;
     } else {
       debugPrint('FAILED: $getCurrencyRate');
+      throw response.error!;
+    }
+  }
+}
+
+class _RemoteCoinCap {
+  static Future<AssetsListResponse> getAssetsList() async {
+    final DataState<AssetsListResponse> response =
+        await serviceLocator<CoinCapApiRepository>().getAssetsList(
+      request: const AssetsListRequest(),
+    );
+    if (response is DataSuccess) {
+      debugPrint('SUCCESS: $getAssetsList()');
+      return response.data!;
+    } else {
+      debugPrint('FAILED: $getAssetsList');
       throw response.error!;
     }
   }
