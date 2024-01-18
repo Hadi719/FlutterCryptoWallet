@@ -2,8 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../domain/models/requests/all_market_statistics_request.dart';
-import '../../../domain/models/responses/all_market_statistics_response.dart';
+import '../../../domain/models/coinex/requests/all_market_statistics_request.dart';
+import '../../../domain/models/coinex/responses/all_market_statistics_response.dart';
 import '../../../domain/repositories/api_repository.dart';
 import '../../../service_locator.dart';
 import '../../../utils/resources/data_state.dart';

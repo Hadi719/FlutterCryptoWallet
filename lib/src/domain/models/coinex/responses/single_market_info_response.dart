@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../coinex/crypto.dart';
+import '../crypto.dart';
 
 /// {@template SingleMarketInfoResponse}
 ///

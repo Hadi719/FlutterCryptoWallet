@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../domain/models/responses/single_market_statistics_response.dart';
+import '../../../domain/models/coinex/responses/single_market_statistics_response.dart';
 import '../cubit/home_cubit.dart';
 
 const double kImageSize = 50;

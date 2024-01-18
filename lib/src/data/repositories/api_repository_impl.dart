@@ -1,5 +1,5 @@
-import '../../domain/models/requests/requests.dart';
-import '../../domain/models/responses/responses.dart';
+import '../../domain/models/coinex/requests/requests.dart';
+import '../../domain/models/coinex/responses/responses.dart';
 import '../../domain/repositories/api_repository.dart';
 import '../../utils/resources/data_state.dart';
 import '../datasource/remote/coin_ex_api_service.dart';

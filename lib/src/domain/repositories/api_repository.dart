@@ -1,6 +1,6 @@
 import '../../utils/resources/data_state.dart';
-import '../models/requests/requests.dart';
-import '../models/responses/responses.dart';
+import '../models/coinex/requests/requests.dart';
+import '../models/coinex/responses/responses.dart';
 
 abstract class ApiRepository {
   Future<DataState<AllMarketListResponse>> getAllMarketList({

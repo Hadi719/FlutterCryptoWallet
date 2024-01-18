@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
-import '../../../domain/models/responses/responses.dart';
+import '../../../domain/models/coinex/responses/responses.dart';
 import '../../../utils/constants/strings.dart';
 
 part 'coin_ex_api_service.g.dart';
