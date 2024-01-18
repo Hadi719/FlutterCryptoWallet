@@ -29,29 +29,29 @@ abstract class CoinExRemoteDataSource {
     @Query('limit') int? limit,
   });
 
-  @GET(kCoinExUrlLatestTransactionData)
+  @GET(kCoinExUrlPathLatestTransactionData)
   Future<HttpResponse<LatestTransactionDataResponse>> getLatestTransactionData({
     @Query('market') required String marketName,
     @Query('last_id') int? lastId,
     @Query('limit') int? limit,
   });
 
-  @GET(kCoinExUrlKLineData)
+  @GET(kCoinExUrlPathKLineData)
   Future<HttpResponse<KLineDataResponse>> getKLineData({
     @Query('market') required String marketName,
     @Query('limit') int? limit,
     @Query('type') required String type,
   });
 
-  @GET(kCoinExUrlSingleMarketStatistics)
+  @GET(kCoinExUrlPathSingleMarketStatistics)
   Future<HttpResponse<SingleMarketStatisticsResponse>>
       getSingleMarketStatistics({
     @Query('market') required String marketName,
   });
 
-  @GET(kCoinExUrlAllMarketStatistics)
+  @GET(kCoinExUrlPathAllMarketStatistics)
   Future<HttpResponse<AllMarketStatisticsResponse>> getAllMarketStatistics();
 
-  @GET(kCoinExUrlCurrencyRate)
+  @GET(kCoinExUrlPathCurrencyRate)
   Future<HttpResponse<CurrencyRateResponse>> getCurrencyRate();
 }

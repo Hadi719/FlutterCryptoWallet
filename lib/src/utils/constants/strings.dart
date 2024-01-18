@@ -2,16 +2,22 @@
 const String kAppTitle = 'Flutter Crypto Wallet';
 
 // Networking & APIs
+// - CoinCap
+const String kCoinCapBaseUrl = 'api.coincap.io/v2';
+const String kCoinCapPathAssets = '/assets';
+// const String kCoinCapPath = '';
+
+// - CoinEX
 const String kCoinExBaseUrl = 'https://api.coinex.com/v1';
-const String kCoinExUrlPathAllMarketList = '/market/list';
-const String kCoinExUrlPathAllMarketInfo = '/market/info';
-const String kCoinExUrlPathSingleMarketInfo = '/market/detail';
-const String kCoinExUrlPathMarketDepth = '/market/depth';
-const String kCoinExUrlLatestTransactionData = '/market/deals';
-const String kCoinExUrlKLineData = '/market/kline';
-const String kCoinExUrlSingleMarketStatistics = '/market/ticker';
-const String kCoinExUrlAllMarketStatistics = '/market/ticker/all';
-const String kCoinExUrlCurrencyRate = '/common/currency/rate';
+const String kCoinExPathAllMarketList = '/market/list';
+const String kCoinExPathAllMarketInfo = '/market/info';
+const String kCoinExPathSingleMarketInfo = '/market/detail';
+const String kCoinExPathMarketDepth = '/market/depth';
+const String kCoinExPathLatestTransactionData = '/market/deals';
+const String kCoinExPathKLineData = '/market/kline';
+const String kCoinExPathSingleMarketStatistics = '/market/ticker';
+const String kCoinExPathAllMarketStatistics = '/market/ticker/all';
+const String kCoinExPathCurrencyRate = '/common/currency/rate';
 
 // Assets - Icons
 const String kIconsDirPath = 'assets/images/icons/crypto_icons/';
