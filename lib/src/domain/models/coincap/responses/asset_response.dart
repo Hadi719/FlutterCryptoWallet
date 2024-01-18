@@ -64,21 +64,6 @@ class AssetResponse extends Equatable {
   });
 
   factory AssetResponse.fromMap(Map<String, dynamic> json) {
-    var data = AssetResponse(
-      id: json['id'],
-      rank: json['rank'],
-      symbol: json['symbol'],
-      name: json['name'],
-      supply: json['supply'],
-      maxSupply: json['maxSupply'],
-      marketCapUsd: json['marketCapUsd'],
-      volumeUsd24Hr: json['volumeUsd24Hr'],
-      priceUsd: json['priceUsd'],
-      changePercent24Hr: json['changePercent24Hr'],
-      vwap24Hr: json['vwap24Hr'],
-      explorer: json['explorer'],
-      timestamp: json['timestamp'],
-    );
     return AssetResponse(
       id: json['id'],
       rank: json['rank'],
