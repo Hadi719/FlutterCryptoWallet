@@ -36,7 +36,7 @@ class AssetsResponse extends Equatable {
     this.explorer,
   });
 
-  factory AssetsResponse.fromJson(Map<String, dynamic> json) {
+  factory AssetsResponse.fromMap(Map<String, dynamic> json) {
     return AssetsResponse(
       id: json['id'],
       rank: json['rank'],
