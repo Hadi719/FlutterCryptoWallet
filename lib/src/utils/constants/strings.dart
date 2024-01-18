@@ -3,8 +3,8 @@ const String kAppTitle = 'Flutter Crypto Wallet';
 
 // Networking & APIs
 // - CoinCap
-const String kCoinCapBaseUrl = 'api.coincap.io/v2';
-const String kCoinCapPathAssets = '/assets';
+const String kCoinCapBaseUrl = 'https://api.coincap.io/v2';
+const String kCoinCapPathAssetsList = '/assets';
 // const String kCoinCapPath = '';
 
 // - CoinEX

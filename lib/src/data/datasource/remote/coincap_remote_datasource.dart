@@ -11,8 +11,8 @@ abstract class CoinCapRemoteDataSource {
   factory CoinCapRemoteDataSource(Dio dio, {String baseUrl}) =
       _CoinCapRemoteDataSource;
 
-  @GET(kCoinCapPathAssets)
-  Future<HttpResponse<AssetsResponse>> getAssets();
+  @GET(kCoinCapPathAssetsList)
+  Future<HttpResponse<AssetsListResponse>> getAssetsList();
 
 /*
 

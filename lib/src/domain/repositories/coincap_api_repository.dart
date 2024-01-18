@@ -3,8 +3,8 @@ import '../models/coincap/requests/requests.dart';
 import '../models/coincap/responses/responses.dart';
 
 abstract class CoinCapApiRepository {
-  Future<DataState<AssetsResponse>> getAssets({
-    required AssetsRequest request,
+  Future<DataState<AssetsListResponse>> getAssetsList({
+    required AssetsListRequest request,
   });
 
 /*

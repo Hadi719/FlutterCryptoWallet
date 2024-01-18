@@ -13,7 +13,7 @@ class _CoinCapRemoteDataSource implements CoinCapRemoteDataSource {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'api.coincap.io/v2';
+    baseUrl ??= 'https://api.coincap.io/v2';
   }
 
   final Dio _dio;
@@ -21,13 +21,13 @@ class _CoinCapRemoteDataSource implements CoinCapRemoteDataSource {
   String? baseUrl;
 
   @override
-  Future<HttpResponse<AssetsResponse>> getAssets() async {
+  Future<HttpResponse<AssetsListResponse>> getAssetsList() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<AssetsResponse>>(Options(
+        _setStreamType<HttpResponse<AssetsListResponse>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -43,7 +43,7 @@ class _CoinCapRemoteDataSource implements CoinCapRemoteDataSource {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = AssetsResponse.fromMap(_result.data!);
+    final value = AssetsListResponse.fromMap(_result.data!);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }

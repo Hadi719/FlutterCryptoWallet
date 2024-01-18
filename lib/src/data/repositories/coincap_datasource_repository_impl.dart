@@ -1,5 +1,5 @@
 import '../../domain/models/coincap/requests/requests.dart';
-import '../../domain/models/coincap/responses/responses.dart';
+import '../../domain/models/coincap/responses/assets_list_response.dart';
 import '../../domain/repositories/coincap_api_repository.dart';
 import '../../utils/resources/data_state.dart';
 import '../datasource/remote/coincap_remote_datasource.dart';
@@ -12,11 +12,11 @@ class CoinCapDataSourceRepositoryImpl extends BaseDataSourceRepository
   CoinCapDataSourceRepositoryImpl(this._coinCapRemoteDataSource);
 
   @override
-  Future<DataState<AssetsResponse>> getAssets({
-    required AssetsRequest request,
+  Future<DataState<AssetsListResponse>> getAssetsList({
+    required AssetsListRequest request,
   }) {
-    return getStateOf<AssetsResponse>(
-      request: () => _coinCapRemoteDataSource.getAssets(),
+    return getStateOf<AssetsListResponse>(
+      request: () => _coinCapRemoteDataSource.getAssetsList(),
     );
   }
 
