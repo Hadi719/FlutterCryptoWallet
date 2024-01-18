@@ -11,47 +11,47 @@ abstract class CoinExRemoteDataSource {
   factory CoinExRemoteDataSource(Dio dio, {String baseUrl}) =
       _CoinExRemoteDataSource;
 
-  @GET(kCoinExUrlPathAllMarketList)
+  @GET(kCoinExPathAllMarketList)
   Future<HttpResponse<AllMarketListResponse>> getAllMarketList();
 
-  @GET(kCoinExUrlPathAllMarketInfo)
+  @GET(kCoinExPathAllMarketInfo)
   Future<HttpResponse<AllMarketInfoResponse>> getAllMarketInfo();
 
-  @GET(kCoinExUrlPathSingleMarketInfo)
+  @GET(kCoinExPathSingleMarketInfo)
   Future<HttpResponse<SingleMarketInfoResponse>> getSingleMarketInfo({
     @Query('market') required String marketName,
   });
 
-  @GET(kCoinExUrlPathMarketDepth)
+  @GET(kCoinExPathMarketDepth)
   Future<HttpResponse<MarketDepthResponse>> getMarketDepth({
     @Query('market') required String marketName,
     @Query('merge') String? merge,
     @Query('limit') int? limit,
   });
 
-  @GET(kCoinExUrlPathLatestTransactionData)
+  @GET(kCoinExPathLatestTransactionData)
   Future<HttpResponse<LatestTransactionDataResponse>> getLatestTransactionData({
     @Query('market') required String marketName,
     @Query('last_id') int? lastId,
     @Query('limit') int? limit,
   });
 
-  @GET(kCoinExUrlPathKLineData)
+  @GET(kCoinExPathKLineData)
   Future<HttpResponse<KLineDataResponse>> getKLineData({
     @Query('market') required String marketName,
     @Query('limit') int? limit,
     @Query('type') required String type,
   });
 
-  @GET(kCoinExUrlPathSingleMarketStatistics)
+  @GET(kCoinExPathSingleMarketStatistics)
   Future<HttpResponse<SingleMarketStatisticsResponse>>
       getSingleMarketStatistics({
     @Query('market') required String marketName,
   });
 
-  @GET(kCoinExUrlPathAllMarketStatistics)
+  @GET(kCoinExPathAllMarketStatistics)
   Future<HttpResponse<AllMarketStatisticsResponse>> getAllMarketStatistics();
 
-  @GET(kCoinExUrlPathCurrencyRate)
+  @GET(kCoinExPathCurrencyRate)
   Future<HttpResponse<CurrencyRateResponse>> getCurrencyRate();
 }
