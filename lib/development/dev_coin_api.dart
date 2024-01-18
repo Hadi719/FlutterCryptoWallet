@@ -50,7 +50,7 @@ class _LayoutBuilder extends StatelessWidget {
 }
 
 class _CoinCapButtons extends StatelessWidget {
-  const _CoinCapButtons({super.key});
+  const _CoinCapButtons();
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +77,7 @@ class _CoinCapButtons extends StatelessWidget {
 }
 
 class _CoinExButtons extends StatelessWidget {
-  const _CoinExButtons({super.key});
+  const _CoinExButtons();
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +176,7 @@ class _CoinExButtons extends StatelessWidget {
 }
 
 class _DataView extends StatelessWidget {
-  const _DataView({super.key});
+  const _DataView();
 
   @override
   Widget build(BuildContext context) {
@@ -217,7 +217,7 @@ class _DataView extends StatelessWidget {
 }
 
 class _ChangeIcon extends StatefulWidget {
-  const _ChangeIcon({super.key, required this.onPressed});
+  const _ChangeIcon({required this.onPressed});
 
   final Function() onPressed;
 
