@@ -24,7 +24,8 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
     // CoinCap
     on<DevCoinCapAssetsList>(_onDevCoinCapAssetsList);
     on<DevCoinCapAsset>(_onDevCoinCapAsset);
-    on<DevCoinCapAssetHistory>(_onDevCoinCapAssetHistory);
+    on<DevCoinCapAssetHistories>(_onDevCoinCapAssetHistories);
+    on<DevCoinCapAssetMarkets>(_onDevCoinCapAssetMarkets);
 
     // CoinEX
     on<DevCoinExAllMarketList>(_onDevCoinExAllMarketList);
@@ -92,8 +93,8 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
     }
   }
 
-  Future<void> _onDevCoinCapAssetHistory(
-    DevCoinCapAssetHistory event,
+  Future<void> _onDevCoinCapAssetHistories(
+    DevCoinCapAssetHistories event,
     Emitter<DevCoinState> emit,
   ) async {
     try {
@@ -101,7 +102,29 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
         status: DevCoinStatus.loading,
         lastEvent: DevCoinCapAsset(),
       ));
-      final data = await _RemoteCoinCap.getAssetHistory();
+      final data = await _RemoteCoinCap.getAssetHistories();
+      emit(state.copyWith(
+        status: DevCoinStatus.success,
+        data: data,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: DevCoinStatus.failure,
+        error: e,
+      ));
+    }
+  }
+
+  Future<void> _onDevCoinCapAssetMarkets(
+    DevCoinCapAssetMarkets event,
+    Emitter<DevCoinState> emit,
+  ) async {
+    try {
+      emit(state.copyWith(
+        status: DevCoinStatus.loading,
+        lastEvent: DevCoinCapAsset(),
+      ));
+      final data = await _RemoteCoinCap.getAssetMarkets();
       emit(state.copyWith(
         status: DevCoinStatus.success,
         data: data,
@@ -483,18 +506,34 @@ class _RemoteCoinCap {
     }
   }
 
-  static Future<AssetHistoriesResponse> getAssetHistory() async {
+  static Future<AssetHistoriesResponse> getAssetHistories() async {
     final DataState<AssetHistoriesResponse> response =
-        await serviceLocator<CoinCapApiRepository>().getAssetHistory(
+        await serviceLocator<CoinCapApiRepository>().getAssetHistories(
       request: const AssetHistoriesRequest(
         id: 'bitcoin',
       ),
     );
     if (response is DataSuccess) {
-      debugPrint('SUCCESS: $getAssetHistory()');
+      debugPrint('SUCCESS: $getAssetHistories()');
       return response.data!;
     } else {
-      debugPrint('FAILED: $getAssetHistory');
+      debugPrint('FAILED: $getAssetHistories');
+      throw response.error!;
+    }
+  }
+
+  static Future<AssetMarketsResponse> getAssetMarkets() async {
+    final DataState<AssetMarketsResponse> response =
+        await serviceLocator<CoinCapApiRepository>().getAssetMarkets(
+      request: const AssetMarketsRequest(
+        id: 'bitcoin',
+      ),
+    );
+    if (response is DataSuccess) {
+      debugPrint('SUCCESS: $getAssetMarkets()');
+      return response.data!;
+    } else {
+      debugPrint('FAILED: $getAssetMarkets');
       throw response.error!;
     }
   }

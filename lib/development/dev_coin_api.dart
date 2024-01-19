@@ -78,12 +78,22 @@ class _CoinCapButtons extends StatelessWidget {
               child: const Text('Asset'),
             ),
             ElevatedButton(
-              onPressed: state.runtimeType == DevCoinCapAssetHistory
+              onPressed: state.runtimeType == DevCoinCapAssetHistories
                   ? null
                   : () {
-                      context.read<DevCoinBloc>().add(DevCoinCapAssetHistory());
+                      context
+                          .read<DevCoinBloc>()
+                          .add(DevCoinCapAssetHistories());
                     },
-              child: const Text('AssetHistory'),
+              child: const Text('AssetHistories'),
+            ),
+            ElevatedButton(
+              onPressed: state.runtimeType == DevCoinCapAssetMarkets
+                  ? null
+                  : () {
+                      context.read<DevCoinBloc>().add(DevCoinCapAssetMarkets());
+                    },
+              child: const Text('AssetMarkets'),
             ),
           ],
         );
