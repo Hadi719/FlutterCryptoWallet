@@ -12,7 +12,12 @@ abstract class CoinCapRemoteDataSource {
       _CoinCapRemoteDataSource;
 
   @GET(kCoinCapPathAssetsList)
-  Future<HttpResponse<AssetsListResponse>> getAssetsList();
+  Future<HttpResponse<AssetsListResponse>> getAssetsList({
+    @Query('search') String? search,
+    @Query('ids') String? ids,
+    @Query('limit') int? limit,
+    @Query('offset') int? offset,
+  });
 
   @GET(kCoinCapPathAsset)
   Future<HttpResponse<AssetResponse>> getAsset({

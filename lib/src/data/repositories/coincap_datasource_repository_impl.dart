@@ -16,7 +16,12 @@ class CoinCapDataSourceRepositoryImpl extends BaseDataSourceRepository
     required AssetsListRequest request,
   }) {
     return getStateOf<AssetsListResponse>(
-      request: () => _coinCapRemoteDataSource.getAssetsList(),
+      request: () => _coinCapRemoteDataSource.getAssetsList(
+        search: request.search,
+        ids: request.ids,
+        limit: request.limit,
+        offset: request.offset,
+      ),
     );
   }
 

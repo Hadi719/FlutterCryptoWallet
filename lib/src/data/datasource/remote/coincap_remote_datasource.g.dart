@@ -21,9 +21,20 @@ class _CoinCapRemoteDataSource implements CoinCapRemoteDataSource {
   String? baseUrl;
 
   @override
-  Future<HttpResponse<AssetsListResponse>> getAssetsList() async {
+  Future<HttpResponse<AssetsListResponse>> getAssetsList({
+    String? search,
+    String? ids,
+    int? limit,
+    int? offset,
+  }) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'search': search,
+      r'ids': ids,
+      r'limit': limit,
+      r'offset': offset,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
