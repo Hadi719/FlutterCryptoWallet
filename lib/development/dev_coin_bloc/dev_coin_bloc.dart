@@ -23,6 +23,7 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
 
     // CoinCap
     on<DevCoinCapAssetsList>(_onDevCoinCapAssetsList);
+    on<DevCoinCapAsset>(_onDevCoinCapAsset);
 
     // CoinEX
     on<DevCoinExAllMarketList>(_onDevCoinExAllMarketList);
@@ -60,8 +61,33 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
         status: DevCoinStatus.success,
         data: data,
       ));
-    } catch (_) {
-      emit(state.copyWith(status: DevCoinStatus.failure));
+    } catch (e) {
+      emit(state.copyWith(
+        status: DevCoinStatus.failure,
+        error: e,
+      ));
+    }
+  }
+
+  Future<void> _onDevCoinCapAsset(
+    DevCoinCapAsset event,
+    Emitter<DevCoinState> emit,
+  ) async {
+    try {
+      emit(state.copyWith(
+        status: DevCoinStatus.loading,
+        lastEvent: DevCoinCapAsset(),
+      ));
+      final data = await _RemoteCoinCap.getAsset();
+      emit(state.copyWith(
+        status: DevCoinStatus.success,
+        data: data,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: DevCoinStatus.failure,
+        error: e,
+      ));
     }
   }
 
@@ -79,8 +105,11 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
         status: DevCoinStatus.success,
         data: data,
       ));
-    } catch (_) {
-      emit(state.copyWith(status: DevCoinStatus.failure));
+    } catch (e) {
+      emit(state.copyWith(
+        status: DevCoinStatus.failure,
+        error: e,
+      ));
     }
   }
 
@@ -98,8 +127,11 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
         status: DevCoinStatus.success,
         data: data,
       ));
-    } catch (_) {
-      emit(state.copyWith(status: DevCoinStatus.failure));
+    } catch (e) {
+      emit(state.copyWith(
+        status: DevCoinStatus.failure,
+        error: e,
+      ));
     }
   }
 
@@ -117,8 +149,11 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
         status: DevCoinStatus.success,
         data: data,
       ));
-    } catch (_) {
-      emit(state.copyWith(status: DevCoinStatus.failure));
+    } catch (e) {
+      emit(state.copyWith(
+        status: DevCoinStatus.failure,
+        error: e,
+      ));
     }
   }
 
@@ -136,8 +171,11 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
         status: DevCoinStatus.success,
         data: data,
       ));
-    } catch (_) {
-      emit(state.copyWith(status: DevCoinStatus.failure));
+    } catch (e) {
+      emit(state.copyWith(
+        status: DevCoinStatus.failure,
+        error: e,
+      ));
     }
   }
 
@@ -155,8 +193,11 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
         status: DevCoinStatus.success,
         data: data,
       ));
-    } catch (_) {
-      emit(state.copyWith(status: DevCoinStatus.failure));
+    } catch (e) {
+      emit(state.copyWith(
+        status: DevCoinStatus.failure,
+        error: e,
+      ));
     }
   }
 
@@ -174,8 +215,11 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
         status: DevCoinStatus.success,
         data: data,
       ));
-    } catch (_) {
-      emit(state.copyWith(status: DevCoinStatus.failure));
+    } catch (e) {
+      emit(state.copyWith(
+        status: DevCoinStatus.failure,
+        error: e,
+      ));
     }
   }
 
@@ -193,8 +237,11 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
         status: DevCoinStatus.success,
         data: data,
       ));
-    } catch (_) {
-      emit(state.copyWith(status: DevCoinStatus.failure));
+    } catch (e) {
+      emit(state.copyWith(
+        status: DevCoinStatus.failure,
+        error: e,
+      ));
     }
   }
 
@@ -212,8 +259,11 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
         status: DevCoinStatus.success,
         data: data,
       ));
-    } catch (_) {
-      emit(state.copyWith(status: DevCoinStatus.failure));
+    } catch (e) {
+      emit(state.copyWith(
+        status: DevCoinStatus.failure,
+        error: e,
+      ));
     }
   }
 
@@ -231,8 +281,11 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
         status: DevCoinStatus.success,
         data: data,
       ));
-    } catch (_) {
-      emit(state.copyWith(status: DevCoinStatus.failure));
+    } catch (e) {
+      emit(state.copyWith(
+        status: DevCoinStatus.failure,
+        error: e,
+      ));
     }
   }
 }
@@ -389,6 +442,20 @@ class _RemoteCoinCap {
       return response.data!;
     } else {
       debugPrint('FAILED: $getAssetsList');
+      throw response.error!;
+    }
+  }
+
+  static Future<AssetResponse> getAsset() async {
+    final DataState<AssetResponse> response =
+        await serviceLocator<CoinCapApiRepository>().getAsset(
+      request: const AssetRequest(id: 'bitcoin'),
+    );
+    if (response is DataSuccess) {
+      debugPrint('SUCCESS: $getAsset()');
+      return response.data!;
+    } else {
+      debugPrint('FAILED: $getAsset');
       throw response.error!;
     }
   }
