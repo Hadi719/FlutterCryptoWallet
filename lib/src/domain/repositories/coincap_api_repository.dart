@@ -9,10 +9,7 @@ abstract class CoinCapApiRepository {
   Future<DataState<AssetResponse>> getAsset({
     required AssetRequest request,
   });
-
-/*
-  Future<DataState<KLineDataResponse>> getKLineData({
-    required KLineDataRequest request,
+  Future<DataState<AssetHistoryResponse>> getAssetHistory({
+    required AssetHistoryRequest request,
   });
-*/
 }

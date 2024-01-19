@@ -23,14 +23,11 @@ abstract class CoinCapRemoteDataSource {
   Future<HttpResponse<AssetResponse>> getAsset({
     @Path('id') required String id,
   });
-
-/*
-
-  @GET(kCoinExUrlKLineData)
-  Future<HttpResponse<KLineDataResponse>> getKLineData({
-    @Query('market') required String marketName,
-    @Query('limit') int? limit,
-    @Query('type') required String type,
+  @GET(kCoinCapPathAssetHistory)
+  Future<HttpResponse<AssetHistoryResponse>> getAssetHistory({
+    @Path('id') required String id,
+    @Query('interval') required String interval,
+    @Query('start') int? start,
+    @Query('end') int? end,
   });
-*/
 }

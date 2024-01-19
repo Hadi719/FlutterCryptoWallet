@@ -35,16 +35,16 @@ class CoinCapDataSourceRepositoryImpl extends BaseDataSourceRepository
             ));
   }
 
-/*
   @override
-  Future<DataState<KLineDataResponse>> getKLineData(
-      {required KLineDataRequest request}) {
-    return getStateOf<KLineDataResponse>(
-        request: () => _coinExRemoteDataSource.getKLineData(
-          marketName: request.marketName,
-          limit: request.limit,
-          type: request.type.value,
-        ));
+  Future<DataState<AssetHistoryResponse>> getAssetHistory({
+    required AssetHistoryRequest request,
+  }) {
+    return getStateOf<AssetHistoryResponse>(
+        request: () => _coinCapRemoteDataSource.getAssetHistory(
+              id: request.id,
+              interval: request.interval.value,
+              start: request.start,
+              end: request.end,
+            ));
   }
-*/
 }
