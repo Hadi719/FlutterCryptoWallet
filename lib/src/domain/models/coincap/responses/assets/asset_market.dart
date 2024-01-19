@@ -38,14 +38,14 @@ class AssetMarket extends Equatable {
 
   factory AssetMarket.fromMap(Map<String, dynamic> mapData) {
     return AssetMarket(
-      exchangeId: mapData['data']['exchangeId'],
-      baseId: mapData['data']['baseId'],
-      quoteId: mapData['data']['quoteId'],
-      baseSymbol: mapData['data']['baseSymbol'],
-      quoteSymbol: mapData['data']['quoteSymbol'],
-      volumeUsd24Hr: double.tryParse(mapData['data']['volumeUsd24Hr'] ?? '0.0'),
-      priceUsd: double.tryParse(mapData['data']['priceUsd'] ?? '0.0'),
-      volumePercent: double.tryParse(mapData['data']['volumePercent'] ?? '0.0'),
+      exchangeId: mapData['exchangeId'],
+      baseId: mapData['baseId'],
+      quoteId: mapData['quoteId'],
+      baseSymbol: mapData['baseSymbol'],
+      quoteSymbol: mapData['quoteSymbol'],
+      volumeUsd24Hr: double.tryParse(mapData['volumeUsd24Hr'] ?? '0.0'),
+      priceUsd: double.tryParse(mapData['priceUsd'] ?? '0.0'),
+      volumePercent: double.tryParse(mapData['volumePercent'] ?? '0.0'),
     );
   }
 
