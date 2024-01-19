@@ -16,7 +16,7 @@ class AssetPriceHistory extends Equatable {
   factory AssetPriceHistory.fromMap(Map<String, dynamic> mapData) {
     return AssetPriceHistory(
       priceUsd: double.tryParse(mapData['priceUsd'] ?? '0.0'),
-      time: int.tryParse(mapData['time'] ?? '0'),
+      time: mapData['time'],
     );
   }
 

@@ -17,7 +17,7 @@ class AssetHistoryResponse extends Equatable {
       pricesList: List.from(mapData['data'])
           .map((e) => AssetPriceHistory.fromMap(e))
           .toList(),
-      timestamp: int.tryParse(mapData['timestamp'] ?? '0'),
+      timestamp: mapData['timestamp'],
     );
   }
 
