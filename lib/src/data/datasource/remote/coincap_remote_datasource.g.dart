@@ -88,7 +88,7 @@ class _CoinCapRemoteDataSource implements CoinCapRemoteDataSource {
   }
 
   @override
-  Future<HttpResponse<AssetHistoriesResponse>> getAssetHistory({
+  Future<HttpResponse<AssetHistoriesResponse>> getAssetHistories({
     required String id,
     required String interval,
     int? start,
@@ -121,6 +121,42 @@ class _CoinCapRemoteDataSource implements CoinCapRemoteDataSource {
               baseUrl,
             ))));
     final value = AssetHistoriesResponse.fromMap(_result.data!);
+    final httpResponse = HttpResponse(value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<AssetMarketsResponse>> getAssetMarkets({
+    required String id,
+    int? limit,
+    int? offset,
+  }) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'limit': limit,
+      r'offset': offset,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<HttpResponse<AssetMarketsResponse>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/assets/${id}/markets',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = AssetMarketsResponse.fromMap(_result.data!);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }

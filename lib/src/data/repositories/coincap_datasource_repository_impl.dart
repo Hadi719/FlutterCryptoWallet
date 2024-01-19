@@ -36,15 +36,27 @@ class CoinCapDataSourceRepositoryImpl extends BaseDataSourceRepository
   }
 
   @override
-  Future<DataState<AssetHistoriesResponse>> getAssetHistory({
+  Future<DataState<AssetHistoriesResponse>> getAssetHistories({
     required AssetHistoriesRequest request,
   }) {
     return getStateOf<AssetHistoriesResponse>(
-        request: () => _coinCapRemoteDataSource.getAssetHistory(
+        request: () => _coinCapRemoteDataSource.getAssetHistories(
               id: request.id,
               interval: request.interval.value,
               start: request.start,
               end: request.end,
+            ));
+  }
+
+  @override
+  Future<DataState<AssetMarketsResponse>> getAssetMarkets({
+    required AssetMarketsRequest request,
+  }) {
+    return getStateOf<AssetMarketsResponse>(
+        request: () => _coinCapRemoteDataSource.getAssetMarkets(
+              id: request.id,
+              limit: request.limit,
+              offset: request.offset,
             ));
   }
 }
