@@ -24,7 +24,7 @@ abstract class CoinCapRemoteDataSource {
     @Path('id') required String id,
   });
   @GET(kCoinCapPathAssetHistory)
-  Future<HttpResponse<AssetHistoryResponse>> getAssetHistory({
+  Future<HttpResponse<AssetHistoriesResponse>> getAssetHistory({
     @Path('id') required String id,
     @Query('interval') required String interval,
     @Query('start') int? start,

@@ -1,5 +1,5 @@
-class AssetHistoryRequest {
-  const AssetHistoryRequest({
+class AssetHistoriesRequest {
+  const AssetHistoriesRequest({
     required this.id,
     this.interval = Intervals.oneDay,
     this.start,

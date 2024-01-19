@@ -483,10 +483,10 @@ class _RemoteCoinCap {
     }
   }
 
-  static Future<AssetHistoryResponse> getAssetHistory() async {
-    final DataState<AssetHistoryResponse> response =
+  static Future<AssetHistoriesResponse> getAssetHistory() async {
+    final DataState<AssetHistoriesResponse> response =
         await serviceLocator<CoinCapApiRepository>().getAssetHistory(
-      request: const AssetHistoryRequest(
+      request: const AssetHistoriesRequest(
         id: 'bitcoin',
       ),
     );

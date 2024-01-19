@@ -3,8 +3,8 @@ import 'package:equatable/equatable.dart';
 import 'asset_history.dart';
 
 /// volume-weighted price based on real-time market data, translated to USD
-class AssetHistoryResponse extends Equatable {
-  const AssetHistoryResponse({
+class AssetHistoriesResponse extends Equatable {
+  const AssetHistoriesResponse({
     this.historiesList = const [],
     this.timestamp,
   });
@@ -12,8 +12,8 @@ class AssetHistoryResponse extends Equatable {
 
   final int? timestamp;
 
-  factory AssetHistoryResponse.fromMap(Map<String, dynamic> mapData) {
-    return AssetHistoryResponse(
+  factory AssetHistoriesResponse.fromMap(Map<String, dynamic> mapData) {
+    return AssetHistoriesResponse(
       historiesList: List.from(mapData['data'])
           .map((e) => AssetHistory.fromMap(e))
           .toList(),

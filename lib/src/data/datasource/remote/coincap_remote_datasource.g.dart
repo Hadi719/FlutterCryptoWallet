@@ -88,7 +88,7 @@ class _CoinCapRemoteDataSource implements CoinCapRemoteDataSource {
   }
 
   @override
-  Future<HttpResponse<AssetHistoryResponse>> getAssetHistory({
+  Future<HttpResponse<AssetHistoriesResponse>> getAssetHistory({
     required String id,
     required String interval,
     int? start,
@@ -104,7 +104,7 @@ class _CoinCapRemoteDataSource implements CoinCapRemoteDataSource {
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<AssetHistoryResponse>>(Options(
+        _setStreamType<HttpResponse<AssetHistoriesResponse>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -120,7 +120,7 @@ class _CoinCapRemoteDataSource implements CoinCapRemoteDataSource {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = AssetHistoryResponse.fromMap(_result.data!);
+    final value = AssetHistoriesResponse.fromMap(_result.data!);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }
