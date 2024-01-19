@@ -12,7 +12,7 @@ class AssetResponse extends Equatable {
   final String? id;
 
   /// rank is in ascending order - this number is directly associated with the marketcap whereas the highest marketcap receives rank 1
-  final String? rank;
+  final int? rank;
 
   /// most common symbol used to identify this asset on an exchange
   final String? symbol;
@@ -21,25 +21,25 @@ class AssetResponse extends Equatable {
   final String? name;
 
   /// available supply for trading
-  final String? supply;
+  final double? supply;
 
   /// total quantity of asset issued
-  final String? maxSupply;
+  final double? maxSupply;
 
   /// supply x price
-  final String? marketCapUsd;
+  final double? marketCapUsd;
 
   /// quantity of trading volume represented in USD over the last 24 hours
-  final String? volumeUsd24Hr;
+  final double? volumeUsd24Hr;
 
   /// volume-weighted price based on real-time market data, translated to USD
-  final String? priceUsd;
+  final double? priceUsd;
 
   /// the direction and value change in the last 24 hours
-  final String? changePercent24Hr;
+  final double? changePercent24Hr;
 
   /// Volume Weighted Average Price in the last 24 hours
-  final String? vwap24Hr;
+  final double? vwap24Hr;
 
   ///
   final String? explorer;
@@ -64,19 +64,20 @@ class AssetResponse extends Equatable {
   });
 
   factory AssetResponse.fromMap(Map<String, dynamic> json) {
+    Map<String, dynamic> data = json['data'] ?? json;
     return AssetResponse(
-      id: json['id'],
-      rank: json['rank'],
-      symbol: json['symbol'],
-      name: json['name'],
-      supply: json['supply'],
-      maxSupply: json['maxSupply'],
-      marketCapUsd: json['marketCapUsd'],
-      volumeUsd24Hr: json['volumeUsd24Hr'],
-      priceUsd: json['priceUsd'],
-      changePercent24Hr: json['changePercent24Hr'],
-      vwap24Hr: json['vwap24Hr'],
-      explorer: json['explorer'],
+      id: data['id'],
+      rank: int.tryParse(data['rank'] ?? '9999999'),
+      symbol: data['symbol'],
+      name: data['name'],
+      supply: double.tryParse(data['supply'] ?? '0.0'),
+      maxSupply: double.tryParse(data['maxSupply'] ?? '0.0'),
+      marketCapUsd: double.tryParse(data['marketCapUsd'] ?? '0.0'),
+      volumeUsd24Hr: double.tryParse(data['volumeUsd24Hr'] ?? '0.0'),
+      priceUsd: double.tryParse(data['priceUsd'] ?? '0.0'),
+      changePercent24Hr: double.tryParse(data['changePercent24Hr'] ?? '0.0'),
+      vwap24Hr: double.tryParse(data['vwap24Hr'] ?? '0.0'),
+      explorer: data['explorer'],
       timestamp: json['timestamp'],
     );
   }
