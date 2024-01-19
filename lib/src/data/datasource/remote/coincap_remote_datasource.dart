@@ -14,6 +14,11 @@ abstract class CoinCapRemoteDataSource {
   @GET(kCoinCapPathAssetsList)
   Future<HttpResponse<AssetsListResponse>> getAssetsList();
 
+  @GET(kCoinCapPathAsset)
+  Future<HttpResponse<AssetResponse>> getAsset({
+    @Path('id') required String id,
+  });
+
 /*
 
   @GET(kCoinExUrlKLineData)
