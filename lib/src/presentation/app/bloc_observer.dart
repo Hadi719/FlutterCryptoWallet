@@ -21,7 +21,7 @@ class AppBlocObserver extends BlocObserver {
     super.onChange(bloc, change);
     print(change);
   }
-
+/*
   @override
   void onTransition(
     Bloc<dynamic, dynamic> bloc,
@@ -30,4 +30,5 @@ class AppBlocObserver extends BlocObserver {
     super.onTransition(bloc, transition);
     print(transition);
   }
+  */
 }
