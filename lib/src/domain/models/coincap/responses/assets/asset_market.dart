@@ -1,0 +1,66 @@
+import 'package:equatable/equatable.dart';
+
+class AssetMarket extends Equatable {
+  const AssetMarket({
+    this.exchangeId,
+    this.baseId,
+    this.quoteId,
+    this.baseSymbol,
+    this.quoteSymbol,
+    this.volumeUsd24Hr,
+    this.priceUsd,
+    this.volumePercent,
+  });
+
+  /// unique identifier for exchange
+  final String? exchangeId;
+
+  /// unique identifier for this asset, base is asset purchased
+  final String? baseId;
+
+  /// unique identifier for this asset, quote is asset used to purchase based
+  final String? quoteId;
+
+  /// most common symbol used to identify asset, base is asset purchased
+  final String? baseSymbol;
+
+  /// most common symbol used to identify asset, quote is asset used to purchase base
+  final String? quoteSymbol;
+
+  /// volume transacted on this market in last 24 hours
+  final double? volumeUsd24Hr;
+
+  /// the amount of quote asset traded for one unit of base asset
+  final double? priceUsd;
+
+  /// percent of quote asset volume
+  final double? volumePercent;
+
+  factory AssetMarket.fromMap(Map<String, dynamic> mapData) {
+    return AssetMarket(
+      exchangeId: mapData['data']['exchangeId'],
+      baseId: mapData['data']['baseId'],
+      quoteId: mapData['data']['quoteId'],
+      baseSymbol: mapData['data']['baseSymbol'],
+      quoteSymbol: mapData['data']['quoteSymbol'],
+      volumeUsd24Hr: double.tryParse(mapData['data']['volumeUsd24Hr'] ?? '0.0'),
+      priceUsd: double.tryParse(mapData['data']['priceUsd'] ?? '0.0'),
+      volumePercent: double.tryParse(mapData['data']['volumePercent'] ?? '0.0'),
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        exchangeId,
+        baseId,
+        quoteId,
+        baseSymbol,
+        quoteSymbol,
+        volumeUsd24Hr,
+        priceUsd,
+        volumePercent,
+      ];
+
+  @override
+  bool get stringify => true;
+}
