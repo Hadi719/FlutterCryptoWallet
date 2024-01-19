@@ -100,7 +100,7 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
     try {
       emit(state.copyWith(
         status: DevCoinStatus.loading,
-        lastEvent: DevCoinCapAsset(),
+        lastEvent: DevCoinCapAssetHistories(),
       ));
       final data = await _RemoteCoinCap.getAssetHistories();
       emit(state.copyWith(
@@ -122,7 +122,7 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
     try {
       emit(state.copyWith(
         status: DevCoinStatus.loading,
-        lastEvent: DevCoinCapAsset(),
+        lastEvent: DevCoinCapAssetMarkets(),
       ));
       final data = await _RemoteCoinCap.getAssetMarkets();
       emit(state.copyWith(
