@@ -67,7 +67,15 @@ class _CoinCapButtons extends StatelessWidget {
                   : () {
                       context.read<DevCoinBloc>().add(DevCoinCapAssetsList());
                     },
-              child: const Text('Assets'),
+              child: const Text('AssetsList'),
+            ),
+            ElevatedButton(
+              onPressed: state.runtimeType == DevCoinCapAsset
+                  ? null
+                  : () {
+                      context.read<DevCoinBloc>().add(DevCoinCapAsset());
+                    },
+              child: const Text('Asset'),
             ),
           ],
         );
@@ -198,10 +206,10 @@ class _DataView extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 );
               case DevCoinStatus.failure:
-                return const Center(
+                return Center(
                   child: Text(
-                    'Failed to get data',
-                    style: TextStyle(color: Colors.red),
+                    'Failed to get data\n${state.error.toString()}',
+                    style: const TextStyle(color: Colors.red),
                   ),
                 );
               case DevCoinStatus.success:
