@@ -1,7 +1,7 @@
 class AssetHistoryRequest {
   const AssetHistoryRequest({
     required this.id,
-    this.interval = Intervals.oneMinute,
+    this.interval = Intervals.oneDay,
     this.start,
     this.end,
   });
