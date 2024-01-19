@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../asset_price_history.dart';
+import '../../asset_price_history.dart';
 
 /// volume-weighted price based on real-time market data, translated to USD
 class AssetHistoryResponse extends Equatable {
