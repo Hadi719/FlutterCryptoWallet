@@ -3,8 +3,10 @@ import 'package:equatable/equatable.dart';
 import 'asset_response.dart';
 
 class AssetsListResponse extends Equatable {
-  const AssetsListResponse(
-      {this.assetsList = const [], required this.timestamp});
+  const AssetsListResponse({
+    this.assetsList = const [],
+    required this.timestamp,
+  });
 
   final List<AssetResponse> assetsList;
   final int timestamp;
