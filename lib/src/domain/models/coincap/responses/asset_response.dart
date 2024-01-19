@@ -41,8 +41,8 @@ class AssetResponse extends Equatable {
   /// Volume Weighted Average Price in the last 24 hours
   final double? vwap24Hr;
 
-  ///
-  final String? explorer;
+  /// Coin website.
+  final String? website;
 
   ///
   final int? timestamp;
@@ -59,7 +59,7 @@ class AssetResponse extends Equatable {
     this.priceUsd,
     this.changePercent24Hr,
     this.vwap24Hr,
-    this.explorer,
+    this.website,
     this.timestamp,
   });
 
@@ -77,7 +77,7 @@ class AssetResponse extends Equatable {
       priceUsd: double.tryParse(data['priceUsd'] ?? '0.0'),
       changePercent24Hr: double.tryParse(data['changePercent24Hr'] ?? '0.0'),
       vwap24Hr: double.tryParse(data['vwap24Hr'] ?? '0.0'),
-      explorer: data['explorer'],
+      website: data['explorer'],
       timestamp: json['timestamp'],
     );
   }
@@ -95,7 +95,7 @@ class AssetResponse extends Equatable {
         priceUsd,
         changePercent24Hr,
         vwap24Hr,
-        explorer,
+        website,
         timestamp,
       ];
 
