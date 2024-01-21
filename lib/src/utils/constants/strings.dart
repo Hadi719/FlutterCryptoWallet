@@ -38,3 +38,18 @@ const String kIconPathDOT = '${kIconsDirPath}DOT.png';
 const String kIconPathDOGE = '${kIconsDirPath}DOGE.png';
 
 // Storage and Databases
+
+// Utils
+/// Making [double.tryParse()] returns null instead of an error;
+///
+/// ```dart
+/// double.tryParse(map['maxSupply'] ?? kDoubleRevoker);
+/// ```
+const String kDoubleRevoker = '0xFF';
+
+/// Making [int.tryParse()] returns null instead of an error;
+///
+/// ```dart
+/// double.tryParse(map['maxSupply'] ?? kIntRevoker);
+/// ```
+const String kIntRevoker = '1f';
