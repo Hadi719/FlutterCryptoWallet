@@ -1,4 +1,5 @@
 import '../../src/domain/models/coinex/crypto.dart';
+import '../../src/utils/constants/strings.dart';
 
 /// {@template SingleMarketStatistics}
 ///
@@ -12,30 +13,30 @@ class SingleMarketStatistics {
   const SingleMarketStatistics({
     this.cryptoDetail = CoinExCryptoDetail.unknown,
     required this.serverTime,
-    required this.latestTransactionPrice,
-    required this.buyPrice,
-    required this.buyAmount,
-    required this.sellPrice,
-    required this.sellAmount,
-    required this.openingPrice24H,
-    required this.highestPrice24H,
-    required this.lowestPrice24H,
-    required this.volume24H,
+    this.latestTransactionPrice,
+    this.buyPrice,
+    this.buyAmount,
+    this.sellPrice,
+    this.sellAmount,
+    this.openingPrice24H,
+    this.highestPrice24H,
+    this.lowestPrice24H,
+    this.volume24H,
   });
 
   static const urlPath = '/market/ticker';
 
   final CoinExCryptoDetail cryptoDetail;
   final DateTime serverTime;
-  final double latestTransactionPrice;
-  final double buyPrice;
-  final double buyAmount;
-  final double sellPrice;
-  final double sellAmount;
-  final double openingPrice24H;
-  final double highestPrice24H;
-  final double lowestPrice24H;
-  final double volume24H;
+  final double? latestTransactionPrice;
+  final double? buyPrice;
+  final double? buyAmount;
+  final double? sellPrice;
+  final double? sellAmount;
+  final double? openingPrice24H;
+  final double? highestPrice24H;
+  final double? lowestPrice24H;
+  final double? volume24H;
 
   factory SingleMarketStatistics.fromJson(
     Map<String, dynamic> jsonData, {
@@ -49,15 +50,15 @@ class SingleMarketStatistics {
       serverTime: time != null
           ? DateTime.fromMillisecondsSinceEpoch(time)
           : DateTime.now(),
-      latestTransactionPrice: double.tryParse(data['last']) ?? 0.0,
-      buyPrice: double.tryParse(data['buy']) ?? 0.0,
-      buyAmount: double.tryParse(data['buy_amount']) ?? 0.0,
-      sellPrice: double.tryParse(data['sell']) ?? 0.0,
-      sellAmount: double.tryParse(data['sell_amount']) ?? 0.0,
-      openingPrice24H: double.tryParse(data['open']) ?? 0.0,
-      highestPrice24H: double.tryParse(data['high']) ?? 0.0,
-      lowestPrice24H: double.tryParse(data['low']) ?? 0.0,
-      volume24H: double.tryParse(data['vol']) ?? 0.0,
+      latestTransactionPrice: double.tryParse(data['last'] ?? kDoubleRevoker),
+      buyPrice: double.tryParse(data['buy'] ?? kDoubleRevoker),
+      buyAmount: double.tryParse(data['buy_amount'] ?? kDoubleRevoker),
+      sellPrice: double.tryParse(data['sell'] ?? kDoubleRevoker),
+      sellAmount: double.tryParse(data['sell_amount'] ?? kDoubleRevoker),
+      openingPrice24H: double.tryParse(data['open'] ?? kDoubleRevoker),
+      highestPrice24H: double.tryParse(data['high'] ?? kDoubleRevoker),
+      lowestPrice24H: double.tryParse(data['low'] ?? kDoubleRevoker),
+      volume24H: double.tryParse(data['vol'] ?? kDoubleRevoker),
     );
   }
   factory SingleMarketStatistics.fromAllMarket(
@@ -70,15 +71,16 @@ class SingleMarketStatistics {
       serverTime: time != null
           ? DateTime.fromMillisecondsSinceEpoch(time)
           : DateTime.now(),
-      latestTransactionPrice: double.tryParse(jsonData['last']) ?? 0.0,
-      buyPrice: double.tryParse(jsonData['buy']) ?? 0.0,
-      buyAmount: double.tryParse(jsonData['buy_amount']) ?? 0.0,
-      sellPrice: double.tryParse(jsonData['sell']) ?? 0.0,
-      sellAmount: double.tryParse(jsonData['sell_amount']) ?? 0.0,
-      openingPrice24H: double.tryParse(jsonData['open']) ?? 0.0,
-      highestPrice24H: double.tryParse(jsonData['high']) ?? 0.0,
-      lowestPrice24H: double.tryParse(jsonData['low']) ?? 0.0,
-      volume24H: double.tryParse(jsonData['vol']) ?? 0.0,
+      latestTransactionPrice:
+          double.tryParse(jsonData['last'] ?? kDoubleRevoker),
+      buyPrice: double.tryParse(jsonData['buy'] ?? kDoubleRevoker),
+      buyAmount: double.tryParse(jsonData['buy_amount'] ?? kDoubleRevoker),
+      sellPrice: double.tryParse(jsonData['sell'] ?? kDoubleRevoker),
+      sellAmount: double.tryParse(jsonData['sell_amount'] ?? kDoubleRevoker),
+      openingPrice24H: double.tryParse(jsonData['open'] ?? kDoubleRevoker),
+      highestPrice24H: double.tryParse(jsonData['high'] ?? kDoubleRevoker),
+      lowestPrice24H: double.tryParse(jsonData['low'] ?? kDoubleRevoker),
+      volume24H: double.tryParse(jsonData['vol'] ?? kDoubleRevoker),
     );
   }
 

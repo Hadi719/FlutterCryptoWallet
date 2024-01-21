@@ -6,9 +6,9 @@ import '../../../utils/constants/strings.dart';
 class CoinExCrypto extends Equatable {
   const CoinExCrypto({
     required this.marketName,
-    required this.minAmount,
-    required this.markerFeeRate,
-    required this.takerFeeRate,
+    this.minAmount,
+    this.markerFeeRate,
+    this.takerFeeRate,
     required this.pricingName,
     required this.pricingDecimal,
     required this.tradingName,
@@ -16,9 +16,9 @@ class CoinExCrypto extends Equatable {
   });
 
   final String marketName;
-  final double minAmount;
-  final double markerFeeRate;
-  final double takerFeeRate;
+  final double? minAmount;
+  final double? markerFeeRate;
+  final double? takerFeeRate;
   final String pricingName;
   final int pricingDecimal;
   final String tradingName;
@@ -28,9 +28,9 @@ class CoinExCrypto extends Equatable {
     Map<String, dynamic> data = jsonData['data'];
     return CoinExCrypto(
       marketName: data['name'] ?? '',
-      minAmount: double.tryParse(data['min_amount']) ?? 0.0,
-      markerFeeRate: double.tryParse(data['maker_fee_rate']) ?? 0.0,
-      takerFeeRate: double.tryParse(data['taker_fee_rate']) ?? 0.0,
+      minAmount: double.tryParse(data['min_amount'] ?? kDoubleRevoker),
+      markerFeeRate: double.tryParse(data['maker_fee_rate'] ?? kDoubleRevoker),
+      takerFeeRate: double.tryParse(data['taker_fee_rate'] ?? kDoubleRevoker),
       pricingName: data['pricing_name'] ?? '',
       pricingDecimal: data['pricing_decimal'] ?? 0,
       tradingName: data['trading_name'] ?? '',

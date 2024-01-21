@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import '../../../../../utils/constants/strings.dart';
+
 /// volume-weighted price based on real-time market data, translated to USD
 class AssetHistory extends Equatable {
   const AssetHistory({
@@ -15,7 +17,7 @@ class AssetHistory extends Equatable {
 
   factory AssetHistory.fromMap(Map<String, dynamic> mapData) {
     return AssetHistory(
-      priceUsd: double.tryParse(mapData['priceUsd'] ?? '0.0'),
+      priceUsd: double.tryParse(mapData['priceUsd'] ?? kDoubleRevoker),
       time: mapData['time'],
     );
   }

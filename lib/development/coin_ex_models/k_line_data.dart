@@ -1,3 +1,5 @@
+import '../../src/utils/constants/strings.dart';
+
 /// {@template KLineData}
 ///
 /// k-line data of a single market.
@@ -10,22 +12,22 @@ class KLineData {
   /// {@macro KLineData}
   KLineData({
     required this.dateTime,
-    required this.openingPrice,
-    required this.closingPrice,
-    required this.highestPrice,
-    required this.lowestPrice,
-    required this.tradingVolume,
-    required this.tradingAmount,
+    this.openingPrice,
+    this.closingPrice,
+    this.highestPrice,
+    this.lowestPrice,
+    this.tradingVolume,
+    this.tradingAmount,
   });
   static const urlPath = '/market/kline';
 
   final DateTime dateTime;
-  final double openingPrice;
-  final double closingPrice;
-  final double highestPrice;
-  final double lowestPrice;
-  final double tradingVolume;
-  final double tradingAmount;
+  final double? openingPrice;
+  final double? closingPrice;
+  final double? highestPrice;
+  final double? lowestPrice;
+  final double? tradingVolume;
+  final double? tradingAmount;
 
   factory KLineData.fromJson(List<dynamic> jsonData) {
     return KLineData(
@@ -33,12 +35,12 @@ class KLineData {
         jsonData[0] * 1000,
         isUtc: true,
       ).toLocal(),
-      openingPrice: double.tryParse(jsonData[1]) ?? 0.0,
-      closingPrice: double.tryParse(jsonData[2]) ?? 0.0,
-      highestPrice: double.tryParse(jsonData[3]) ?? 0.0,
-      lowestPrice: double.tryParse(jsonData[4]) ?? 0.0,
-      tradingVolume: double.tryParse(jsonData[5]) ?? 0.0,
-      tradingAmount: double.tryParse(jsonData[6]) ?? 0.0,
+      openingPrice: double.tryParse(jsonData[1] ?? kDoubleRevoker),
+      closingPrice: double.tryParse(jsonData[2] ?? kDoubleRevoker),
+      highestPrice: double.tryParse(jsonData[3] ?? kDoubleRevoker),
+      lowestPrice: double.tryParse(jsonData[4] ?? kDoubleRevoker),
+      tradingVolume: double.tryParse(jsonData[5] ?? kDoubleRevoker),
+      tradingAmount: double.tryParse(jsonData[6] ?? kDoubleRevoker),
     );
   }
 

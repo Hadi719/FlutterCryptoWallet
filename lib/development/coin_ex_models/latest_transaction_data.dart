@@ -1,3 +1,5 @@
+import '../../src/utils/constants/strings.dart';
+
 /// {@template LatestTransactionData}
 ///
 /// latest transaction data of a single market.
@@ -12,8 +14,8 @@ class LatestTransactionData {
     required this.id,
     required this.dateTime,
     required this.dateTimeMilliseconds,
-    required this.amount,
-    required this.price,
+    this.amount,
+    this.price,
     required this.type,
   });
 
@@ -22,8 +24,8 @@ class LatestTransactionData {
   final int id;
   final int dateTime;
   final DateTime dateTimeMilliseconds;
-  final double amount;
-  final double price;
+  final double? amount;
+  final double? price;
   final String type;
 
   factory LatestTransactionData.fromJson(Map<String, dynamic> jsonData) {
@@ -32,8 +34,8 @@ class LatestTransactionData {
       dateTime: jsonData['date'] ?? 0,
       dateTimeMilliseconds:
           DateTime.fromMillisecondsSinceEpoch(jsonData['date_ms']),
-      amount: double.tryParse(jsonData['amount']) ?? 0.0,
-      price: double.tryParse(jsonData['price']) ?? 0.0,
+      amount: double.tryParse(jsonData['amount'] ?? kDoubleRevoker),
+      price: double.tryParse(jsonData['price'] ?? kDoubleRevoker),
       type: jsonData['type'] ?? '',
     );
   }

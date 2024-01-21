@@ -1,3 +1,5 @@
+import '../../src/utils/constants/strings.dart';
+
 /// {@template CurrencyRate}
 ///
 /// The exchange rate of all cryptocurrencies to USD
@@ -10,29 +12,29 @@ class CurrencyRate {
   static const String urlPath = '/common/currency/rate';
 
   CurrencyRate({
-    required this.crUSDT,
-    required this.crUSDC,
-    required this.crBTC,
-    required this.crBCH,
-    required this.crETH,
-    required this.crCET,
+    this.crUSDT,
+    this.crUSDC,
+    this.crBTC,
+    this.crBCH,
+    this.crETH,
+    this.crCET,
   });
 
-  double crUSDT;
-  double crUSDC;
-  double crBTC;
-  double crBCH;
-  double crETH;
-  double crCET;
+  double? crUSDT;
+  double? crUSDC;
+  double? crBTC;
+  double? crBCH;
+  double? crETH;
+  double? crCET;
 
   factory CurrencyRate.fromJson(Map<String, dynamic> jsonData) {
     return CurrencyRate(
-      crUSDT: double.tryParse(jsonData['USDT_to_USD']) ?? 0.0,
-      crUSDC: double.tryParse(jsonData['USDC_to_USD']) ?? 0.0,
-      crBTC: double.tryParse(jsonData['BTC_to_USD']) ?? 0.0,
-      crBCH: double.tryParse(jsonData['BCH_to_USD']) ?? 0.0,
-      crETH: double.tryParse(jsonData['ETH_to_USD']) ?? 0.0,
-      crCET: double.tryParse(jsonData['CET_to_USD']) ?? 0.0,
+      crUSDT: double.tryParse(jsonData['USDT_to_USD'] ?? kDoubleRevoker),
+      crUSDC: double.tryParse(jsonData['USDC_to_USD'] ?? kDoubleRevoker),
+      crBTC: double.tryParse(jsonData['BTC_to_USD'] ?? kDoubleRevoker),
+      crBCH: double.tryParse(jsonData['BCH_to_USD'] ?? kDoubleRevoker),
+      crETH: double.tryParse(jsonData['ETH_to_USD'] ?? kDoubleRevoker),
+      crCET: double.tryParse(jsonData['CET_to_USD'] ?? kDoubleRevoker),
     );
   }
 

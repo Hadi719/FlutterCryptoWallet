@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 
+import '../../../../utils/constants/strings.dart';
 import '../crypto.dart';
 
 /// {@template SingleMarketInfoResponse}
@@ -11,18 +12,18 @@ import '../crypto.dart';
 /// {@endtemplate}
 class SingleMarketInfoResponse extends Equatable {
   final CoinExCryptoDetail cryptoDetail;
-  final double minAmount;
-  final double takerFeeRate;
-  final double makerFeeRate;
+  final double? minAmount;
+  final double? takerFeeRate;
+  final double? makerFeeRate;
   final int tradingDecimal;
   final int pricingDecimal;
 
   /// {@macro SingleMarketInfoResponse}
   const SingleMarketInfoResponse({
     required this.cryptoDetail,
-    required this.minAmount,
-    required this.takerFeeRate,
-    required this.makerFeeRate,
+    this.minAmount,
+    this.takerFeeRate,
+    this.makerFeeRate,
     required this.tradingDecimal,
     required this.pricingDecimal,
   });
@@ -32,9 +33,11 @@ class SingleMarketInfoResponse extends Equatable {
     var mapData = map['data'] ?? map;
     return SingleMarketInfoResponse(
         cryptoDetail: CoinExCryptoDetail.fromMarketName(mapData['name']),
-        minAmount: double.tryParse(mapData['min_amount']) ?? 0.0,
-        takerFeeRate: double.tryParse(mapData['taker_fee_rate']) ?? 0.0,
-        makerFeeRate: double.tryParse(mapData['maker_fee_rate']) ?? 0.0,
+        minAmount: double.tryParse(mapData['min_amount'] ?? kDoubleRevoker),
+        takerFeeRate:
+            double.tryParse(mapData['taker_fee_rate'] ?? kDoubleRevoker),
+        makerFeeRate:
+            double.tryParse(mapData['maker_fee_rate'] ?? kDoubleRevoker),
         tradingDecimal: mapData['trading_decimal'] ?? 0,
         pricingDecimal: mapData['pricing_decimal'] ?? 0);
   }

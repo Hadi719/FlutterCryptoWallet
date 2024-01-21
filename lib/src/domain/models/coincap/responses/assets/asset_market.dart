@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import '../../../../../utils/constants/strings.dart';
+
 class AssetMarket extends Equatable {
   const AssetMarket({
     this.exchangeId,
@@ -43,9 +45,11 @@ class AssetMarket extends Equatable {
       quoteId: mapData['quoteId'],
       baseSymbol: mapData['baseSymbol'],
       quoteSymbol: mapData['quoteSymbol'],
-      volumeUsd24Hr: double.tryParse(mapData['volumeUsd24Hr'] ?? '0.0'),
-      priceUsd: double.tryParse(mapData['priceUsd'] ?? '0.0'),
-      volumePercent: double.tryParse(mapData['volumePercent'] ?? '0.0'),
+      volumeUsd24Hr:
+          double.tryParse(mapData['volumeUsd24Hr'] ?? kDoubleRevoker),
+      priceUsd: double.tryParse(mapData['priceUsd'] ?? kDoubleRevoker),
+      volumePercent:
+          double.tryParse(mapData['volumePercent'] ?? kDoubleRevoker),
     );
   }
 

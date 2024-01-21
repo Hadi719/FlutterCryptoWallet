@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import '../../../../utils/constants/strings.dart';
+
 /// {@template LatestTransactionDataResponse}
 ///
 /// Gets the latest transaction data of a single market.
@@ -38,8 +40,8 @@ class LatestTransactionData extends Equatable {
   final int id;
   final int dateTime;
   final DateTime dateTimeMilliseconds;
-  final double amount;
-  final double price;
+  final double? amount;
+  final double? price;
   final LatestTransactionDataType type;
 
   /// {@macro: LatestTransactionDataResponse}
@@ -47,8 +49,8 @@ class LatestTransactionData extends Equatable {
     required this.id,
     required this.dateTime,
     required this.dateTimeMilliseconds,
-    required this.amount,
-    required this.price,
+    this.amount,
+    this.price,
     required this.type,
   });
 
@@ -58,8 +60,8 @@ class LatestTransactionData extends Equatable {
       id: map['id'] ?? 0,
       dateTime: map['date'] ?? 0,
       dateTimeMilliseconds: DateTime.fromMillisecondsSinceEpoch(map['date_ms']),
-      amount: double.tryParse(map['amount']) ?? 0.0,
-      price: double.tryParse(map['price']) ?? 0.0,
+      amount: double.tryParse(map['amount'] ?? kDoubleRevoker),
+      price: double.tryParse(map['price'] ?? kDoubleRevoker),
       type: LatestTransactionDataType.fromString(map['type']),
     );
   }

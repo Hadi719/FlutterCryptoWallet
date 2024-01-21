@@ -1,3 +1,5 @@
+import '../../src/utils/constants/strings.dart';
+
 /// {@template MarketDepth}
 ///
 /// Market depth in a single market.
@@ -9,7 +11,7 @@
 class MarketDepth {
   /// {@macro MarketDepth}
   const MarketDepth({
-    required this.latestTransactionPrice,
+    this.latestTransactionPrice,
     required this.time,
     this.askOrders = const <Order>[],
     this.bidOrders = const <Order>[],
@@ -17,7 +19,7 @@ class MarketDepth {
 
   static const urlPath = '/market/depth';
 
-  final double latestTransactionPrice;
+  final double? latestTransactionPrice;
   final DateTime time;
   final List<Order> askOrders;
   final List<Order> bidOrders;
@@ -25,7 +27,7 @@ class MarketDepth {
   factory MarketDepth.fromJson(Map<String, dynamic> jsonData) {
     Map<String, dynamic> data = jsonData['data'];
     return MarketDepth(
-      latestTransactionPrice: double.tryParse(data['last']) ?? 0.0,
+      latestTransactionPrice: double.tryParse(data['last'] ?? kDoubleRevoker),
       time: DateTime.fromMillisecondsSinceEpoch(data['time']),
       askOrders: (data['asks'] as List).map((e) => Order.fromJson(e)).toList(),
       bidOrders: (data['bids'] as List).map((e) => Order.fromJson(e)).toList(),
@@ -43,17 +45,17 @@ class MarketDepth {
 
 class Order {
   Order({
-    this.price = 0.0,
-    this.amount = 0.0,
+    this.price,
+    this.amount,
   });
 
-  final double price;
-  final double amount;
+  final double? price;
+  final double? amount;
 
   factory Order.fromJson(List<String> jsonData) {
     return Order(
-      price: double.tryParse(jsonData[0][0]) ?? 0.0,
-      amount: double.tryParse(jsonData[0][1]) ?? 0.0,
+      price: double.tryParse(jsonData[0][0] ?? kDoubleRevoker),
+      amount: double.tryParse(jsonData[0][1] ?? kDoubleRevoker),
     );
   }
 

@@ -2,6 +2,8 @@
 
 import 'package:equatable/equatable.dart';
 
+import '../../../../utils/constants/strings.dart';
+
 /// {@template CurrencyRate}
 ///
 /// The exchange rate of all cryptocurrencies to __USD__.
@@ -39,12 +41,12 @@ class CurrencyRateResponse extends Equatable {
   /// {@macro CurrencyRate}
   factory CurrencyRateResponse.fromMap(Map<String, dynamic> map) {
     return CurrencyRateResponse(
-      USDT: double.tryParse(map['data']['USDT_to_USD']),
-      USDC: double.tryParse(map['data']['USDC_to_USD']),
-      BTC: double.tryParse(map['data']['BTC_to_USD']),
-      BCH: double.tryParse(map['data']['BCH_to_USD']),
-      ETH: double.tryParse(map['data']['ETH_to_USD']),
-      CET: double.tryParse(map['data']['CET_to_USD']),
+      USDT: double.tryParse(map['data']['USDT_to_USD'] ?? kDoubleRevoker),
+      USDC: double.tryParse(map['data']['USDC_to_USD'] ?? kDoubleRevoker),
+      BTC: double.tryParse(map['data']['BTC_to_USD'] ?? kDoubleRevoker),
+      BCH: double.tryParse(map['data']['BCH_to_USD'] ?? kDoubleRevoker),
+      ETH: double.tryParse(map['data']['ETH_to_USD'] ?? kDoubleRevoker),
+      CET: double.tryParse(map['data']['CET_to_USD'] ?? kDoubleRevoker),
     );
   }
 

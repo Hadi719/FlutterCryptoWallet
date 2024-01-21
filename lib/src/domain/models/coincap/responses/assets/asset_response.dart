@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import '../../../../../utils/constants/strings.dart';
+
 /// The asset price is a volume-weighted average calculated by collecting ticker
 /// data from exchanges.
 ///
@@ -8,6 +10,22 @@ import 'package:equatable/equatable.dart';
 /// All values are translated into USD (United States Dollar) and can be
 /// translated into other units of measurement through the /rates endpoint
 class AssetResponse extends Equatable {
+  const AssetResponse({
+    this.id,
+    this.rank,
+    this.symbol,
+    this.name,
+    this.supply,
+    this.maxSupply,
+    this.marketCapUsd,
+    this.volumeUsd24Hr,
+    this.priceUsd,
+    this.changePercent24Hr,
+    this.vwap24Hr,
+    this.website,
+    this.timestamp,
+  });
+
   /// unique identifier for asset
   final String? id;
 
@@ -47,36 +65,21 @@ class AssetResponse extends Equatable {
   ///
   final int? timestamp;
 
-  const AssetResponse({
-    this.id,
-    this.rank,
-    this.symbol,
-    this.name,
-    this.supply,
-    this.maxSupply,
-    this.marketCapUsd,
-    this.volumeUsd24Hr,
-    this.priceUsd,
-    this.changePercent24Hr,
-    this.vwap24Hr,
-    this.website,
-    this.timestamp,
-  });
-
   factory AssetResponse.fromMap(Map<String, dynamic> json) {
     Map<String, dynamic> data = json['data'] ?? json;
     return AssetResponse(
       id: data['id'],
-      rank: int.tryParse(data['rank'] ?? '9999999'),
+      rank: int.tryParse(data['rank'] ?? kIntRevoker),
       symbol: data['symbol'],
       name: data['name'],
-      supply: double.tryParse(data['supply'] ?? '0.0'),
-      maxSupply: double.tryParse(data['maxSupply'] ?? '0.0'),
-      marketCapUsd: double.tryParse(data['marketCapUsd'] ?? '0.0'),
-      volumeUsd24Hr: double.tryParse(data['volumeUsd24Hr'] ?? '0.0'),
-      priceUsd: double.tryParse(data['priceUsd'] ?? '0.0'),
-      changePercent24Hr: double.tryParse(data['changePercent24Hr'] ?? '0.0'),
-      vwap24Hr: double.tryParse(data['vwap24Hr'] ?? '0.0'),
+      supply: double.tryParse(data['supply'] ?? kDoubleRevoker),
+      maxSupply: double.tryParse(data['maxSupply'] ?? kDoubleRevoker),
+      marketCapUsd: double.tryParse(data['marketCapUsd'] ?? kDoubleRevoker),
+      volumeUsd24Hr: double.tryParse(data['volumeUsd24Hr'] ?? kDoubleRevoker),
+      priceUsd: double.tryParse(data['priceUsd'] ?? kDoubleRevoker),
+      changePercent24Hr:
+          double.tryParse(data['changePercent24Hr'] ?? kDoubleRevoker),
+      vwap24Hr: double.tryParse(data['vwap24Hr'] ?? kDoubleRevoker),
       website: data['explorer'],
       timestamp: json['timestamp'],
     );

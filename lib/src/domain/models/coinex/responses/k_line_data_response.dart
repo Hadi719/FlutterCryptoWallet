@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import '../../../../utils/constants/strings.dart';
+
 /// {@template KLineData}
 ///
 /// Gets k-line data of a single market.
@@ -33,22 +35,22 @@ class KLineDataResponse extends Equatable {
 /// {@macro KLineData}
 class KLineData extends Equatable {
   final DateTime dateTime;
-  final double openingPrice;
-  final double closingPrice;
-  final double highestPrice;
-  final double lowestPrice;
-  final double tradingVolume;
-  final double tradingAmount;
+  final double? openingPrice;
+  final double? closingPrice;
+  final double? highestPrice;
+  final double? lowestPrice;
+  final double? tradingVolume;
+  final double? tradingAmount;
 
   /// {@macro KLineData}
   const KLineData({
     required this.dateTime,
-    required this.openingPrice,
-    required this.closingPrice,
-    required this.highestPrice,
-    required this.lowestPrice,
-    required this.tradingVolume,
-    required this.tradingAmount,
+    this.openingPrice,
+    this.closingPrice,
+    this.highestPrice,
+    this.lowestPrice,
+    this.tradingVolume,
+    this.tradingAmount,
   });
 
   /// {@macro KLineData}
@@ -58,12 +60,12 @@ class KLineData extends Equatable {
         map[0] * 1000,
         isUtc: true,
       ).toLocal(),
-      openingPrice: double.tryParse(map[1]) ?? 0.0,
-      closingPrice: double.tryParse(map[2]) ?? 0.0,
-      highestPrice: double.tryParse(map[3]) ?? 0.0,
-      lowestPrice: double.tryParse(map[4]) ?? 0.0,
-      tradingVolume: double.tryParse(map[5]) ?? 0.0,
-      tradingAmount: double.tryParse(map[6]) ?? 0.0,
+      openingPrice: double.tryParse(map[1] ?? kDoubleRevoker),
+      closingPrice: double.tryParse(map[2] ?? kDoubleRevoker),
+      highestPrice: double.tryParse(map[3] ?? kDoubleRevoker),
+      lowestPrice: double.tryParse(map[4] ?? kDoubleRevoker),
+      tradingVolume: double.tryParse(map[5] ?? kDoubleRevoker),
+      tradingAmount: double.tryParse(map[6] ?? kDoubleRevoker),
     );
   }
 
