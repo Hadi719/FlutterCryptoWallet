@@ -1,7 +1,5 @@
 import 'package:dio/dio.dart';
 
-/// Todo: Add an [R] generic to get requested in [DataState] so we can have the request for future use.
-
 abstract class DataState<T> {
   final T? data;
   final DioException? error;
