@@ -36,4 +36,10 @@ abstract class CoinCapRemoteDataSource {
     @Query('limit') int? limit,
     @Query('offset') int? offset,
   });
+  @GET(kCoinCapPathRatesList)
+  Future<HttpResponse<RatesListResponse>> getRatesList();
+  @GET(kCoinCapPathRate)
+  Future<HttpResponse<RateResponse>> getRate({
+    @Path('id') required String id,
+  });
 }

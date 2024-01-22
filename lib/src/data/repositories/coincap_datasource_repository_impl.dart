@@ -59,4 +59,20 @@ class CoinCapDataSourceRepositoryImpl extends BaseDataSourceRepository
               offset: request.offset,
             ));
   }
+
+  @override
+  Future<DataState<RatesListResponse>> getRatesList(
+      {required RatesListRequest request}) {
+    return getStateOf<RatesListResponse>(
+      request: () => _coinCapRemoteDataSource.getRatesList(),
+    );
+  }
+
+  @override
+  Future<DataState<RateResponse>> getRate({required RateRequest request}) {
+    return getStateOf(
+        request: () => _coinCapRemoteDataSource.getRate(
+              id: request.id,
+            ));
+  }
 }

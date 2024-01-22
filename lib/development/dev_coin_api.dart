@@ -95,6 +95,22 @@ class _CoinCapButtons extends StatelessWidget {
                     },
               child: const Text('AssetMarkets'),
             ),
+            ElevatedButton(
+              onPressed: state.runtimeType == DevCoinCapRatesList
+                  ? null
+                  : () {
+                      context.read<DevCoinBloc>().add(DevCoinCapRatesList());
+                    },
+              child: const Text('RatesList'),
+            ),
+            ElevatedButton(
+              onPressed: state.runtimeType == DevCoinCapRate
+                  ? null
+                  : () {
+                      context.read<DevCoinBloc>().add(DevCoinCapRate());
+                    },
+              child: const Text('Rate'),
+            ),
           ],
         );
       },
@@ -232,7 +248,7 @@ class _DataView extends StatelessWidget {
                 );
               case DevCoinStatus.success:
                 return SingleChildScrollView(
-                  child: Text(state.data.toString()),
+                  child: SelectableText(state.data.toString()),
                 );
             }
           },

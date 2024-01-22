@@ -9,7 +9,7 @@ sealed class DevCoinEvent extends Equatable {
 
 final class DevCoinChangeApi extends DevCoinEvent {}
 
-// CoinCap
+// CoinCap -- Assets
 final class DevCoinCapAssetsList extends DevCoinEvent {}
 
 final class DevCoinCapAsset extends DevCoinEvent {}
@@ -17,6 +17,11 @@ final class DevCoinCapAsset extends DevCoinEvent {}
 final class DevCoinCapAssetHistories extends DevCoinEvent {}
 
 final class DevCoinCapAssetMarkets extends DevCoinEvent {}
+
+// CoinCap -- Rates
+final class DevCoinCapRatesList extends DevCoinEvent {}
+
+final class DevCoinCapRate extends DevCoinEvent {}
 
 // CoinEX
 final class DevCoinExAllMarketList extends DevCoinEvent {}

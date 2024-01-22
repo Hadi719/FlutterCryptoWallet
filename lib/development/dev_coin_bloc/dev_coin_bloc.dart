@@ -26,6 +26,8 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
     on<DevCoinCapAsset>(_onDevCoinCapAsset);
     on<DevCoinCapAssetHistories>(_onDevCoinCapAssetHistories);
     on<DevCoinCapAssetMarkets>(_onDevCoinCapAssetMarkets);
+    on<DevCoinCapRatesList>(_onDevCoinCapRatesList);
+    on<DevCoinCapRate>(_onDevCoinCapRate);
 
     // CoinEX
     on<DevCoinExAllMarketList>(_onDevCoinExAllMarketList);
@@ -49,6 +51,7 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
     ));
   }
 
+  // CoinCap -- Assets
   Future<void> _onDevCoinCapAssetsList(
     DevCoinCapAssetsList event,
     Emitter<DevCoinState> emit,
@@ -125,6 +128,51 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
         lastEvent: DevCoinCapAssetMarkets(),
       ));
       final data = await _RemoteCoinCap.getAssetMarkets();
+      emit(state.copyWith(
+        status: DevCoinStatus.success,
+        data: data,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: DevCoinStatus.failure,
+        error: e,
+      ));
+    }
+  }
+
+  // CoinCap -- Rates
+  Future<void> _onDevCoinCapRatesList(
+    DevCoinCapRatesList event,
+    Emitter<DevCoinState> emit,
+  ) async {
+    try {
+      emit(state.copyWith(
+        status: DevCoinStatus.loading,
+        lastEvent: DevCoinCapRatesList(),
+      ));
+      final data = await _RemoteCoinCap.getRatesList();
+      emit(state.copyWith(
+        status: DevCoinStatus.success,
+        data: data,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: DevCoinStatus.failure,
+        error: e,
+      ));
+    }
+  }
+
+  Future<void> _onDevCoinCapRate(
+    DevCoinCapRate event,
+    Emitter<DevCoinState> emit,
+  ) async {
+    try {
+      emit(state.copyWith(
+        status: DevCoinStatus.loading,
+        lastEvent: DevCoinCapRate(),
+      ));
+      final data = await _RemoteCoinCap.getRate();
       emit(state.copyWith(
         status: DevCoinStatus.success,
         data: data,
@@ -478,6 +526,7 @@ class _RemoteCoinEx {
 }
 
 class _RemoteCoinCap {
+  // Assets
   static Future<AssetsListResponse> getAssetsList() async {
     final DataState<AssetsListResponse> response =
         await serviceLocator<CoinCapApiRepository>().getAssetsList(
@@ -527,6 +576,37 @@ class _RemoteCoinCap {
         await serviceLocator<CoinCapApiRepository>().getAssetMarkets(
       request: const AssetMarketsRequest(
         id: 'bitcoin',
+      ),
+    );
+    if (response is DataSuccess) {
+      debugPrint('SUCCESS: $getAssetMarkets()');
+      return response.data!;
+    } else {
+      debugPrint('FAILED: $getAssetMarkets');
+      throw response.error!;
+    }
+  }
+
+  // Rates
+  static Future<RatesListResponse> getRatesList() async {
+    final DataState<RatesListResponse> response =
+        await serviceLocator<CoinCapApiRepository>().getRatesList(
+      request: const RatesListRequest(),
+    );
+    if (response is DataSuccess) {
+      debugPrint('SUCCESS: $getAssetMarkets()');
+      return response.data!;
+    } else {
+      debugPrint('FAILED: $getAssetMarkets');
+      throw response.error!;
+    }
+  }
+
+  static Future<RateResponse> getRate() async {
+    final DataState<RateResponse> response =
+        await serviceLocator<CoinCapApiRepository>().getRate(
+      request: const RateRequest(
+        id: 'lebanese-pound',
       ),
     );
     if (response is DataSuccess) {
