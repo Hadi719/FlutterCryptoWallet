@@ -12,6 +12,7 @@ const String kCoinCapPathRatesList = '/rates';
 const String kCoinCapPathRate = '/rates/{id}';
 const String kCoinCapPathExchangesList = '/exchanges';
 const String kCoinCapPathExchange = '/exchanges/{id}';
+const String kCoinCapPathMarketsList = '/markets';
 // const String kCoinCapPath = '';
 
 // - CoinEX

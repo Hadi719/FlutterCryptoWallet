@@ -48,4 +48,6 @@ abstract class CoinCapRemoteDataSource {
   Future<HttpResponse<ExchangeResponse>> getExchange({
     @Path('id') required String id,
   });
+  @GET(kCoinCapPathMarketsList)
+  Future<HttpResponse<MarketsListResponse>> getMarketsList();
 }

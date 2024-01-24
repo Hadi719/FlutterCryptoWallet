@@ -129,6 +129,14 @@ class _CoinCapButtons extends StatelessWidget {
                     },
               child: const Text('Exchange'),
             ),
+            ElevatedButton(
+              onPressed: state.runtimeType == DevCoinCapMarketsList
+                  ? null
+                  : () {
+                      context.read<DevCoinBloc>().add(DevCoinCapMarketsList());
+                    },
+              child: const Text('MarketsList'),
+            ),
           ],
         );
       },

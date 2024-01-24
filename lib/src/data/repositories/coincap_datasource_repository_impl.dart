@@ -92,4 +92,12 @@ class CoinCapDataSourceRepositoryImpl extends BaseDataSourceRepository
               id: request.id,
             ));
   }
+
+  @override
+  Future<DataState<MarketsListResponse>> getMarketsList(
+      {required MarketsListRequest request}) {
+    return getStateOf<MarketsListResponse>(
+      request: () => _coinCapRemoteDataSource.getMarketsList(),
+    );
+  }
 }

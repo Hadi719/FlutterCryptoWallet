@@ -30,6 +30,7 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
     on<DevCoinCapRate>(_onDevCoinCapRate);
     on<DevCoinCapExchangesList>(_onDevCoinCapExchangesList);
     on<DevCoinCapExchange>(_onDevCoinCapExchange);
+    on<DevCoinCapMarketsList>(_onDevCoinCapMarketsList);
 
     // CoinEX
     on<DevCoinExAllMarketList>(_onDevCoinExAllMarketList);
@@ -220,6 +221,29 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
         lastEvent: DevCoinCapExchange(),
       ));
       final data = await _RemoteCoinCap.getExchange();
+      emit(state.copyWith(
+        status: DevCoinStatus.success,
+        data: data,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: DevCoinStatus.failure,
+        error: e,
+      ));
+    }
+  }
+
+  // CoinCap -- Markets
+  Future<void> _onDevCoinCapMarketsList(
+    DevCoinCapMarketsList event,
+    Emitter<DevCoinState> emit,
+  ) async {
+    try {
+      emit(state.copyWith(
+        status: DevCoinStatus.loading,
+        lastEvent: DevCoinCapMarketsList(),
+      ));
+      final data = await _RemoteCoinCap.getMarketsList();
       emit(state.copyWith(
         status: DevCoinStatus.success,
         data: data,
@@ -666,7 +690,7 @@ class _RemoteCoinCap {
     }
   }
 
-  // Rates
+  // Exchanges
   static Future<ExchangesListResponse> getExchangesList() async {
     final DataState<ExchangesListResponse> response =
         await serviceLocator<CoinCapApiRepository>().getExchangesList(
@@ -693,6 +717,21 @@ class _RemoteCoinCap {
       return response.data!;
     } else {
       debugPrint('FAILED: $getExchange');
+      throw response.error!;
+    }
+  }
+
+  // Markets
+  static Future<MarketsListResponse> getMarketsList() async {
+    final DataState<MarketsListResponse> response =
+        await serviceLocator<CoinCapApiRepository>().getMarketsList(
+      request: const MarketsListRequest(),
+    );
+    if (response is DataSuccess) {
+      debugPrint('SUCCESS: $getMarketsList()');
+      return response.data!;
+    } else {
+      debugPrint('FAILED: $getMarketsList');
       throw response.error!;
     }
   }

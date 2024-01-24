@@ -28,6 +28,9 @@ final class DevCoinCapExchangesList extends DevCoinEvent {}
 
 final class DevCoinCapExchange extends DevCoinEvent {}
 
+// CoinCap -- Markets
+final class DevCoinCapMarketsList extends DevCoinEvent {}
+
 // CoinEX
 final class DevCoinExAllMarketList extends DevCoinEvent {}
 
