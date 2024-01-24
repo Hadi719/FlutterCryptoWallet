@@ -21,4 +21,10 @@ abstract class CoinCapApiRepository {
   Future<DataState<RateResponse>> getRate({
     required RateRequest request,
   });
+  Future<DataState<ExchangesListResponse>> getExchangesList({
+    required ExchangesListRequest request,
+  });
+  Future<DataState<ExchangeResponse>> getExchange({
+    required ExchangeRequest request,
+  });
 }

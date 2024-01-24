@@ -70,8 +70,25 @@ class CoinCapDataSourceRepositoryImpl extends BaseDataSourceRepository
 
   @override
   Future<DataState<RateResponse>> getRate({required RateRequest request}) {
-    return getStateOf(
+    return getStateOf<RateResponse>(
         request: () => _coinCapRemoteDataSource.getRate(
+              id: request.id,
+            ));
+  }
+
+  @override
+  Future<DataState<ExchangesListResponse>> getExchangesList(
+      {required ExchangesListRequest request}) {
+    return getStateOf<ExchangesListResponse>(
+      request: () => _coinCapRemoteDataSource.getExchangesList(),
+    );
+  }
+
+  @override
+  Future<DataState<ExchangeResponse>> getExchange(
+      {required ExchangeRequest request}) {
+    return getStateOf<ExchangeResponse>(
+        request: () => _coinCapRemoteDataSource.getExchange(
               id: request.id,
             ));
   }

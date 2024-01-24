@@ -28,6 +28,8 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
     on<DevCoinCapAssetMarkets>(_onDevCoinCapAssetMarkets);
     on<DevCoinCapRatesList>(_onDevCoinCapRatesList);
     on<DevCoinCapRate>(_onDevCoinCapRate);
+    on<DevCoinCapExchangesList>(_onDevCoinCapExchangesList);
+    on<DevCoinCapExchange>(_onDevCoinCapExchange);
 
     // CoinEX
     on<DevCoinExAllMarketList>(_onDevCoinExAllMarketList);
@@ -185,6 +187,52 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
     }
   }
 
+  // CoinCap -- Exchanges
+  Future<void> _onDevCoinCapExchangesList(
+    DevCoinCapExchangesList event,
+    Emitter<DevCoinState> emit,
+  ) async {
+    try {
+      emit(state.copyWith(
+        status: DevCoinStatus.loading,
+        lastEvent: DevCoinCapExchangesList(),
+      ));
+      final data = await _RemoteCoinCap.getExchangesList();
+      emit(state.copyWith(
+        status: DevCoinStatus.success,
+        data: data,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: DevCoinStatus.failure,
+        error: e,
+      ));
+    }
+  }
+
+  Future<void> _onDevCoinCapExchange(
+    DevCoinCapExchange event,
+    Emitter<DevCoinState> emit,
+  ) async {
+    try {
+      emit(state.copyWith(
+        status: DevCoinStatus.loading,
+        lastEvent: DevCoinCapExchange(),
+      ));
+      final data = await _RemoteCoinCap.getExchange();
+      emit(state.copyWith(
+        status: DevCoinStatus.success,
+        data: data,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: DevCoinStatus.failure,
+        error: e,
+      ));
+    }
+  }
+
+  // CoinEx
   Future<void> _onDevCoinExAllMarketList(
     DevCoinExAllMarketList event,
     Emitter<DevCoinState> emit,
@@ -594,10 +642,10 @@ class _RemoteCoinCap {
       request: const RatesListRequest(),
     );
     if (response is DataSuccess) {
-      debugPrint('SUCCESS: $getAssetMarkets()');
+      debugPrint('SUCCESS: $getRatesList()');
       return response.data!;
     } else {
-      debugPrint('FAILED: $getAssetMarkets');
+      debugPrint('FAILED: $getRatesList');
       throw response.error!;
     }
   }
@@ -610,10 +658,41 @@ class _RemoteCoinCap {
       ),
     );
     if (response is DataSuccess) {
-      debugPrint('SUCCESS: $getAssetMarkets()');
+      debugPrint('SUCCESS: $getRate()');
       return response.data!;
     } else {
-      debugPrint('FAILED: $getAssetMarkets');
+      debugPrint('FAILED: $getRate');
+      throw response.error!;
+    }
+  }
+
+  // Rates
+  static Future<ExchangesListResponse> getExchangesList() async {
+    final DataState<ExchangesListResponse> response =
+        await serviceLocator<CoinCapApiRepository>().getExchangesList(
+      request: const ExchangesListRequest(),
+    );
+    if (response is DataSuccess) {
+      debugPrint('SUCCESS: $getExchangesList()');
+      return response.data!;
+    } else {
+      debugPrint('FAILED: $getExchangesList');
+      throw response.error!;
+    }
+  }
+
+  static Future<ExchangeResponse> getExchange() async {
+    final DataState<ExchangeResponse> response =
+        await serviceLocator<CoinCapApiRepository>().getExchange(
+      request: const ExchangeRequest(
+        id: 'kraken',
+      ),
+    );
+    if (response is DataSuccess) {
+      debugPrint('SUCCESS: $getExchange()');
+      return response.data!;
+    } else {
+      debugPrint('FAILED: $getExchange');
       throw response.error!;
     }
   }

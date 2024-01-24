@@ -10,6 +10,8 @@ const String kCoinCapPathAssetHistory = '/assets/{id}/history';
 const String kCoinCapPathAssetMarkets = '/assets/{id}/markets';
 const String kCoinCapPathRatesList = '/rates';
 const String kCoinCapPathRate = '/rates/{id}';
+const String kCoinCapPathExchangesList = '/exchanges';
+const String kCoinCapPathExchange = '/exchanges/{id}';
 // const String kCoinCapPath = '';
 
 // - CoinEX

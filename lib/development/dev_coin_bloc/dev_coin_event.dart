@@ -23,6 +23,11 @@ final class DevCoinCapRatesList extends DevCoinEvent {}
 
 final class DevCoinCapRate extends DevCoinEvent {}
 
+// CoinCap -- Exchanges
+final class DevCoinCapExchangesList extends DevCoinEvent {}
+
+final class DevCoinCapExchange extends DevCoinEvent {}
+
 // CoinEX
 final class DevCoinExAllMarketList extends DevCoinEvent {}
 
