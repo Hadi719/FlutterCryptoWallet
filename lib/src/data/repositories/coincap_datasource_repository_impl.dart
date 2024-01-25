@@ -42,7 +42,7 @@ class CoinCapDataSourceRepositoryImpl extends BaseDataSourceRepository
     return getStateOf<AssetHistoriesResponse>(
         request: () => _coinCapRemoteDataSource.getAssetHistories(
               id: request.id,
-              interval: request.interval.value,
+              interval: request.interval.name,
               start: request.start,
               end: request.end,
             ));
@@ -97,7 +97,17 @@ class CoinCapDataSourceRepositoryImpl extends BaseDataSourceRepository
   Future<DataState<MarketsListResponse>> getMarketsList(
       {required MarketsListRequest request}) {
     return getStateOf<MarketsListResponse>(
-      request: () => _coinCapRemoteDataSource.getMarketsList(),
+      request: () => _coinCapRemoteDataSource.getMarketsList(
+        exchangeId: request.exchangeId,
+        baseSymbol: request.baseSymbol,
+        quoteSymbol: request.quoteSymbol,
+        baseId: request.baseId,
+        quoteId: request.quoteId,
+        assetSymbol: request.assetSymbol,
+        assetId: request.assetId,
+        limit: request.limit,
+        offset: request.offset,
+      ),
     );
   }
 }

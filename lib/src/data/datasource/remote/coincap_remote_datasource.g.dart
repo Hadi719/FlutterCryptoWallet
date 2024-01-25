@@ -275,9 +275,30 @@ class _CoinCapRemoteDataSource implements CoinCapRemoteDataSource {
   }
 
   @override
-  Future<HttpResponse<MarketsListResponse>> getMarketsList() async {
+  Future<HttpResponse<MarketsListResponse>> getMarketsList({
+    String? exchangeId,
+    String? baseSymbol,
+    String? quoteSymbol,
+    String? baseId,
+    String? quoteId,
+    String? assetSymbol,
+    String? assetId,
+    int? limit,
+    int? offset,
+  }) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'exchangeId': exchangeId,
+      r'baseSymbol': baseSymbol,
+      r'quoteSymbol': quoteSymbol,
+      r'baseId': baseId,
+      r'quoteId': quoteId,
+      r'assetSymbol': assetSymbol,
+      r'assetId': assetId,
+      r'limit': limit,
+      r'offset': offset,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(

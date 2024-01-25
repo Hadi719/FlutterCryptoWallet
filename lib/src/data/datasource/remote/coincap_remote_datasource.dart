@@ -49,5 +49,15 @@ abstract class CoinCapRemoteDataSource {
     @Path('id') required String id,
   });
   @GET(kCoinCapPathMarketsList)
-  Future<HttpResponse<MarketsListResponse>> getMarketsList();
+  Future<HttpResponse<MarketsListResponse>> getMarketsList({
+    @Query('exchangeId') String? exchangeId,
+    @Query('baseSymbol') String? baseSymbol,
+    @Query('quoteSymbol') String? quoteSymbol,
+    @Query('baseId') String? baseId,
+    @Query('quoteId') String? quoteId,
+    @Query('assetSymbol') String? assetSymbol,
+    @Query('assetId') String? assetId,
+    @Query('limit') int? limit,
+    @Query('offset') int? offset,
+  });
 }
