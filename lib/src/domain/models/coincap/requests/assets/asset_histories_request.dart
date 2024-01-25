@@ -1,7 +1,7 @@
 class AssetHistoriesRequest {
   const AssetHistoriesRequest({
     required this.id,
-    this.interval = Intervals.oneDay,
+    this.interval = HistoryIntervals.d1,
     this.start,
     this.end,
   });
@@ -19,7 +19,7 @@ class AssetHistoriesRequest {
   /// the day interval represents average of 24 hour periods (timezone: UTC)
   ///
   /// __required__
-  final Intervals interval;
+  final HistoryIntervals interval;
 
   /// UNIX time in milliseconds.
   ///
@@ -42,17 +42,31 @@ class AssetHistoriesRequest {
 ///
 /// minute and hour intervals represent price at that time,
 /// the day interval represents average of 24 hour periods (timezone: UTC)
-enum Intervals {
-  oneMinute('m1'),
-  fiveMinute('m5'),
-  fifteenMinute('m15'),
-  thirtyMinute('m30'),
-  oneHour('h1'),
-  twoHour('h2'),
-  sixHour('h6'),
-  twelveHour('h12'),
-  oneDay('d1');
+enum HistoryIntervals {
+  /// 1 Minute
+  m1,
 
-  const Intervals(this.value);
-  final String value;
+  /// 5 Minutes
+  m5,
+
+  /// 15 Minutes
+  m15,
+
+  /// 30 Minutes
+  m30,
+
+  /// 1 Hour
+  h1,
+
+  /// 2 Hours
+  h2,
+
+  /// 6 Hours
+  h6,
+
+  /// 12 Hours
+  h12,
+
+  /// 1 Day
+  d1,
 }
