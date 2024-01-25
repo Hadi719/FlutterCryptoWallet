@@ -31,6 +31,7 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
     on<DevCoinCapExchangesList>(_onDevCoinCapExchangesList);
     on<DevCoinCapExchange>(_onDevCoinCapExchange);
     on<DevCoinCapMarketsList>(_onDevCoinCapMarketsList);
+    on<DevCoinCapCandlesList>(_onDevCoinCapCandlesList);
 
     // CoinEX
     on<DevCoinExAllMarketList>(_onDevCoinExAllMarketList);
@@ -244,6 +245,29 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
         lastEvent: DevCoinCapMarketsList(),
       ));
       final data = await _RemoteCoinCap.getMarketsList();
+      emit(state.copyWith(
+        status: DevCoinStatus.success,
+        data: data,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: DevCoinStatus.failure,
+        error: e,
+      ));
+    }
+  }
+
+  // CoinCap -- Candles
+  Future<void> _onDevCoinCapCandlesList(
+    DevCoinCapCandlesList event,
+    Emitter<DevCoinState> emit,
+  ) async {
+    try {
+      emit(state.copyWith(
+        status: DevCoinStatus.loading,
+        lastEvent: DevCoinCapCandlesList(),
+      ));
+      final data = await _RemoteCoinCap.getCandlesList();
       emit(state.copyWith(
         status: DevCoinStatus.success,
         data: data,
@@ -732,6 +756,26 @@ class _RemoteCoinCap {
       return response.data!;
     } else {
       debugPrint('FAILED: $getMarketsList');
+      throw response.error!;
+    }
+  }
+
+  // Markets
+  static Future<CandlesListResponse> getCandlesList() async {
+    final DataState<CandlesListResponse> response =
+        await serviceLocator<CoinCapApiRepository>().getCandlesList(
+      request: const CandlesListRequest(
+        exchange: 'poloniex',
+        interval: CandlesIntervals.h8,
+        baseId: 'ethereum',
+        quoteId: 'bitcoin',
+      ),
+    );
+    if (response is DataSuccess) {
+      debugPrint('SUCCESS: $getCandlesList()');
+      return response.data!;
+    } else {
+      debugPrint('FAILED: $getCandlesList');
       throw response.error!;
     }
   }

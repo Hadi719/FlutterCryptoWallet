@@ -30,4 +30,7 @@ abstract class CoinCapApiRepository {
   Future<DataState<MarketsListResponse>> getMarketsList({
     required MarketsListRequest request,
   });
+  Future<DataState<CandlesListResponse>> getCandlesList({
+    required CandlesListRequest request,
+  });
 }

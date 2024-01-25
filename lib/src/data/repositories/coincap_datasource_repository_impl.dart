@@ -110,4 +110,19 @@ class CoinCapDataSourceRepositoryImpl extends BaseDataSourceRepository
       ),
     );
   }
+
+  @override
+  Future<DataState<CandlesListResponse>> getCandlesList(
+      {required CandlesListRequest request}) {
+    return getStateOf<CandlesListResponse>(
+      request: () => _coinCapRemoteDataSource.getCandlesList(
+        exchange: request.exchange,
+        interval: request.interval.name,
+        baseId: request.baseId,
+        quoteId: request.quoteId,
+        start: request.start,
+        end: request.end,
+      ),
+    );
+  }
 }

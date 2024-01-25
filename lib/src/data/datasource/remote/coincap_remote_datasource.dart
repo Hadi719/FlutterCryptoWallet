@@ -60,4 +60,13 @@ abstract class CoinCapRemoteDataSource {
     @Query('limit') int? limit,
     @Query('offset') int? offset,
   });
+  @GET(kCoinCapPathCandlesList)
+  Future<HttpResponse<CandlesListResponse>> getCandlesList({
+    @Query('exchange') required String exchange,
+    @Query('interval') required String interval,
+    @Query('baseId') required String baseId,
+    @Query('quoteId') required String quoteId,
+    @Query('start') int? start,
+    @Query('end') int? end,
+  });
 }
