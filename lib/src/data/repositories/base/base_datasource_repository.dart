@@ -22,7 +22,10 @@ abstract class BaseDataSourceRepository {
     try {
       final httpResponse = await request();
       if (httpResponse.response.statusCode == HttpStatus.ok) {
-        return DataSuccess(httpResponse.data);
+        return DataSuccess(
+          data: httpResponse.data,
+          response: httpResponse.response,
+        );
       } else {
         throw DioException(
           response: httpResponse.response,
@@ -30,7 +33,7 @@ abstract class BaseDataSourceRepository {
         );
       }
     } on DioException catch (error) {
-      return DataFailed(error);
+      return DataFailed(error: error);
     }
   }
 }
