@@ -10,12 +10,10 @@ abstract class DataState<T> {
 
 class DataSuccess<T> extends DataState<T> {
   const DataSuccess({super.data, super.response});
-  // : super(data: data, response: response);
 }
 
 class DataFailed<T> extends DataState<T> {
   const DataFailed({super.error});
-  // : super(error: error);
 }
 
 class DataNotSet<T> extends DataState<T> {

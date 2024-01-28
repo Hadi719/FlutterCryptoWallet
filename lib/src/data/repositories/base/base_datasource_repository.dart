@@ -20,7 +20,7 @@ abstract class BaseDataSourceRepository {
     required Future<HttpResponse<T>> Function() request,
   }) async {
     try {
-      final httpResponse = await request();
+      final HttpResponse<T> httpResponse = await request();
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(
           data: httpResponse.data,
