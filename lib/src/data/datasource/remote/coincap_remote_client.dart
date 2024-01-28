@@ -4,12 +4,11 @@ import 'package:retrofit/retrofit.dart';
 import '../../../domain/models/coincap/responses/responses.dart';
 import '../../../utils/constants/strings.dart';
 
-part 'coincap_remote_datasource.g.dart';
+part 'coincap_remote_client.g.dart';
 
 @RestApi(baseUrl: kCoinCapBaseUrl, parser: Parser.MapSerializable)
-abstract class CoinCapRemoteDataSource {
-  factory CoinCapRemoteDataSource(Dio dio, {String baseUrl}) =
-      _CoinCapRemoteDataSource;
+abstract class CoinCapRemoteClient {
+  factory CoinCapRemoteClient(Dio dio, {String baseUrl}) = _CoinCapRemoteClient;
 
   @GET(kCoinCapPathAssetsList)
   Future<HttpResponse<AssetsListResponse>> getAssetsList({

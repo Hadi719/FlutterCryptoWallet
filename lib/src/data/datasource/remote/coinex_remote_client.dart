@@ -4,12 +4,11 @@ import 'package:retrofit/retrofit.dart';
 import '../../../domain/models/coinex/responses/responses.dart';
 import '../../../utils/constants/strings.dart';
 
-part 'coinex_remote_datasource.g.dart';
+part 'coinex_remote_client.g.dart';
 
 @RestApi(baseUrl: kCoinExBaseUrl, parser: Parser.MapSerializable)
-abstract class CoinExRemoteDataSource {
-  factory CoinExRemoteDataSource(Dio dio, {String baseUrl}) =
-      _CoinExRemoteDataSource;
+abstract class CoinExRemoteClient {
+  factory CoinExRemoteClient(Dio dio, {String baseUrl}) = _CoinExRemoteClient;
 
   @GET(kCoinExPathAllMarketList)
   Future<HttpResponse<AllMarketListResponse>> getAllMarketList();
