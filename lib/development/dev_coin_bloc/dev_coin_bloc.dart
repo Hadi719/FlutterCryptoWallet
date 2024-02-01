@@ -9,8 +9,11 @@ import '../../src/domain/models/coincap/responses/responses.dart';
 import '../../src/domain/models/coinex/crypto.dart';
 import '../../src/domain/models/coinex/requests/requests.dart';
 import '../../src/domain/models/coinex/responses/responses.dart';
+import '../../src/domain/models/coingecko/request/request.dart';
+import '../../src/domain/models/coingecko/response/response.dart';
 import '../../src/domain/repositories/coincap_api_repository.dart';
 import '../../src/domain/repositories/coinex_api_repository.dart';
+import '../../src/domain/repositories/coingecko_api_repository.dart';
 import '../../src/service_locator.dart';
 import '../../src/utils/resources/data_state.dart';
 
@@ -20,6 +23,8 @@ part 'dev_coin_state.dart';
 class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
   DevCoinBloc() : super(const DevCoinState()) {
     on<DevCoinChangeApi>(_onDevCoinChangeApi);
+    // CoinGecko
+    on<DevCoinGeckoSimplePricesList>(_onDevCoinGeckoSimplePricesList);
 
     // CoinCap
     on<DevCoinCapAssetsList>(_onDevCoinCapAssetsList);
@@ -49,10 +54,45 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
     DevCoinChangeApi event,
     Emitter<DevCoinState> emit,
   ) {
-    emit(state.copyWith(
-      coinApi:
-          state.coinApi == CoinApi.coinCap ? CoinApi.coinEx : CoinApi.coinCap,
-    ));
+    CoinApi currentCoinApi;
+
+    switch (state.coinApi) {
+      case CoinApi.coinGecko:
+        currentCoinApi = CoinApi.coinCap;
+        break;
+      case CoinApi.coinCap:
+        currentCoinApi = CoinApi.coinEx;
+        break;
+      case CoinApi.coinEx:
+      default:
+        currentCoinApi = CoinApi.coinGecko;
+        break;
+    }
+
+    emit(state.copyWith(coinApi: currentCoinApi));
+  }
+
+  // CoinGecko -- Simple
+  Future<void> _onDevCoinGeckoSimplePricesList(
+    DevCoinGeckoSimplePricesList event,
+    Emitter<DevCoinState> emit,
+  ) async {
+    try {
+      emit(state.copyWith(
+        status: DevCoinStatus.loading,
+        lastEvent: DevCoinGeckoSimplePricesList(),
+      ));
+      final data = await _RemoteCoinGecko.getSimplePricesList();
+      emit(state.copyWith(
+        status: DevCoinStatus.success,
+        data: data,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: DevCoinStatus.failure,
+        error: e,
+      ));
+    }
   }
 
   // CoinCap -- Assets
@@ -776,6 +816,25 @@ class _RemoteCoinCap {
       return response.data!;
     } else {
       debugPrint('FAILED: $getCandlesList');
+      throw response.error!;
+    }
+  }
+}
+
+class _RemoteCoinGecko {
+  static Future<SimplePricesListResponse> getSimplePricesList() async {
+    final DataState<SimplePricesListResponse> response =
+        await serviceLocator<CoinGeckoApiRepository>().getSimplePricesList(
+      request: const SimplePriceRequest(
+        ids: 'bitcoin,ethereum',
+        vsCurrencies: 'usd',
+      ),
+    );
+    if (response is DataSuccess) {
+      debugPrint('SUCCESS: $getSimplePricesList()');
+      return response.data!;
+    } else {
+      debugPrint('FAILED: $getSimplePricesList');
       throw response.error!;
     }
   }

@@ -32,19 +32,54 @@ class _LayoutBuilder extends StatelessWidget {
         centerTitle: true,
         elevation: 8.0,
         title: Text(
-          context.select((DevCoinBloc bloc) =>
-              bloc.state.coinApi == CoinApi.coinCap ? 'CoinCap' : 'CoinEx'),
+          context.select(
+              (DevCoinBloc bloc) => bloc.state.coinApi == CoinApi.coinCap
+                  ? 'CoinCap'
+                  : bloc.state.coinApi == CoinApi.coinGecko
+                      ? 'CoinGecko'
+                      : 'CoinEx'),
         ),
       ),
       body: Column(
         children: [
-          context.select((DevCoinBloc bloc) =>
-              bloc.state.coinApi == CoinApi.coinCap
+          context.select(
+              (DevCoinBloc bloc) => bloc.state.coinApi == CoinApi.coinCap
                   ? const _CoinCapButtons()
-                  : const _CoinExButtons()),
+                  : bloc.state.coinApi == CoinApi.coinGecko
+                      ? const _CoinGeckoButtons()
+                      : const _CoinExButtons()),
           const _DataView(),
         ],
       ),
+    );
+  }
+}
+
+class _CoinGeckoButtons extends StatelessWidget {
+  const _CoinGeckoButtons();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocSelector<DevCoinBloc, DevCoinState, DevCoinEvent?>(
+      selector: (state) {
+        return state.lastEvent;
+      },
+      builder: (context, state) {
+        return Wrap(
+          children: [
+            ElevatedButton(
+              onPressed: state.runtimeType == DevCoinGeckoSimplePricesList
+                  ? null
+                  : () {
+                      context
+                          .read<DevCoinBloc>()
+                          .add(DevCoinGeckoSimplePricesList());
+                    },
+              child: const Text('SimplePricesList'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

@@ -2,12 +2,12 @@ part of 'dev_coin_bloc.dart';
 
 enum DevCoinStatus { initial, success, loading, failure }
 
-enum CoinApi { coinEx, coinCap }
+enum CoinApi { coinEx, coinCap, coinGecko }
 
 final class DevCoinState extends Equatable {
   const DevCoinState({
     this.status = DevCoinStatus.initial,
-    this.coinApi = CoinApi.coinCap,
+    this.coinApi = CoinApi.coinGecko,
     this.lastEvent,
     this.error,
     this.data = const [],

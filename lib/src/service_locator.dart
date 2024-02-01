@@ -8,10 +8,13 @@ import 'package:get_it/get_it.dart';
 import 'config/firebase/firebase_options.dart';
 import 'data/datasource/remote/coincap_remote_client.dart';
 import 'data/datasource/remote/coinex_remote_client.dart';
+import 'data/datasource/remote/coingecko_remote_client.dart';
 import 'data/repositories/coincap_datasource_repository_impl.dart';
 import 'data/repositories/coinex_datasource_repository_impl.dart';
+import 'data/repositories/coingeko_datasource_repository_impl.dart';
 import 'domain/repositories/coincap_api_repository.dart';
 import 'domain/repositories/coinex_api_repository.dart';
+import 'domain/repositories/coingecko_api_repository.dart';
 
 final GetIt serviceLocator = GetIt.instance;
 
@@ -22,6 +25,8 @@ Future<void> setup() async {
   _setupCoinExApi();
 
   _setupCoinCapApi();
+
+  _setupCoinGeckoApi();
 
   await _setupFirebase();
 
@@ -57,6 +62,20 @@ void _setupCoinCapApi() {
   serviceLocator.registerSingleton<CoinCapApiRepository>(
     CoinCapDataSourceRepositoryImpl(
       serviceLocator<CoinCapRemoteClient>(),
+    ),
+  );
+}
+
+void _setupCoinGeckoApi() {
+  serviceLocator.registerSingleton<CoinGeckoRemoteClient>(
+    CoinGeckoRemoteClient(
+      serviceLocator<Dio>(),
+    ),
+  );
+
+  serviceLocator.registerSingleton<CoinGeckoApiRepository>(
+    CoinGeckoDataSourceRepositoryImpl(
+      serviceLocator<CoinGeckoRemoteClient>(),
     ),
   );
 }
