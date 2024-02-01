@@ -12,6 +12,8 @@ final class DevCoinChangeApi extends DevCoinEvent {}
 // CoinGecko -- Simple
 final class DevCoinGeckoSimplePricesList extends DevCoinEvent {}
 
+final class DevCoinGeckoSimpleSupportedVsCurrencies extends DevCoinEvent {}
+
 // CoinCap -- Assets
 final class DevCoinCapAssetsList extends DevCoinEvent {}
 

@@ -21,6 +21,9 @@ abstract class CoinGeckoRemoteClient {
     @Query('include_last_updated_at') bool? includeLastUpdatedAt,
     @Query('precision') int? precision,
   });
+  @GET(kCoinGeckoPathSimpleSupportedVsCurrencies)
+  Future<HttpResponse<SimpleSupportedVsCurrenciesResponse>>
+      getSimpleSupportedVsCurrencies();
 
 /*  @GET(kCoinCapPathAssetHistory)
   Future<HttpResponse<AssetHistoriesResponse>> getAssetHistories({

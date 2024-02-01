@@ -6,8 +6,8 @@ abstract class CoinGeckoApiRepository {
   Future<DataState<SimplePricesListResponse>> getSimplePricesList({
     required SimplePriceRequest request,
   });
-
-/*  Future<DataState<AssetsListResponse>> getAssetsList({
-    required AssetsListRequest request,
-  });*/
+  Future<DataState<SimpleSupportedVsCurrenciesResponse>>
+      getSimpleSupportedVsCurrencies({
+    required SimpleSupportedVsCurrenciesRequest request,
+  });
 }

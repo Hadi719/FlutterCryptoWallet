@@ -1,0 +1,3 @@
+class SimpleSupportedVsCurrenciesRequest {
+  const SimpleSupportedVsCurrenciesRequest();
+}

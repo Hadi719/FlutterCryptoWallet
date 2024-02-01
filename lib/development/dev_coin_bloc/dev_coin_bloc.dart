@@ -25,6 +25,8 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
     on<DevCoinChangeApi>(_onDevCoinChangeApi);
     // CoinGecko
     on<DevCoinGeckoSimplePricesList>(_onDevCoinGeckoSimplePricesList);
+    on<DevCoinGeckoSimpleSupportedVsCurrencies>(
+        _onDevCoinGeckoSimpleSupportedVsCurrencies);
 
     // CoinCap
     on<DevCoinCapAssetsList>(_onDevCoinCapAssetsList);
@@ -83,6 +85,28 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
         lastEvent: DevCoinGeckoSimplePricesList(),
       ));
       final data = await _RemoteCoinGecko.getSimplePricesList();
+      emit(state.copyWith(
+        status: DevCoinStatus.success,
+        data: data,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: DevCoinStatus.failure,
+        error: e,
+      ));
+    }
+  }
+
+  Future<void> _onDevCoinGeckoSimpleSupportedVsCurrencies(
+    DevCoinGeckoSimpleSupportedVsCurrencies event,
+    Emitter<DevCoinState> emit,
+  ) async {
+    try {
+      emit(state.copyWith(
+        status: DevCoinStatus.loading,
+        lastEvent: DevCoinGeckoSimpleSupportedVsCurrencies(),
+      ));
+      final data = await _RemoteCoinGecko.getSimpleSupportedVsCurrencies();
       emit(state.copyWith(
         status: DevCoinStatus.success,
         data: data,
@@ -835,6 +859,21 @@ class _RemoteCoinGecko {
       return response.data!;
     } else {
       debugPrint('FAILED: $getSimplePricesList');
+      throw response.error!;
+    }
+  }
+
+  static Future<SimpleSupportedVsCurrenciesResponse>
+      getSimpleSupportedVsCurrencies() async {
+    final DataState<SimpleSupportedVsCurrenciesResponse> response =
+        await serviceLocator<CoinGeckoApiRepository>()
+            .getSimpleSupportedVsCurrencies(
+                request: const SimpleSupportedVsCurrenciesRequest());
+    if (response is DataSuccess) {
+      debugPrint('SUCCESS: $getSimpleSupportedVsCurrencies()');
+      return response.data!;
+    } else {
+      debugPrint('FAILED: $getSimpleSupportedVsCurrencies');
       throw response.error!;
     }
   }

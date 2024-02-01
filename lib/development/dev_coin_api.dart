@@ -77,6 +77,17 @@ class _CoinGeckoButtons extends StatelessWidget {
                     },
               child: const Text('SimplePricesList'),
             ),
+            ElevatedButton(
+              onPressed:
+                  state.runtimeType == DevCoinGeckoSimpleSupportedVsCurrencies
+                      ? null
+                      : () {
+                          context
+                              .read<DevCoinBloc>()
+                              .add(DevCoinGeckoSimpleSupportedVsCurrencies());
+                        },
+              child: const Text('SimpleSupportedVsCurrencies'),
+            ),
           ],
         );
       },
@@ -310,7 +321,7 @@ class _DataView extends StatelessWidget {
                 );
               case DevCoinStatus.failure:
                 return Center(
-                  child: Text(
+                  child: SelectableText(
                     'Failed to get data\n${state.error.toString()}',
                     style: const TextStyle(color: Colors.red),
                   ),

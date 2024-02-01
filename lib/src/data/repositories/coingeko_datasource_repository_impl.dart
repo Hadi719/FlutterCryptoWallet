@@ -1,5 +1,5 @@
-import '../../domain/models/coingecko/request/simple/simple_price_request.dart';
-import '../../domain/models/coingecko/response/simple/simple_price_response.dart';
+import '../../domain/models/coingecko/request/request.dart';
+import '../../domain/models/coingecko/response/response.dart';
 import '../../domain/repositories/coingecko_api_repository.dart';
 import '../../utils/resources/data_state.dart';
 import '../datasource/remote/coingecko_remote_client.dart';
@@ -25,6 +25,14 @@ class CoinGeckoDataSourceRepositoryImpl extends BaseDataSourceRepository
         precision: request.precision,
       ),
     );
+  }
+
+  @override
+  Future<DataState<SimpleSupportedVsCurrenciesResponse>>
+      getSimpleSupportedVsCurrencies(
+          {required SimpleSupportedVsCurrenciesRequest request}) {
+    return getStateOf<SimpleSupportedVsCurrenciesResponse>(
+        request: () => _coinGeckoRemoteClient.getSimpleSupportedVsCurrencies());
   }
 
 /*  @override
