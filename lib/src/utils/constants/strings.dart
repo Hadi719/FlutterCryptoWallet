@@ -2,7 +2,27 @@
 const String kAppTitle = 'Flutter Crypto Wallet';
 
 // Networking & APIs
-// - CoinCap
+
+// -- CoinGecko
+const String kCoinGeckoBaseUrl = 'https://api.coingecko.com/api/v3';
+const String kCoinGeckoPathSimplePricesList = '/simple/price';
+const String kCoinGeckoPathSimpleSupportedVsCurrencies =
+    '/simple/supported_vs_currencies';
+const String kCoinGeckoPathCoinsList = '/coins/list';
+const String kCoinGeckoPathCoinsMarketsList = '/coins/markets';
+const String kCoinGeckoPathCoinData = '/coins/{id}/';
+const String kCoinGeckoPathCoinTickers = '/coins/{id}/tickers';
+const String kCoinGeckoPathCoinHistory = '/coins/{id}/history';
+const String kCoinGeckoPathCoinMarketChart = '/coins/{id}/market_chart';
+const String kCoinGeckoPathCoinMarketChartRange =
+    '/coins/{id}/market_chart/range';
+const String kCoinGeckoPathCoinOHLC = '/coins/{id}/ohlc';
+const String kCoinGeckoPathAssetPlatformsList = '/asset_platforms';
+const String kCoinGeckoPathCategoriesList = '/coins/categories/list';
+const String kCoinGeckoPathCategoriesListWithMarketData = '/coins/categories';
+// const String kCoinGeckoPath = '';
+
+// -- CoinCap
 const String kCoinCapBaseUrl = 'https://api.coincap.io/v2';
 const String kCoinCapPathAssetsList = '/assets';
 const String kCoinCapPathAsset = '/assets/{id}';
@@ -14,9 +34,8 @@ const String kCoinCapPathExchangesList = '/exchanges';
 const String kCoinCapPathExchange = '/exchanges/{id}';
 const String kCoinCapPathMarketsList = '/markets';
 const String kCoinCapPathCandlesList = '/candles';
-// const String kCoinCapPath = '';
 
-// - CoinEX
+// -- CoinEX
 const String kCoinExBaseUrl = 'https://api.coinex.com/v1';
 const String kCoinExPathAllMarketList = '/market/list';
 const String kCoinExPathAllMarketInfo = '/market/info';
