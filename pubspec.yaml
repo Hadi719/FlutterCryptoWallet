@@ -24,11 +24,11 @@ dependencies:
   retrofit: ^4.0.3
 
   # firebase
-  firebase_core: ^2.24.2
-  firebase_auth: ^4.16.0
-  firebase_messaging: ^14.7.10
-  firebase_analytics: ^10.8.0
-  firebase_crashlytics: ^3.4.9
+  firebase_core: ^2.25.1
+  firebase_auth: ^4.17.0
+  firebase_messaging: ^14.7.11
+  firebase_analytics: ^10.8.1
+  firebase_crashlytics: ^3.4.10
   google_sign_in: ^6.2.1
 
   # Themes & Icons & Widgets
@@ -39,7 +39,7 @@ dependencies:
   # Other
   meta: ^1.10.0
   collection: ^1.18.0
-  get_it: ^7.6.6
+  get_it: ^7.6.7
   equatable: ^2.0.5
   formz: ^0.6.1
 
