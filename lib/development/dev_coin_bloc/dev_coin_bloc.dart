@@ -27,6 +27,7 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
     on<DevCoinGeckoSimplePricesList>(_onDevCoinGeckoSimplePricesList);
     on<DevCoinGeckoSimpleSupportedVsCurrencies>(
         _onDevCoinGeckoSimpleSupportedVsCurrencies);
+    on<DevCoinGeckoCoinMetadata>(_onDevCoinGeckoCoinMetadata);
 
     // CoinCap
     on<DevCoinCapAssetsList>(_onDevCoinCapAssetsList);
@@ -107,6 +108,29 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
         lastEvent: DevCoinGeckoSimpleSupportedVsCurrencies(),
       ));
       final data = await _RemoteCoinGecko.getSimpleSupportedVsCurrencies();
+      emit(state.copyWith(
+        status: DevCoinStatus.success,
+        data: data,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: DevCoinStatus.failure,
+        error: e,
+      ));
+    }
+  }
+
+  // CoinGecko -- Coin Metadata
+  Future<void> _onDevCoinGeckoCoinMetadata(
+    DevCoinGeckoCoinMetadata event,
+    Emitter<DevCoinState> emit,
+  ) async {
+    try {
+      emit(state.copyWith(
+        status: DevCoinStatus.loading,
+        lastEvent: DevCoinGeckoCoinMetadata(),
+      ));
+      final data = await _RemoteCoinGecko.getCoinMetadata();
       emit(state.copyWith(
         status: DevCoinStatus.success,
         data: data,
@@ -874,6 +898,22 @@ class _RemoteCoinGecko {
       return response.data!;
     } else {
       debugPrint('FAILED: $getSimpleSupportedVsCurrencies');
+      throw response.error!;
+    }
+  }
+
+  static Future<CoinMetadataResponse> getCoinMetadata() async {
+    final DataState<CoinMetadataResponse> response =
+        await serviceLocator<CoinGeckoApiRepository>().getCoinMetadata(
+      request: const CoinMetadataRequest(
+        id: 'ethereum',
+      ),
+    );
+    if (response is DataSuccess) {
+      debugPrint('SUCCESS: $getCoinMetadata()');
+      return response.data!;
+    } else {
+      debugPrint('FAILED: $getCoinMetadata');
       throw response.error!;
     }
   }

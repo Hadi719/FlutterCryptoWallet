@@ -35,6 +35,21 @@ class CoinGeckoDataSourceRepositoryImpl extends BaseDataSourceRepository
         request: () => _coinGeckoRemoteClient.getSimpleSupportedVsCurrencies());
   }
 
+  @override
+  Future<DataState<CoinMetadataResponse>> getCoinMetadata(
+      {required CoinMetadataRequest request}) {
+    return getStateOf<CoinMetadataResponse>(
+        request: () => _coinGeckoRemoteClient.getCoinMetadata(
+              id: request.id,
+              localization: request.localization,
+              tickers: request.tickers,
+              marketData: request.marketData,
+              communityData: request.communityData,
+              developerData: request.developerData,
+              sparkline: request.sparkline,
+            ));
+  }
+
 /*  @override
   Future<DataState<AssetHistoriesResponse>> getAssetHistories({
     required AssetHistoriesRequest request,

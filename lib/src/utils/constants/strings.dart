@@ -10,7 +10,7 @@ const String kCoinGeckoPathSimpleSupportedVsCurrencies =
     '/simple/supported_vs_currencies';
 const String kCoinGeckoPathCoinsList = '/coins/list';
 const String kCoinGeckoPathCoinsMarketsList = '/coins/markets';
-const String kCoinGeckoPathCoinData = '/coins/{id}/';
+const String kCoinGeckoPathCoinMetaData = '/coins/{id}';
 const String kCoinGeckoPathCoinTickers = '/coins/{id}/tickers';
 const String kCoinGeckoPathCoinHistory = '/coins/{id}/history';
 const String kCoinGeckoPathCoinMarketChart = '/coins/{id}/market_chart';

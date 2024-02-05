@@ -88,6 +88,16 @@ class _CoinGeckoButtons extends StatelessWidget {
                         },
               child: const Text('SimpleSupportedVsCurrencies'),
             ),
+            ElevatedButton(
+              onPressed: state.runtimeType == DevCoinGeckoCoinMetadata
+                  ? null
+                  : () {
+                      context
+                          .read<DevCoinBloc>()
+                          .add(DevCoinGeckoCoinMetadata());
+                    },
+              child: const Text('CoinMetadata'),
+            ),
           ],
         );
       },
@@ -327,8 +337,11 @@ class _DataView extends StatelessWidget {
                   ),
                 );
               case DevCoinStatus.success:
-                return SingleChildScrollView(
-                  child: SelectableText(state.data.toString()),
+                return Scrollbar(
+                  interactive: true,
+                  child: SingleChildScrollView(
+                    child: SelectableText(state.data.toString()),
+                  ),
                 );
             }
           },

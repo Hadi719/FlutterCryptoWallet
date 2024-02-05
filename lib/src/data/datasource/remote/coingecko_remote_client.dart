@@ -25,6 +25,17 @@ abstract class CoinGeckoRemoteClient {
   Future<HttpResponse<SimpleSupportedVsCurrenciesResponse>>
       getSimpleSupportedVsCurrencies();
 
+  @GET(kCoinGeckoPathCoinMetaData)
+  Future<HttpResponse<CoinMetadataResponse>> getCoinMetadata({
+    @Path('id') required String id,
+    @Query('localization') String? localization,
+    @Query('tickers') bool? tickers,
+    @Query('market_data') bool? marketData,
+    @Query('community_data') bool? communityData,
+    @Query('developer_data') bool? developerData,
+    @Query('sparkline') bool? sparkline,
+  });
+
 /*  @GET(kCoinCapPathAssetHistory)
   Future<HttpResponse<AssetHistoriesResponse>> getAssetHistories({
     @Path('id') required String id,

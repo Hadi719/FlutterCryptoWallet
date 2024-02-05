@@ -10,4 +10,7 @@ abstract class CoinGeckoApiRepository {
       getSimpleSupportedVsCurrencies({
     required SimpleSupportedVsCurrenciesRequest request,
   });
+  Future<DataState<CoinMetadataResponse>> getCoinMetadata({
+    required CoinMetadataRequest request,
+  });
 }
