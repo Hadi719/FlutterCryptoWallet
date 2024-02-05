@@ -6,7 +6,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 0.1.0+1
 
 environment:
-  sdk: '>=3.2.4 <4.0.0'
+  sdk: '>=3.2.6 <4.0.0'
 
 
 dependencies:
@@ -21,18 +21,17 @@ dependencies:
   # Networking
   http: ^1.2.0
   dio: ^5.4.0
-  retrofit: ^4.0.3
+  retrofit: ^4.1.0
 
   # firebase
-  firebase_core: ^2.25.1
-  firebase_auth: ^4.17.0
-  firebase_messaging: ^14.7.11
-  firebase_analytics: ^10.8.1
-  firebase_crashlytics: ^3.4.10
+  firebase_core: ^2.25.3
+  firebase_auth: ^4.17.3
+  firebase_messaging: ^14.7.14
+  firebase_analytics: ^10.8.4
+  firebase_crashlytics: ^3.4.13
   google_sign_in: ^6.2.1
 
   # Themes & Icons & Widgets
-  cupertino_icons: ^1.0.6
   flutter_signin_button: ^2.0.0
   barcode_widget: ^2.0.4
 
@@ -50,11 +49,11 @@ dependencies:
     path: packages/form_inputs
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+#  flutter_test:
+#    sdk: flutter
 
   flutter_lints: ^3.0.1
-  retrofit_generator: ^8.0.6
+  retrofit_generator: ^8.1.0
   build_runner: ^2.4.8
 
 
