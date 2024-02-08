@@ -13,4 +13,7 @@ abstract class CoinGeckoApiRepository {
   Future<DataState<CoinMetadataResponse>> getCoinMetadata({
     required CoinMetadataRequest request,
   });
+  Future<DataState<CoinHistoryResponse>> getCoinHistory({
+    required CoinHistoryRequest request,
+  });
 }

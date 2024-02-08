@@ -98,6 +98,16 @@ class _CoinGeckoButtons extends StatelessWidget {
                     },
               child: const Text('CoinMetadata'),
             ),
+            ElevatedButton(
+              onPressed: state.runtimeType == DevCoinGeckoCoinHistory
+                  ? null
+                  : () {
+                      context
+                          .read<DevCoinBloc>()
+                          .add(DevCoinGeckoCoinHistory());
+                    },
+              child: const Text('CoinHistory'),
+            ),
           ],
         );
       },

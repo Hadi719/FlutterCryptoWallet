@@ -6,7 +6,7 @@ import '../../../utils/constants/strings.dart';
 
 part 'coingecko_remote_client.g.dart';
 
-@RestApi(baseUrl: kCoinGeckoBaseUrl, parser: Parser.MapSerializable)
+@RestApi(baseUrl: kCoinGeckoBaseUrl, parser: Parser.JsonSerializable)
 abstract class CoinGeckoRemoteClient {
   factory CoinGeckoRemoteClient(Dio dio, {String baseUrl}) =
       _CoinGeckoRemoteClient;
@@ -36,11 +36,10 @@ abstract class CoinGeckoRemoteClient {
     @Query('sparkline') bool? sparkline,
   });
 
-/*  @GET(kCoinCapPathAssetHistory)
-  Future<HttpResponse<AssetHistoriesResponse>> getAssetHistories({
+  @GET(kCoinGeckoPathCoinHistory)
+  Future<HttpResponse<CoinHistoryResponse>> getCoinHistory({
     @Path('id') required String id,
-    @Query('interval') required String interval,
-    @Query('start') int? start,
-    @Query('end') int? end,
-  });*/
+    @Query('date') required String date,
+    @Query('localization') String? localization,
+  });
 }

@@ -50,16 +50,14 @@ class CoinGeckoDataSourceRepositoryImpl extends BaseDataSourceRepository
             ));
   }
 
-/*  @override
-  Future<DataState<AssetHistoriesResponse>> getAssetHistories({
-    required AssetHistoriesRequest request,
-  }) {
-    return getStateOf<AssetHistoriesResponse>(
-        request: () => _coinCapRemoteDataSource.getAssetHistories(
-          id: request.id,
-          interval: request.interval.name,
-          start: request.start,
-          end: request.end,
-        ));
-  }*/
+  @override
+  Future<DataState<CoinHistoryResponse>> getCoinHistory(
+      {required CoinHistoryRequest request}) {
+    return getStateOf<CoinHistoryResponse>(
+        request: () => _coinGeckoRemoteClient.getCoinHistory(
+              id: request.id,
+              date: request.date,
+              localization: request.localization,
+            ));
+  }
 }
