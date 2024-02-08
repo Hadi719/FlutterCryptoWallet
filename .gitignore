@@ -60,4 +60,5 @@ app.*.map.json
 # api files
 /lib/src/config/api
 *.g.dart
+*.freezed.dart
 
