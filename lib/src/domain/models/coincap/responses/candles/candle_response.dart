@@ -31,7 +31,6 @@ class CandleResponse extends Equatable {
   final DateTime? period;
 
   factory CandleResponse.fromMap(Map<String, dynamic> mapData) {
-    print('object');
     return CandleResponse(
       open: double.tryParse(mapData['open'] ?? kDoubleRevoker),
       high: double.tryParse(mapData['high'] ?? kDoubleRevoker),
