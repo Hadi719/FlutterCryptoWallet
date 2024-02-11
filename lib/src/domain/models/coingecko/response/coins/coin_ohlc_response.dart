@@ -7,9 +7,9 @@ part 'coin_ohlc_response.g.dart';
 @Freezed(toJson: false)
 class CoinOHLCResponse with _$CoinOHLCResponse {
   /// {@macro CoinOHLC}
-  const factory CoinOHLCResponse(
-    List<OHLCValues> ohlcList,
-  ) = _CoinOHLCResponse;
+  const factory CoinOHLCResponse({
+    List<OHLCValues>? ohlcList,
+  }) = _CoinOHLCResponse;
 
   /// {@macro CoinOHLC}
   factory CoinOHLCResponse.fromJson(Map<String, dynamic> json) =>

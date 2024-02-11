@@ -3,17 +3,17 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'coins_markets_list_response.freezed.dart';
 part 'coins_markets_list_response.g.dart';
 
-@freezed
+@Freezed(toJson: false)
 class CoinsMarketsListResponse with _$CoinsMarketsListResponse {
-  const factory CoinsMarketsListResponse(
+  const factory CoinsMarketsListResponse({
     List<Map<String, dynamic>>? coinsMarketsDataList,
-  ) = _CoinsMarketsListResponse;
+  }) = _CoinsMarketsListResponse;
 
   factory CoinsMarketsListResponse.fromJson(Map<String, dynamic> json) =>
       _$CoinsMarketsListResponseFromJson(json);
 }
 
-@freezed
+@Freezed(toJson: false)
 class CoinMarketData with _$CoinMarketData {
   const factory CoinMarketData(
     String? id,

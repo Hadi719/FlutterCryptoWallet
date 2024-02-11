@@ -4,14 +4,14 @@ part 'coin_market_chart_response.freezed.dart';
 part 'coin_market_chart_response.g.dart';
 
 /// {@macro CoinMarketChart}
-@freezed
+@Freezed(toJson: false)
 class CoinMarketChartResponse with _$CoinMarketChartResponse {
   /// {@macro CoinMarketChart}
-  const factory CoinMarketChartResponse(
-    List<List<double>> prices,
-    @JsonKey(name: 'market_caps') List<List<double>> marketCaps,
-    @JsonKey(name: 'total_volumes') List<List<double>> totalVolumes,
-  ) = _CoinMarketChartResponse;
+  const factory CoinMarketChartResponse({
+    List<List<double>>? prices,
+    @JsonKey(name: 'market_caps') List<List<double>>? marketCaps,
+    @JsonKey(name: 'total_volumes') List<List<double>>? totalVolumes,
+  }) = _CoinMarketChartResponse;
 
   /// {@macro CoinMarketChart}
   factory CoinMarketChartResponse.fromJson(Map<String, dynamic> json) =>
