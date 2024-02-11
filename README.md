@@ -83,7 +83,7 @@ dart run build_runner build
   - go to `getSimpleSupportedVsCurrencies()` function.
     - change this `await _dio.fetch<Map<String, dynamic>>` to:
     ```
-    await _dio.fetch<List<String>>
+    await _dio.fetch<List<dynamic>>
     ```
     - change this `final value = SimpleSupportedVsCurrenciesResponse.fromJson(_result.data!);` to:
     ```dart
