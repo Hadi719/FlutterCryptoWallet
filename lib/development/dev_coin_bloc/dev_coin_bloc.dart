@@ -31,6 +31,7 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
     on<DevCoinGeckoCoinHistory>(_onDevCoinGeckoCoinHistory);
     on<DevCoinGeckoCoinsMarketsList>(_onDevCoinGeckoCoinsMarketsList);
     on<DevCoinGeckoCoinMarketChart>(_onDevCoinGeckoCoinMarketChart);
+    on<DevCoinGeckoCoinMarketChartRange>(_onDevCoinGeckoCoinMarketChartRange);
 
     // CoinCap
     on<DevCoinCapAssetsList>(_onDevCoinCapAssetsList);
@@ -200,6 +201,28 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
         lastEvent: DevCoinGeckoCoinMarketChart(),
       ));
       final data = await _RemoteCoinGecko.getCoinMarketChart();
+      emit(state.copyWith(
+        status: DevCoinStatus.success,
+        data: data,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: DevCoinStatus.failure,
+        error: e,
+      ));
+    }
+  }
+
+  Future<void> _onDevCoinGeckoCoinMarketChartRange(
+    DevCoinGeckoCoinMarketChartRange event,
+    Emitter<DevCoinState> emit,
+  ) async {
+    try {
+      emit(state.copyWith(
+        status: DevCoinStatus.loading,
+        lastEvent: DevCoinGeckoCoinMarketChartRange(),
+      ));
+      final data = await _RemoteCoinGecko.getCoinMarketChartRange();
       emit(state.copyWith(
         status: DevCoinStatus.success,
         data: data,
@@ -1025,6 +1048,24 @@ class _RemoteCoinGecko {
       return response.data!;
     } else {
       debugPrint('FAILED: $getCoinMarketChart');
+      throw response.error!;
+    }
+  }
+
+  static Future<CoinMarketChartRangeResponse> getCoinMarketChartRange() async {
+    final DataState<CoinMarketChartRangeResponse> response =
+        await serviceLocator<CoinGeckoApiRepository>().getCoinMarketChartRange(
+      request: const CoinMarketChartRangeRequest(
+        id: 'bitcoin',
+        from: 1392577232,
+        to: 1422577232,
+      ),
+    );
+    if (response is DataSuccess) {
+      debugPrint('SUCCESS: $getCoinMarketChartRange()');
+      return response.data!;
+    } else {
+      debugPrint('FAILED: $getCoinMarketChartRange');
       throw response.error!;
     }
   }

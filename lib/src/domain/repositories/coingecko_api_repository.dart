@@ -19,7 +19,14 @@ abstract class CoinGeckoApiRepository {
   Future<DataState<CoinsMarketsListResponse>> getCoinsMarketsList({
     required CoinsMarketsListRequest request,
   });
+
+  /// {@macro CoinMarketChart}
   Future<DataState<CoinMarketChartResponse>> getCoinMarketChart({
     required CoinMarketChartRequest request,
+  });
+
+  /// {@macro CoinMarketChartRange}
+  Future<DataState<CoinMarketChartRangeResponse>> getCoinMarketChartRange({
+    required CoinMarketChartRangeRequest request,
   });
 }

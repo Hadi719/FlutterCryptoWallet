@@ -128,6 +128,16 @@ class _CoinGeckoButtons extends StatelessWidget {
                     },
               child: const Text('CoinMarketChart'),
             ),
+            ElevatedButton(
+              onPressed: state.runtimeType == DevCoinGeckoCoinMarketChartRange
+                  ? null
+                  : () {
+                      context
+                          .read<DevCoinBloc>()
+                          .add(DevCoinGeckoCoinMarketChartRange());
+                    },
+              child: const Text('CoinMarketChartRange'),
+            ),
           ],
         );
       },

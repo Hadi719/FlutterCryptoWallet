@@ -91,4 +91,17 @@ class CoinGeckoDataSourceRepositoryImpl extends BaseDataSourceRepository
               precision: request.precision,
             ));
   }
+
+  @override
+  Future<DataState<CoinMarketChartRangeResponse>> getCoinMarketChartRange(
+      {required CoinMarketChartRangeRequest request}) {
+    return getStateOf<CoinMarketChartRangeResponse>(
+        request: () => _coinGeckoRemoteClient.getCoinMarketChartRange(
+              id: request.id,
+              vsCurrency: request.vsCurrency,
+              from: request.from,
+              to: request.to,
+              precision: request.precision,
+            ));
+  }
 }

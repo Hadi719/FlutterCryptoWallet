@@ -65,4 +65,13 @@ abstract class CoinGeckoRemoteClient {
     @Query('interval') String? interval,
     @Query('precision') String? precision,
   });
+
+  @GET(kCoinGeckoPathCoinMarketChartRange)
+  Future<HttpResponse<CoinMarketChartRangeResponse>> getCoinMarketChartRange({
+    @Path('id') required String id,
+    @Query('vs_currency') required String vsCurrency,
+    @Query('from') required int from,
+    @Query('to') required int to,
+    @Query('precision') String? precision,
+  });
 }
