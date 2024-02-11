@@ -89,6 +89,16 @@ dart run build_runner build
   ```dart
   final editedResult = {'currenciesList': _result.data!};
   final value = SimpleSupportedVsCurrenciesResponse.fromJson(editedResult);
+  ```  
+  - go to `getCoinsMarketsList()` function.
+  - change this `final _result = await _dio.fetch<Map<String, dynamic>>(...` to:
+  ```
+  _dio.fetch<List<String>();
+  ```
+  - change this 'final value = CoinsMarketsListResponse.fromJson(_result.data!)' to:
+  ```dart
+  final editedResult = {'coinsMarketsDataList': _result.data!};
+  final value = CoinsMarketsListResponse.fromJson(editedResult);
   ```
 
 # Release build note

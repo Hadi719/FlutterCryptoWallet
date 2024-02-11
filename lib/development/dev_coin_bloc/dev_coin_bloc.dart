@@ -29,6 +29,7 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
         _onDevCoinGeckoSimpleSupportedVsCurrencies);
     on<DevCoinGeckoCoinMetadata>(_onDevCoinGeckoCoinMetadata);
     on<DevCoinGeckoCoinHistory>(_onDevCoinGeckoCoinHistory);
+    on<DevCoinGeckoCoinsMarketsList>(_onDevCoinGeckoCoinsMarketsList);
 
     // CoinCap
     on<DevCoinCapAssetsList>(_onDevCoinCapAssetsList);
@@ -121,7 +122,7 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
     }
   }
 
-  // CoinGecko -- Coin Metadata
+  // CoinGecko -- Coins
   Future<void> _onDevCoinGeckoCoinMetadata(
     DevCoinGeckoCoinMetadata event,
     Emitter<DevCoinState> emit,
@@ -154,6 +155,28 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
         lastEvent: DevCoinGeckoCoinHistory(),
       ));
       final data = await _RemoteCoinGecko.getCoinHistory();
+      emit(state.copyWith(
+        status: DevCoinStatus.success,
+        data: data,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: DevCoinStatus.failure,
+        error: e,
+      ));
+    }
+  }
+
+  Future<void> _onDevCoinGeckoCoinsMarketsList(
+    DevCoinGeckoCoinsMarketsList event,
+    Emitter<DevCoinState> emit,
+  ) async {
+    try {
+      emit(state.copyWith(
+        status: DevCoinStatus.loading,
+        lastEvent: DevCoinGeckoCoinsMarketsList(),
+      ));
+      final data = await _RemoteCoinGecko.getCoinsMarketsList();
       emit(state.copyWith(
         status: DevCoinStatus.success,
         data: data,
@@ -951,6 +974,20 @@ class _RemoteCoinGecko {
       return response.data!;
     } else {
       debugPrint('FAILED: $getCoinHistory');
+      throw response.error!;
+    }
+  }
+
+  static Future<CoinsMarketsListResponse> getCoinsMarketsList() async {
+    final DataState<CoinsMarketsListResponse> response =
+        await serviceLocator<CoinGeckoApiRepository>().getCoinsMarketsList(
+      request: CoinsMarketsListRequest(vsCurrency: 'usd'),
+    );
+    if (response is DataSuccess) {
+      debugPrint('SUCCESS: $getCoinsMarketsList()');
+      return response.data!;
+    } else {
+      debugPrint('FAILED: $getCoinsMarketsList');
       throw response.error!;
     }
   }

@@ -42,4 +42,18 @@ abstract class CoinGeckoRemoteClient {
     @Query('date') required String date,
     @Query('localization') String? localization,
   });
+
+  @GET(kCoinGeckoPathCoinsMarketsList)
+  Future<HttpResponse<CoinsMarketsListResponse>> getCoinsMarketsList({
+    @Query('vs_currency') required String vsCurrency,
+    @Query('ids') String? ids,
+    @Query('category') String? category,
+    @Query('order') String? order,
+    @Query('per_page') int? perPage,
+    @Query('page') int? page,
+    @Query('sparkline') String? sparkline,
+    @Query('price_change_percentage') String? priceChangePercentage,
+    @Query('locale') String? locale,
+    @Query('precision') String? precision,
+  });
 }

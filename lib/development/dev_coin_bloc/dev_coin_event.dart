@@ -19,6 +19,8 @@ final class DevCoinGeckoCoinMetadata extends DevCoinEvent {}
 
 final class DevCoinGeckoCoinHistory extends DevCoinEvent {}
 
+final class DevCoinGeckoCoinsMarketsList extends DevCoinEvent {}
+
 // CoinCap -- Assets
 final class DevCoinCapAssetsList extends DevCoinEvent {}
 

@@ -60,4 +60,22 @@ class CoinGeckoDataSourceRepositoryImpl extends BaseDataSourceRepository
               localization: request.localization,
             ));
   }
+
+  @override
+  Future<DataState<CoinsMarketsListResponse>> getCoinsMarketsList(
+      {required CoinsMarketsListRequest request}) {
+    return getStateOf<CoinsMarketsListResponse>(
+        request: () => _coinGeckoRemoteClient.getCoinsMarketsList(
+              vsCurrency: request.vsCurrency,
+              ids: request.ids,
+              category: request.category,
+              order: request.order?.value,
+              perPage: request.perPage,
+              page: request.page,
+              sparkline: request.sparkline,
+              priceChangePercentage: request.priceChangePercentage,
+              locale: request.locale?.name,
+              precision: request.precision,
+            ));
+  }
 }
