@@ -25,6 +25,8 @@ final class DevCoinGeckoCoinMarketChart extends DevCoinEvent {}
 
 final class DevCoinGeckoCoinMarketChartRange extends DevCoinEvent {}
 
+final class DevCoinGeckoCoinOHLC extends DevCoinEvent {}
+
 // CoinCap -- Assets
 final class DevCoinCapAssetsList extends DevCoinEvent {}
 

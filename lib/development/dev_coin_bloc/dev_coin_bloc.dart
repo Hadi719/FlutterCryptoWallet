@@ -32,6 +32,7 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
     on<DevCoinGeckoCoinsMarketsList>(_onDevCoinGeckoCoinsMarketsList);
     on<DevCoinGeckoCoinMarketChart>(_onDevCoinGeckoCoinMarketChart);
     on<DevCoinGeckoCoinMarketChartRange>(_onDevCoinGeckoCoinMarketChartRange);
+    on<DevCoinGeckoCoinOHLC>(_onDevCoinGeckoCoinOHLC);
 
     // CoinCap
     on<DevCoinCapAssetsList>(_onDevCoinCapAssetsList);
@@ -223,6 +224,28 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
         lastEvent: DevCoinGeckoCoinMarketChartRange(),
       ));
       final data = await _RemoteCoinGecko.getCoinMarketChartRange();
+      emit(state.copyWith(
+        status: DevCoinStatus.success,
+        data: data,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: DevCoinStatus.failure,
+        error: e,
+      ));
+    }
+  }
+
+  Future<void> _onDevCoinGeckoCoinOHLC(
+    DevCoinGeckoCoinOHLC event,
+    Emitter<DevCoinState> emit,
+  ) async {
+    try {
+      emit(state.copyWith(
+        status: DevCoinStatus.loading,
+        lastEvent: DevCoinGeckoCoinOHLC(),
+      ));
+      final data = await _RemoteCoinGecko.getCoinOHLC();
       emit(state.copyWith(
         status: DevCoinStatus.success,
         data: data,
@@ -1066,6 +1089,23 @@ class _RemoteCoinGecko {
       return response.data!;
     } else {
       debugPrint('FAILED: $getCoinMarketChartRange');
+      throw response.error!;
+    }
+  }
+
+  static Future<CoinOHLCResponse> getCoinOHLC() async {
+    final DataState<CoinOHLCResponse> response =
+        await serviceLocator<CoinGeckoApiRepository>().getCoinOHLC(
+      request: const CoinOHLCRequest(
+        id: 'bitcoin',
+        days: 7,
+      ),
+    );
+    if (response is DataSuccess) {
+      debugPrint('SUCCESS: $getCoinOHLC()');
+      return response.data!;
+    } else {
+      debugPrint('FAILED: $getCoinOHLC');
       throw response.error!;
     }
   }

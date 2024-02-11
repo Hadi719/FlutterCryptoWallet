@@ -81,25 +81,35 @@ dart run build_runner build
   ```
 - go to `lib/src/data/datasource/remote/coingecko_remote_client.g.dart` file,  
   - go to `getSimpleSupportedVsCurrencies()` function.
-  - change this `final _result = await _dio.fetch<Map<String, dynamic>>(...` to:
-  ```
-  _dio.fetch<List<String>();
-  ```
-  - change this 'final value = SimpleSupportedVsCurrenciesResponse.fromJson(_result.data!)' to:
-  ```dart
-  final editedResult = {'currenciesList': _result.data!};
-  final value = SimpleSupportedVsCurrenciesResponse.fromJson(editedResult);
-  ```  
+    - change this `await _dio.fetch<Map<String, dynamic>>` to:
+    ```
+    await _dio.fetch<List<String>>
+    ```
+    - change this `final value = SimpleSupportedVsCurrenciesResponse.fromJson(_result.data!);` to:
+    ```dart
+    final editedResult = {'currenciesList': _result.data!};
+    final value = SimpleSupportedVsCurrenciesResponse.fromJson(editedResult);
+    ```  
   - go to `getCoinsMarketsList()` function.
-  - change this `final _result = await _dio.fetch<Map<String, dynamic>>(...` to:
-  ```
-  _dio.fetch<List<String>();
-  ```
-  - change this 'final value = CoinsMarketsListResponse.fromJson(_result.data!)' to:
-  ```dart
-  final editedResult = {'coinsMarketsDataList': _result.data!};
-  final value = CoinsMarketsListResponse.fromJson(editedResult);
-  ```
+    - change `await _dio.fetch<Map<String, dynamic>>` to:
+    ```
+    await _dio.fetch<List<dynamic>>
+    ```
+    - change this `final value = CoinsMarketsListResponse.fromJson(_result.data!);` to:
+    ```dart
+    final editedResult = {'coinsMarketsDataList': _result.data!};
+    final value = CoinsMarketsListResponse.fromJson(editedResult);
+    ```  
+  - go to `getCoinOHLC()` function.
+    - change `await _dio.fetch<Map<String, dynamic>>` to:
+    ```
+    await _dio.fetch<List<dynamic>>
+    ```
+    - change `final value = CoinOHLCResponse.fromJson(_result.data!);` to:
+    ```dart
+    final editedResult = {'ohlcList': _result.data!};
+    final value = CoinOHLCResponse.fromJson(editedResult);
+    ```
 
 # Release build note
 - __Obfuscate Dart code:__

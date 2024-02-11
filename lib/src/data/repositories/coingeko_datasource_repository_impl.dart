@@ -104,4 +104,16 @@ class CoinGeckoDataSourceRepositoryImpl extends BaseDataSourceRepository
               precision: request.precision,
             ));
   }
+
+  @override
+  Future<DataState<CoinOHLCResponse>> getCoinOHLC(
+      {required CoinOHLCRequest request}) {
+    return getStateOf<CoinOHLCResponse>(
+        request: () => _coinGeckoRemoteClient.getCoinOHLC(
+              id: request.id,
+              vsCurrency: request.vsCurrency,
+              days: request.days,
+              precision: request.precision,
+            ));
+  }
 }

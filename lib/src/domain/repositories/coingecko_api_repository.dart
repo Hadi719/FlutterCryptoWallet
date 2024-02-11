@@ -29,4 +29,9 @@ abstract class CoinGeckoApiRepository {
   Future<DataState<CoinMarketChartRangeResponse>> getCoinMarketChartRange({
     required CoinMarketChartRangeRequest request,
   });
+
+  /// {@macro CoinOHLC}
+  Future<DataState<CoinOHLCResponse>> getCoinOHLC({
+    required CoinOHLCRequest request,
+  });
 }

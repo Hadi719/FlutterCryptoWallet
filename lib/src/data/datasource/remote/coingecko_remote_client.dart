@@ -74,4 +74,12 @@ abstract class CoinGeckoRemoteClient {
     @Query('to') required int to,
     @Query('precision') String? precision,
   });
+
+  @GET(kCoinGeckoPathCoinOHLC)
+  Future<HttpResponse<CoinOHLCResponse>> getCoinOHLC({
+    @Path('id') required String id,
+    @Query('vs_currency') required String vsCurrency,
+    @Query('days') required int days,
+    @Query('precision') String? precision,
+  });
 }
