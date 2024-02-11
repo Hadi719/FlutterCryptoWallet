@@ -26,5 +26,12 @@ linter:
      prefer_relative_imports: true
 
 
+analyzer:
+  # If you plan on using Freezed in combination with json_serializable, recent versions of
+  # json_serializable and meta may require you to disable the invalid_annotation_target warning.
+  errors:
+    invalid_annotation_target: ignore
+
+
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
