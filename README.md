@@ -85,6 +85,11 @@ dart run build_runner build
   ```
   _dio.fetch<List<String>();
   ```
+  - change this 'final value = SimpleSupportedVsCurrenciesResponse.fromJson(_result.data!)' to:
+  ```dart
+  final editedResult = {'currenciesList': _result.data!};
+  final value = SimpleSupportedVsCurrenciesResponse.fromJson(editedResult);
+  ```
 
 # Release build note
 - __Obfuscate Dart code:__

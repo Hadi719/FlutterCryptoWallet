@@ -8,7 +8,7 @@ class SimplePricesListResponse extends Equatable {
   @override
   List<Object?> get props => [pricesList];
 
-  factory SimplePricesListResponse.fromMap(Map<String, dynamic> mapData) {
+  factory SimplePricesListResponse.fromJson(Map<String, dynamic> mapData) {
     return SimplePricesListResponse(pricesList: mapData);
   }
 
