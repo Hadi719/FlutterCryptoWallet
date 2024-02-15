@@ -72,6 +72,6 @@ const String kDoubleRevoker = '0xFF';
 /// Making [int.tryParse()] returns null instead of an error;
 ///
 /// ```dart
-/// double.tryParse(map['maxSupply'] ?? kIntRevoker);
+/// int.tryParse(map['maxSupply'] ?? kIntRevoker);
 /// ```
 const String kIntRevoker = '1f';
