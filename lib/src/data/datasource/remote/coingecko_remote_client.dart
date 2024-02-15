@@ -87,4 +87,7 @@ abstract class CoinGeckoRemoteClient {
   Future<HttpResponse<AssetPlatformsListResponse>> getAssetPlatformsList({
     @Query('filter') String? filter,
   });
+
+  @GET(kCoinGeckoPathExchangeRates)
+  Future<HttpResponse<ExchangeRatesResponse>> getExchangeRates();
 }

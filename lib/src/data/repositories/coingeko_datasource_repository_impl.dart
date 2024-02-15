@@ -125,4 +125,11 @@ class CoinGeckoDataSourceRepositoryImpl extends BaseDataSourceRepository
               filter: request.filter,
             ));
   }
+
+  @override
+  Future<DataState<ExchangeRatesResponse>> getExchangeRates(
+      {required ExchangeRatesRequest request}) {
+    return getStateOf<ExchangeRatesResponse>(
+        request: () => _coinGeckoRemoteClient.getExchangeRates());
+  }
 }

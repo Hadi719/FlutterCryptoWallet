@@ -39,4 +39,9 @@ abstract class CoinGeckoApiRepository {
   Future<DataState<AssetPlatformsListResponse>> getAssetPlatformsList({
     required AssetPlatformsListRequest request,
   });
+
+  /// {@macro ExchangeRates}
+  Future<DataState<ExchangeRatesResponse>> getExchangeRates({
+    required ExchangeRatesRequest request,
+  });
 }

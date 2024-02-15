@@ -18,8 +18,7 @@ const String kCoinGeckoPathCoinMarketChartRange =
     '/coins/{id}/market_chart/range';
 const String kCoinGeckoPathCoinOHLC = '/coins/{id}/ohlc';
 const String kCoinGeckoPathAssetPlatformsList = '/asset_platforms';
-const String kCoinGeckoPathCategoriesList = '/coins/categories/list';
-const String kCoinGeckoPathCategoriesListWithMarketData = '/coins/categories';
+const String kCoinGeckoPathExchangeRates = '/exchange_rates';
 // const String kCoinGeckoPath = '';
 
 // -- CoinCap

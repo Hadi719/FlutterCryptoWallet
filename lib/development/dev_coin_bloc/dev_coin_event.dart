@@ -30,6 +30,9 @@ final class DevCoinGeckoCoinOHLC extends DevCoinEvent {}
 // CoinGecko -- Asset Platforms
 final class DevCoinGeckoAssetPlatformsList extends DevCoinEvent {}
 
+// CoinGecko -- Exchange Rates
+final class DevCoinGeckoExchangeRates extends DevCoinEvent {}
+
 // CoinCap -- Assets
 final class DevCoinCapAssetsList extends DevCoinEvent {}
 

@@ -156,6 +156,16 @@ class _CoinGeckoButtons extends StatelessWidget {
                     },
               child: const Text('AssetPlatformsList'),
             ),
+            ElevatedButton(
+              onPressed: state.runtimeType == DevCoinGeckoExchangeRates
+                  ? null
+                  : () {
+                      context
+                          .read<DevCoinBloc>()
+                          .add(DevCoinGeckoExchangeRates());
+                    },
+              child: const Text('ExchangeRates'),
+            ),
           ],
         );
       },

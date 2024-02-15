@@ -34,6 +34,7 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
     on<DevCoinGeckoCoinMarketChartRange>(_onDevCoinGeckoCoinMarketChartRange);
     on<DevCoinGeckoCoinOHLC>(_onDevCoinGeckoCoinOHLC);
     on<DevCoinGeckoAssetPlatformsList>(_onDevCoinGeckoAssetPlatformsList);
+    on<DevCoinGeckoExchangeRates>(_onDevCoinGeckoExchangeRates);
 
     // CoinCap
     on<DevCoinCapAssetsList>(_onDevCoinCapAssetsList);
@@ -269,6 +270,28 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
         lastEvent: DevCoinGeckoAssetPlatformsList(),
       ));
       final data = await _RemoteCoinGecko.getAssetPlatformsList();
+      emit(state.copyWith(
+        status: DevCoinStatus.success,
+        data: data,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: DevCoinStatus.failure,
+        error: e,
+      ));
+    }
+  }
+
+  Future<void> _onDevCoinGeckoExchangeRates(
+    DevCoinGeckoExchangeRates event,
+    Emitter<DevCoinState> emit,
+  ) async {
+    try {
+      emit(state.copyWith(
+        status: DevCoinStatus.loading,
+        lastEvent: DevCoinGeckoExchangeRates(),
+      ));
+      final data = await _RemoteCoinGecko.getExchangeRates();
       emit(state.copyWith(
         status: DevCoinStatus.success,
         data: data,
@@ -1145,6 +1168,20 @@ class _RemoteCoinGecko {
       return response.data!;
     } else {
       debugPrint('FAILED: $getAssetPlatformsList');
+      throw response.error!;
+    }
+  }
+
+  static Future<ExchangeRatesResponse> getExchangeRates() async {
+    final DataState<ExchangeRatesResponse> response =
+        await serviceLocator<CoinGeckoApiRepository>().getExchangeRates(
+      request: const ExchangeRatesRequest(),
+    );
+    if (response is DataSuccess) {
+      debugPrint('SUCCESS: $getExchangeRates()');
+      return response.data!;
+    } else {
+      debugPrint('FAILED: $getExchangeRates');
       throw response.error!;
     }
   }
