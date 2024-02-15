@@ -116,4 +116,13 @@ class CoinGeckoDataSourceRepositoryImpl extends BaseDataSourceRepository
               precision: request.precision,
             ));
   }
+
+  @override
+  Future<DataState<AssetPlatformsListResponse>> getAssetPlatformsList(
+      {required AssetPlatformsListRequest request}) {
+    return getStateOf<AssetPlatformsListResponse>(
+        request: () => _coinGeckoRemoteClient.getAssetPlatformsList(
+              filter: request.filter,
+            ));
+  }
 }

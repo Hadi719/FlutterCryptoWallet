@@ -109,6 +109,16 @@ dart run build_runner build
     ```dart
     final editedResult = {'ohlcList': _result.data!};
     final value = CoinOHLCResponse.fromJson(editedResult);
+    ```  
+  - go to `getAssetPlatformsList()` function.
+    - change `await _dio.fetch<Map<String, dynamic>>` to:
+    ```
+    await _dio.fetch<List<dynamic>>
+    ```
+    - change `final value = AssetPlatformsListResponse.fromJson(_result.data!);` to:
+    ```dart
+    final editedResult = {'assetPlatformsList': _result.data!};
+    final value = AssetPlatformsListResponse.fromJson(editedResult);
     ```
 
 # Release build note

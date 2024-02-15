@@ -82,4 +82,9 @@ abstract class CoinGeckoRemoteClient {
     @Query('days') required int days,
     @Query('precision') String? precision,
   });
+
+  @GET(kCoinGeckoPathAssetPlatformsList)
+  Future<HttpResponse<AssetPlatformsListResponse>> getAssetPlatformsList({
+    @Query('filter') String? filter,
+  });
 }

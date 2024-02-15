@@ -34,4 +34,9 @@ abstract class CoinGeckoApiRepository {
   Future<DataState<CoinOHLCResponse>> getCoinOHLC({
     required CoinOHLCRequest request,
   });
+
+  /// {@macro AssetPlatformsList}
+  Future<DataState<AssetPlatformsListResponse>> getAssetPlatformsList({
+    required AssetPlatformsListRequest request,
+  });
 }

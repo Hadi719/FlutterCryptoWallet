@@ -33,6 +33,7 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
     on<DevCoinGeckoCoinMarketChart>(_onDevCoinGeckoCoinMarketChart);
     on<DevCoinGeckoCoinMarketChartRange>(_onDevCoinGeckoCoinMarketChartRange);
     on<DevCoinGeckoCoinOHLC>(_onDevCoinGeckoCoinOHLC);
+    on<DevCoinGeckoAssetPlatformsList>(_onDevCoinGeckoAssetPlatformsList);
 
     // CoinCap
     on<DevCoinCapAssetsList>(_onDevCoinCapAssetsList);
@@ -246,6 +247,28 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
         lastEvent: DevCoinGeckoCoinOHLC(),
       ));
       final data = await _RemoteCoinGecko.getCoinOHLC();
+      emit(state.copyWith(
+        status: DevCoinStatus.success,
+        data: data,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: DevCoinStatus.failure,
+        error: e,
+      ));
+    }
+  }
+
+  Future<void> _onDevCoinGeckoAssetPlatformsList(
+    DevCoinGeckoAssetPlatformsList event,
+    Emitter<DevCoinState> emit,
+  ) async {
+    try {
+      emit(state.copyWith(
+        status: DevCoinStatus.loading,
+        lastEvent: DevCoinGeckoAssetPlatformsList(),
+      ));
+      final data = await _RemoteCoinGecko.getAssetPlatformsList();
       emit(state.copyWith(
         status: DevCoinStatus.success,
         data: data,
@@ -1106,6 +1129,22 @@ class _RemoteCoinGecko {
       return response.data!;
     } else {
       debugPrint('FAILED: $getCoinOHLC');
+      throw response.error!;
+    }
+  }
+
+  static Future<AssetPlatformsListResponse> getAssetPlatformsList() async {
+    final DataState<AssetPlatformsListResponse> response =
+        await serviceLocator<CoinGeckoApiRepository>().getAssetPlatformsList(
+      request: const AssetPlatformsListRequest(
+          // filter: 'nft',
+          ),
+    );
+    if (response is DataSuccess) {
+      debugPrint('SUCCESS: $getAssetPlatformsList()');
+      return response.data!;
+    } else {
+      debugPrint('FAILED: $getAssetPlatformsList');
       throw response.error!;
     }
   }
