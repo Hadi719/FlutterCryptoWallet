@@ -14,11 +14,11 @@ class LatestTransactionDataResponse extends Equatable {
   /// List of [LatestTransactionData].
   final List<LatestTransactionData> data;
 
-  /// {@macro: LatestTransactionDataResponse}
+  /// {@macro LatestTransactionDataResponse}
   const LatestTransactionDataResponse(
       {this.data = const <LatestTransactionData>[]});
 
-  /// {@macro: LatestTransactionDataResponse}
+  /// {@macro LatestTransactionDataResponse}
   factory LatestTransactionDataResponse.fromMap(Map<String, dynamic> map) {
     var mapData = map['data'] ?? map;
     return LatestTransactionDataResponse(
@@ -35,7 +35,7 @@ class LatestTransactionDataResponse extends Equatable {
   List<Object?> get props => [data];
 }
 
-/// {@macro: LatestTransactionDataResponse}
+/// {@macro LatestTransactionDataResponse}
 class LatestTransactionData extends Equatable {
   final int id;
   final int dateTime;
@@ -44,7 +44,7 @@ class LatestTransactionData extends Equatable {
   final double? price;
   final LatestTransactionDataType type;
 
-  /// {@macro: LatestTransactionDataResponse}
+  /// {@macro LatestTransactionDataResponse}
   const LatestTransactionData({
     required this.id,
     required this.dateTime,
@@ -54,7 +54,7 @@ class LatestTransactionData extends Equatable {
     required this.type,
   });
 
-  /// {@macro: LatestTransactionDataResponse}
+  /// {@macro LatestTransactionDataResponse}
   factory LatestTransactionData.fromMap(Map<String, dynamic> map) {
     return LatestTransactionData(
       id: map['id'] ?? 0,
