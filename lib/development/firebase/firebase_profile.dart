@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+// ignore_for_file: avoid_print, use_build_context_synchronously
+
 import 'dart:developer';
 
 import 'package:collection/collection.dart';
@@ -91,7 +93,6 @@ class _ProfilePageState extends State<ProfilePage> {
       showSaveButton = false;
     });
 
-    // ignore: use_build_context_synchronously
     HelperScaffoldSnackBar.of(context).show('Name updated');
   }
 
