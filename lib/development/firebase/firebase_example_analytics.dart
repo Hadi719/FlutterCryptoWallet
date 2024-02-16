@@ -442,7 +442,7 @@ class _TabsPageState extends State<TabsPage>
   }
 
   void _sendCurrentTabToAnalytics() {
-    analytics.setCurrentScreen(
+    analytics.logScreenView(
       screenName: '${TabsPage.routeName}/tab$selectedIndex',
     );
   }
