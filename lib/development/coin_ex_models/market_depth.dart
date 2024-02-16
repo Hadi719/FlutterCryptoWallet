@@ -52,10 +52,10 @@ class Order {
   final double? price;
   final double? amount;
 
-  factory Order.fromJson(List<String> jsonData) {
+  factory Order.fromJson(List<String?>? jsonData) {
     return Order(
-      price: double.tryParse(jsonData[0][0] ?? kDoubleRevoker),
-      amount: double.tryParse(jsonData[0][1] ?? kDoubleRevoker),
+      price: double.tryParse(jsonData?[0]?[0] ?? kDoubleRevoker),
+      amount: double.tryParse(jsonData?[0]?[1] ?? kDoubleRevoker),
     );
   }
 
