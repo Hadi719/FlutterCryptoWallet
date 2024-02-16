@@ -12,16 +12,16 @@ List<Page<dynamic>> onGenerateAppViewPages(
 ) {
   switch (state) {
     case AppStatus.authenticated:
-      _setCurrentScreen(HomePage.screenName);
+      _logScreenView(HomePage.screenName);
       return [HomePage.page()];
     case AppStatus.unauthenticated:
-      _setCurrentScreen(AuthPage.screenName);
+      _logScreenView(AuthPage.screenName);
       return [AuthPage.page()];
   }
 }
 
-void _setCurrentScreen(String screenName) {
-  serviceLocator<FirebaseAnalytics>().setCurrentScreen(
+void _logScreenView(String screenName) {
+  serviceLocator<FirebaseAnalytics>().logScreenView(
     screenName: screenName,
   );
 }
