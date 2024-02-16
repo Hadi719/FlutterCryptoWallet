@@ -4,21 +4,16 @@ part 'exchange_rates_response.freezed.dart';
 part 'exchange_rates_response.g.dart';
 
 /// {@macro ExchangeRates}
-@Freezed(toJson: false, fromJson: false)
+@Freezed(toJson: false)
 class ExchangeRatesResponse with _$ExchangeRatesResponse {
   /// {@macro ExchangeRates}
-  factory ExchangeRatesResponse({List<RatesResponse>? rates}) =
-      _ExchangeRatesResponse;
+  factory ExchangeRatesResponse({
+    @RateResponseConverter() List<RatesResponse>? rates,
+  }) = _ExchangeRatesResponse;
 
   /// {@macro ExchangeRates}
-  factory ExchangeRatesResponse.fromJson(Map<String, dynamic> json) {
-    var ratesMap = json['rates'] as Map<String, dynamic>;
-    var ratesValues = ratesMap.values;
-    List<RatesResponse> rates =
-        List.from(ratesValues.map((e) => RatesResponse.fromJson(e)).toList());
-
-    return ExchangeRatesResponse(rates: rates);
-  }
+  factory ExchangeRatesResponse.fromJson(Map<String, Object?> json) =>
+      _$ExchangeRatesResponseFromJson(json);
 }
 
 /// {@macro ExchangeRates}
@@ -35,4 +30,22 @@ class RatesResponse with _$RatesResponse {
   /// {@macro ExchangeRates}
   factory RatesResponse.fromJson(Map<String, dynamic> json) =>
       _$RatesResponseFromJson(json);
+}
+
+/// A JsonConverter for [ExchangeRatesResponse.rates]
+class RateResponseConverter
+    implements JsonConverter<List<RatesResponse>?, Map<String, dynamic>> {
+  /// A JsonConverter for [ExchangeRatesResponse.rates]
+  const RateResponseConverter();
+
+  @override
+  List<RatesResponse>? fromJson(Map<String, dynamic> json) {
+    var ratesValues = json.values;
+    List<RatesResponse> rates =
+        List.from(ratesValues.map((e) => RatesResponse.fromJson(e)).toList());
+    return rates;
+  }
+
+  @override
+  Map<String, dynamic> toJson(List<RatesResponse>? object) => {};
 }
