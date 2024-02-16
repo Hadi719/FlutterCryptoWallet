@@ -95,9 +95,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _testSetCurrentScreen() async {
-    await widget.analytics.setCurrentScreen(
+    await widget.analytics.logScreenView(
       screenName: 'Analytics Demo',
-      screenClassOverride: 'AnalyticsDemo',
+      screenClass: 'AnalyticsDemo',
     );
     setMessage('setCurrentScreen succeeded');
   }
