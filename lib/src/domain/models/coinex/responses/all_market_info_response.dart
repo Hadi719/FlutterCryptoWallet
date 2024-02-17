@@ -3,6 +3,19 @@ import 'package:equatable/equatable.dart';
 import '../crypto.dart';
 import 'single_market_info_response.dart';
 
+/// Gets only the cryptos from [CoinExCryptoDetail].
+List<MapEntry<String, dynamic>> _getNeededCryptos(Map<String, dynamic> map) {
+  List<CoinExCryptoDetail> allCrypto = CoinExCryptoDetail.values.toList();
+  var selected = map.entries
+      .where(
+        (item) => allCrypto.any(
+          (element) => element.marketName == item.key,
+        ),
+      )
+      .toList();
+  return selected;
+}
+
 /// {@template AllMarketInfoResponse}
 ///
 /// a list of all Markets info.
@@ -31,21 +44,8 @@ class AllMarketInfoResponse extends Equatable {
   }
 
   @override
-  bool? get stringify => true;
+  List<Object?> get props => [data];
 
   @override
-  List<Object?> get props => [data];
-}
-
-/// Gets only the cryptos from [CoinExCryptoDetail].
-List<MapEntry<String, dynamic>> _getNeededCryptos(Map<String, dynamic> map) {
-  List<CoinExCryptoDetail> allCrypto = CoinExCryptoDetail.values.toList();
-  var selected = map.entries
-      .where(
-        (item) => allCrypto.any(
-          (element) => element.marketName == item.key,
-        ),
-      )
-      .toList();
-  return selected;
+  bool? get stringify => true;
 }

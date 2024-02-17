@@ -3,15 +3,6 @@ import 'package:equatable/equatable.dart';
 import '../../../../../utils/constants/strings.dart';
 
 class CandleResponse extends Equatable {
-  const CandleResponse({
-    this.open,
-    this.high,
-    this.low,
-    this.close,
-    this.volume,
-    this.period,
-  });
-
   /// the price (quote) at which the first transaction was completed in a given time period
   final double? open;
 
@@ -29,6 +20,15 @@ class CandleResponse extends Equatable {
 
   /// timestamp for starting of that time period, represented in UNIX milliseconds
   final DateTime? period;
+
+  const CandleResponse({
+    this.open,
+    this.high,
+    this.low,
+    this.close,
+    this.volume,
+    this.period,
+  });
 
   factory CandleResponse.fromMap(Map<String, dynamic> mapData) {
     return CandleResponse(

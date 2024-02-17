@@ -34,5 +34,6 @@ enum KLineDataType {
   oneWeek('1week');
 
   final String value;
+
   const KLineDataType(this.value);
 }

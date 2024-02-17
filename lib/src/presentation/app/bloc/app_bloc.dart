@@ -10,6 +10,8 @@ part 'app_event.dart';
 part 'app_state.dart';
 
 class AppBloc extends Bloc<AppEvent, AppState> {
+  late final StreamSubscription<User> _userSubscription;
+
   AppBloc()
       : super(
           serviceLocator<AuthenticationRepository>().currentUser.isNotEmpty
@@ -24,7 +26,15 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         );
   }
 
-  late final StreamSubscription<User> _userSubscription;
+  @override
+  Future<void> close() {
+    _userSubscription.cancel();
+    return super.close();
+  }
+
+  void _onLogoutRequested(AppLogoutRequested event, Emitter<AppState> emit) {
+    unawaited(serviceLocator<AuthenticationRepository>().logOut());
+  }
 
   void _onUserChanged(_AppUserChanged event, Emitter<AppState> emit) {
     emit(
@@ -32,15 +42,5 @@ class AppBloc extends Bloc<AppEvent, AppState> {
           ? AppState.authenticated(event.user)
           : const AppState.unauthenticated(),
     );
-  }
-
-  void _onLogoutRequested(AppLogoutRequested event, Emitter<AppState> emit) {
-    unawaited(serviceLocator<AuthenticationRepository>().logOut());
-  }
-
-  @override
-  Future<void> close() {
-    _userSubscription.cancel();
-    return super.close();
   }
 }

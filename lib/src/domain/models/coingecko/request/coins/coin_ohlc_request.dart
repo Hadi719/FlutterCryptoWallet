@@ -20,14 +20,6 @@
 ///
 /// {@endtemplate}
 class CoinOHLCRequest {
-  /// {@macro CoinOHLC}
-  const CoinOHLCRequest({
-    required this.id,
-    this.vsCurrency = 'usd',
-    this.days = 7,
-    this.precision,
-  });
-
   /// (Required) pass the coin id (can be obtained from /coins) eg. bitcoin
   final String id;
 
@@ -39,4 +31,12 @@ class CoinOHLCRequest {
 
   /// <b>full</b> or any value between 0 - 18 to specify decimal place for currency price value
   final String? precision;
+
+  /// {@macro CoinOHLC}
+  const CoinOHLCRequest({
+    required this.id,
+    this.vsCurrency = 'usd',
+    this.days = 7,
+    this.precision,
+  });
 }

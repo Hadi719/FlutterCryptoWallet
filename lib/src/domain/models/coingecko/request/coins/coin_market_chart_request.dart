@@ -19,15 +19,6 @@
 ///
 /// {@endtemplate}
 class CoinMarketChartRequest {
-  /// {@macro CoinMarketChart}
-  const CoinMarketChartRequest({
-    required this.id,
-    this.vsCurrency = 'usd',
-    this.days = 1,
-    this.interval,
-    this.precision,
-  });
-
   /// (Required) pass the coin id (can be obtained from /coins) eg. bitcoin
   final String id;
 
@@ -42,4 +33,13 @@ class CoinMarketChartRequest {
 
   /// <b>full</b> or any value between 0 - 18 to specify decimal place for currency price value
   final String? precision;
+
+  /// {@macro CoinMarketChart}
+  const CoinMarketChartRequest({
+    required this.id,
+    this.vsCurrency = 'usd',
+    this.days = 1,
+    this.interval,
+    this.precision,
+  });
 }

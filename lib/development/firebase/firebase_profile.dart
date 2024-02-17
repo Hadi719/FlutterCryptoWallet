@@ -40,61 +40,8 @@ class _ProfilePageState extends State<ProfilePage> {
   bool showSaveButton = false;
   bool isLoading = false;
 
-  @override
-  void initState() {
-    user = auth.currentUser!;
-    controller = TextEditingController(text: user.displayName);
-
-    controller.addListener(_onNameChanged);
-
-    auth.userChanges().listen((event) {
-      if (event != null && mounted) {
-        setState(() {
-          user = event;
-        });
-      }
-    });
-
-    log(user.toString());
-
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    controller.removeListener(_onNameChanged);
-
-    super.dispose();
-  }
-
-  void setIsLoading() {
-    setState(() {
-      isLoading = !isLoading;
-    });
-  }
-
-  void _onNameChanged() {
-    setState(() {
-      if (controller.text == user.displayName || controller.text.isEmpty) {
-        showSaveButton = false;
-      } else {
-        showSaveButton = true;
-      }
-    });
-  }
-
   /// Map User provider data into a list of Provider Ids.
   List get userProviders => user.providerData.map((e) => e.providerId).toList();
-
-  Future updateDisplayName() async {
-    await user.updateDisplayName(controller.text);
-
-    setState(() {
-      showSaveButton = false;
-    });
-
-    HelperScaffoldSnackBar.of(context).show('Name updated');
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -345,6 +292,13 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+  @override
+  void dispose() {
+    controller.removeListener(_onNameChanged);
+
+    super.dispose();
+  }
+
   Future<String?> getPhotoURLFromUser() async {
     String? photoURL;
 
@@ -385,6 +339,52 @@ class _ProfilePageState extends State<ProfilePage> {
     );
 
     return photoURL;
+  }
+
+  @override
+  void initState() {
+    user = auth.currentUser!;
+    controller = TextEditingController(text: user.displayName);
+
+    controller.addListener(_onNameChanged);
+
+    auth.userChanges().listen((event) {
+      if (event != null && mounted) {
+        setState(() {
+          user = event;
+        });
+      }
+    });
+
+    log(user.toString());
+
+    super.initState();
+  }
+
+  void setIsLoading() {
+    setState(() {
+      isLoading = !isLoading;
+    });
+  }
+
+  Future updateDisplayName() async {
+    await user.updateDisplayName(controller.text);
+
+    setState(() {
+      showSaveButton = false;
+    });
+
+    HelperScaffoldSnackBar.of(context).show('Name updated');
+  }
+
+  void _onNameChanged() {
+    setState(() {
+      if (controller.text == user.displayName || controller.text.isEmpty) {
+        showSaveButton = false;
+      } else {
+        showSaveButton = true;
+      }
+    });
   }
 
   /// Example code for sign out.

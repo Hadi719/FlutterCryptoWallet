@@ -9,13 +9,14 @@ import 'single_market_statistics.dart';
 ///
 /// {@endtemplate}
 class AllMarketStatistics {
-  /// {@macro AllMarketStatistics}
-  AllMarketStatistics({required this.data, this.dateTime});
-
   static const String urlPath = '/market/ticker/all';
 
   final List<SingleMarketStatistics> data;
+
   final DateTime? dateTime;
+
+  /// {@macro AllMarketStatistics}
+  AllMarketStatistics({required this.data, this.dateTime});
 
   factory AllMarketStatistics.fromJson(Map<String, dynamic> jsonData) {
     List<SingleMarketStatistics> myList = [];

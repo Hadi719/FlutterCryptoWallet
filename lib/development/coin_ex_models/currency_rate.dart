@@ -11,6 +11,14 @@ class CurrencyRate {
   /// {@macro CurrencyRate}
   static const String urlPath = '/common/currency/rate';
 
+  double? crUSDT;
+
+  double? crUSDC;
+  double? crBTC;
+  double? crBCH;
+  double? crETH;
+  double? crCET;
+
   CurrencyRate({
     this.crUSDT,
     this.crUSDC,
@@ -19,13 +27,6 @@ class CurrencyRate {
     this.crETH,
     this.crCET,
   });
-
-  double? crUSDT;
-  double? crUSDC;
-  double? crBTC;
-  double? crBCH;
-  double? crETH;
-  double? crCET;
 
   factory CurrencyRate.fromJson(Map<String, dynamic> jsonData) {
     return CurrencyRate(

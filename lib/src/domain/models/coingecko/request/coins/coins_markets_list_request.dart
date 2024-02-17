@@ -1,17 +1,53 @@
-class CoinsMarketsListRequest {
-  CoinsMarketsListRequest({
-    required this.vsCurrency,
-    this.ids,
-    this.category,
-    this.order,
-    int? perPage,
-    this.page,
-    this.sparkline,
-    this.priceChangePercentage,
-    this.locale,
-    this.precision,
-  }) : perPage = perPage?.clamp(1, 250);
+enum CMLLocale {
+  ar,
+  bg,
+  cs,
+  da,
+  de,
+  el,
+  en,
+  es,
+  fi,
+  fr,
+  he,
+  hi,
+  hr,
+  hu,
+  id,
+  it,
+  ja,
+  ko,
+  lt,
+  nl,
+  no,
+  pl,
+  pt,
+  ro,
+  ru,
+  sk,
+  sl,
+  sv,
+  th,
+  tr,
+  uk,
+  vi,
+  zh,
+}
 
+enum CMLOrder {
+  marketCapASC('market_cap_asc'),
+  marketCapDESC('market_cap_desc'),
+  volumeASC('volume_asc'),
+  volumeDESC('volume_desc'),
+  idASC('id_asc'),
+  idDESC('id_desc');
+
+  final String value;
+
+  const CMLOrder(this.value);
+}
+
+class CoinsMarketsListRequest {
   /// (Required) The target currency of market data (usd, eur, jpy, etc.)
   final String vsCurrency;
 
@@ -54,52 +90,17 @@ class CoinsMarketsListRequest {
   /// <b>full</b> or any value between 0 - 18 to specify decimal place for
   /// currency price value
   final String? precision;
-}
 
-enum CMLOrder {
-  marketCapASC('market_cap_asc'),
-  marketCapDESC('market_cap_desc'),
-  volumeASC('volume_asc'),
-  volumeDESC('volume_desc'),
-  idASC('id_asc'),
-  idDESC('id_desc');
-
-  const CMLOrder(this.value);
-  final String value;
-}
-
-enum CMLLocale {
-  ar,
-  bg,
-  cs,
-  da,
-  de,
-  el,
-  en,
-  es,
-  fi,
-  fr,
-  he,
-  hi,
-  hr,
-  hu,
-  id,
-  it,
-  ja,
-  ko,
-  lt,
-  nl,
-  no,
-  pl,
-  pt,
-  ro,
-  ru,
-  sk,
-  sl,
-  sv,
-  th,
-  tr,
-  uk,
-  vi,
-  zh,
+  CoinsMarketsListRequest({
+    required this.vsCurrency,
+    this.ids,
+    this.category,
+    this.order,
+    int? perPage,
+    this.page,
+    this.sparkline,
+    this.priceChangePercentage,
+    this.locale,
+    this.precision,
+  }) : perPage = perPage?.clamp(1, 250);
 }

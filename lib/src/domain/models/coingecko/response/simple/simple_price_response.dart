@@ -1,16 +1,19 @@
 import 'package:equatable/equatable.dart';
 
 class SimplePricesListResponse extends Equatable {
-  const SimplePricesListResponse({this.pricesList = const {}});
-
   final Map<String, dynamic> pricesList;
 
-  @override
-  List<Object?> get props => [pricesList];
+  const SimplePricesListResponse({this.pricesList = const {}});
 
   factory SimplePricesListResponse.fromJson(Map<String, dynamic> mapData) {
     return SimplePricesListResponse(pricesList: mapData);
   }
+
+  @override
+  List<Object?> get props => [pricesList];
+
+  @override
+  bool get stringify => true;
 
   num? getValue({
     required String coinId,
@@ -29,9 +32,6 @@ class SimplePricesListResponse extends Equatable {
 
     return selected?.value;
   }
-
-  @override
-  bool get stringify => true;
 }
 
 enum SimplePriceValue {
@@ -41,9 +41,9 @@ enum SimplePriceValue {
   change24h('_24h_change'),
   lastUpdatedAt('last_updated_at');
 
-  const SimplePriceValue(this.keyString);
-
   final String keyString;
+
+  const SimplePriceValue(this.keyString);
 }
 
 /*class SimplePriceResponse extends Equatable {

@@ -5,9 +5,9 @@ import 'firebase_auth.dart';
 import 'firebase_profile.dart';
 
 class FirebaseExampleAuth extends StatelessWidget {
-  const FirebaseExampleAuth({super.key, required this.auth});
-
   final FirebaseAuth auth;
+
+  const FirebaseExampleAuth({super.key, required this.auth});
 
   @override
   Widget build(BuildContext context) {

@@ -4,6 +4,15 @@ import '../../../utils/constants/strings.dart';
 
 /// Crypto model based on CoinEx api.
 class CoinExCrypto extends Equatable {
+  final String marketName;
+  final double? minAmount;
+  final double? markerFeeRate;
+  final double? takerFeeRate;
+  final String pricingName;
+  final int pricingDecimal;
+  final String tradingName;
+  final int tradingDecimal;
+
   const CoinExCrypto({
     required this.marketName,
     this.minAmount,
@@ -14,15 +23,6 @@ class CoinExCrypto extends Equatable {
     required this.tradingName,
     required this.tradingDecimal,
   });
-
-  final String marketName;
-  final double? minAmount;
-  final double? markerFeeRate;
-  final double? takerFeeRate;
-  final String pricingName;
-  final int pricingDecimal;
-  final String tradingName;
-  final int tradingDecimal;
 
   factory CoinExCrypto.fromJson(Map<String, dynamic> jsonData) {
     Map<String, dynamic> data = jsonData['data'];
@@ -37,8 +37,6 @@ class CoinExCrypto extends Equatable {
       tradingDecimal: data['trading_decimal'] ?? 0,
     );
   }
-  @override
-  bool? get stringify => true;
 
   @override
   List<Object?> get props => [
@@ -52,7 +50,10 @@ class CoinExCrypto extends Equatable {
         tradingDecimal,
       ];
 
-  /*
+  @override
+  bool? get stringify => true;
+
+/*
   @override
   String toString() {
     return '\n\n=======   $this   =======\n'
@@ -154,6 +155,16 @@ enum CoinExCryptoDetail {
     required this.iconPath,
   });
 
+  factory CoinExCryptoDetail.fromMarketName(String marketName) {
+    for (CoinExCryptoDetail cd in CoinExCryptoDetail.values) {
+      if (cd.marketName == marketName) {
+        return cd;
+      }
+    }
+
+    return CoinExCryptoDetail.unknown;
+  }
+
   factory CoinExCryptoDetail.fromName(String name) {
     for (CoinExCryptoDetail cd in CoinExCryptoDetail.values) {
       if (cd.name == name) {
@@ -167,16 +178,6 @@ enum CoinExCryptoDetail {
   factory CoinExCryptoDetail.fromTradingName(String tradingName) {
     for (CoinExCryptoDetail cd in CoinExCryptoDetail.values) {
       if (cd.tradingName == tradingName) {
-        return cd;
-      }
-    }
-
-    return CoinExCryptoDetail.unknown;
-  }
-
-  factory CoinExCryptoDetail.fromMarketName(String marketName) {
-    for (CoinExCryptoDetail cd in CoinExCryptoDetail.values) {
-      if (cd.marketName == marketName) {
         return cd;
       }
     }

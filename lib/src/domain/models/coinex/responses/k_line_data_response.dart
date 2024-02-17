@@ -2,36 +2,6 @@ import 'package:equatable/equatable.dart';
 
 import '../../../../utils/constants/strings.dart';
 
-/// {@template KLineData}
-///
-/// Gets k-line data of a single market.
-///
-/// * Signature required: No
-/// * Max. return of 1000 records
-///
-/// {@endtemplate}
-class KLineDataResponse extends Equatable {
-  /// List of [KLineData].
-  final List<KLineData> data;
-
-  /// {@macro KLineData}
-  const KLineDataResponse({this.data = const <KLineData>[]});
-
-  /// {@macro KLineData}
-  factory KLineDataResponse.fromMap(Map<String, dynamic> map) {
-    var mapData = map['data'] ?? map;
-    return KLineDataResponse(
-      data: (mapData as List).map((e) => KLineData.fromMap(e)).toList(),
-    );
-  }
-
-  @override
-  bool? get stringify => true;
-
-  @override
-  List<Object?> get props => [data];
-}
-
 /// {@macro KLineData}
 class KLineData extends Equatable {
   final DateTime dateTime;
@@ -70,9 +40,6 @@ class KLineData extends Equatable {
   }
 
   @override
-  bool? get stringify => true;
-
-  @override
   List<Object?> get props => [
         dateTime,
         openingPrice,
@@ -82,4 +49,37 @@ class KLineData extends Equatable {
         tradingVolume,
         tradingAmount,
       ];
+
+  @override
+  bool? get stringify => true;
+}
+
+/// {@template KLineData}
+///
+/// Gets k-line data of a single market.
+///
+/// * Signature required: No
+/// * Max. return of 1000 records
+///
+/// {@endtemplate}
+class KLineDataResponse extends Equatable {
+  /// List of [KLineData].
+  final List<KLineData> data;
+
+  /// {@macro KLineData}
+  const KLineDataResponse({this.data = const <KLineData>[]});
+
+  /// {@macro KLineData}
+  factory KLineDataResponse.fromMap(Map<String, dynamic> map) {
+    var mapData = map['data'] ?? map;
+    return KLineDataResponse(
+      data: (mapData as List).map((e) => KLineData.fromMap(e)).toList(),
+    );
+  }
+
+  @override
+  List<Object?> get props => [data];
+
+  @override
+  bool? get stringify => true;
 }

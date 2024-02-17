@@ -10,22 +10,6 @@ import '../../../../../utils/constants/strings.dart';
 /// All values are translated into USD (United States Dollar) and can be
 /// translated into other units of measurement through the /rates endpoint
 class AssetResponse extends Equatable {
-  const AssetResponse({
-    this.id,
-    this.rank,
-    this.symbol,
-    this.name,
-    this.supply,
-    this.maxSupply,
-    this.marketCapUsd,
-    this.volumeUsd24Hr,
-    this.priceUsd,
-    this.changePercent24Hr,
-    this.vwap24Hr,
-    this.website,
-    this.timestamp,
-  });
-
   /// unique identifier for asset
   final String? id;
 
@@ -64,6 +48,22 @@ class AssetResponse extends Equatable {
 
   ///
   final int? timestamp;
+
+  const AssetResponse({
+    this.id,
+    this.rank,
+    this.symbol,
+    this.name,
+    this.supply,
+    this.maxSupply,
+    this.marketCapUsd,
+    this.volumeUsd24Hr,
+    this.priceUsd,
+    this.changePercent24Hr,
+    this.vwap24Hr,
+    this.website,
+    this.timestamp,
+  });
 
   factory AssetResponse.fromMap(Map<String, dynamic> json) {
     Map<String, dynamic> data = json['data'] ?? json;

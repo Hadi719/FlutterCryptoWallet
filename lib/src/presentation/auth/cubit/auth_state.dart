@@ -1,6 +1,16 @@
 part of 'auth_cubit.dart';
 
+enum AuthMode { login, register }
+
 final class AuthState extends Equatable {
+  final Email email;
+
+  final Password password;
+  final AuthMode mode;
+  final FormzSubmissionStatus status;
+  final bool isValid;
+  final String? errorMessage;
+
   const AuthState({
     this.email = const Email.pure(),
     this.password = const Password.pure(),
@@ -9,13 +19,6 @@ final class AuthState extends Equatable {
     this.isValid = false,
     this.errorMessage,
   });
-
-  final Email email;
-  final Password password;
-  final AuthMode mode;
-  final FormzSubmissionStatus status;
-  final bool isValid;
-  final String? errorMessage;
 
   @override
   List<Object?> get props =>
@@ -39,5 +42,3 @@ final class AuthState extends Equatable {
     );
   }
 }
-
-enum AuthMode { login, register }

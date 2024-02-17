@@ -8,14 +8,9 @@ const double kImageSize = 50;
 const double kItemSize = 50;
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
   static const String screenName = 'HomePage';
 
-  static Page<void> page() => const MaterialPage<void>(
-        child: HomePage(),
-        name: screenName,
-      );
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +19,11 @@ class HomePage extends StatelessWidget {
       child: const HomeView(),
     );
   }
+
+  static Page<void> page() => const MaterialPage<void>(
+        child: HomePage(),
+        name: screenName,
+      );
 }
 
 class HomeView extends StatelessWidget {
@@ -61,24 +61,13 @@ class HomeView extends StatelessWidget {
   }
 }
 
-class _LoadingWidget extends StatelessWidget {
-  const _LoadingWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: CircularProgressIndicator(),
-    );
-  }
-}
-
 class _ErrorWidget extends StatelessWidget {
+  final String error;
+
   const _ErrorWidget({
     super.key,
     required this.error,
   });
-
-  final String error;
 
   @override
   Widget build(BuildContext context) {
@@ -158,6 +147,17 @@ class _ListWidget extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+}
+
+class _LoadingWidget extends StatelessWidget {
+  const _LoadingWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: CircularProgressIndicator(),
     );
   }
 }

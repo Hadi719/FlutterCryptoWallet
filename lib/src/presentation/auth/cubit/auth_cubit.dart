@@ -9,40 +9,13 @@ import '../../../service_locator.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(const AuthState());
-
   final AuthenticationRepository _authenticationRepository =
       serviceLocator<AuthenticationRepository>();
 
-  void emailChanged(String value) {
-    final Email email = Email.dirty(value);
-    emit(
-      state.copyWith(
-        email: email,
-        isValid: Formz.validate([email, state.password]),
-      ),
-    );
-  }
-
-  void passwordChanged(String value) {
-    final Password password = Password.dirty(value);
-    emit(
-      state.copyWith(
-        password: password,
-        isValid: Formz.validate([state.email, password]),
-      ),
-    );
-  }
+  AuthCubit() : super(const AuthState());
 
   void authModeChanged(AuthMode mode) {
     emit(state.copyWith(mode: mode));
-  }
-
-  void deleteError() {
-    emit(state.copyWith(
-      errorMessage: '',
-      status: FormzSubmissionStatus.initial,
-    ));
   }
 
   Future<void> authWithCredentials() async {
@@ -92,5 +65,32 @@ class AuthCubit extends Cubit<AuthState> {
     } catch (e) {
       emit(state.copyWith(status: FormzSubmissionStatus.failure));
     }
+  }
+
+  void deleteError() {
+    emit(state.copyWith(
+      errorMessage: '',
+      status: FormzSubmissionStatus.initial,
+    ));
+  }
+
+  void emailChanged(String value) {
+    final Email email = Email.dirty(value);
+    emit(
+      state.copyWith(
+        email: email,
+        isValid: Formz.validate([email, state.password]),
+      ),
+    );
+  }
+
+  void passwordChanged(String value) {
+    final Password password = Password.dirty(value);
+    emit(
+      state.copyWith(
+        password: password,
+        isValid: Formz.validate([state.email, password]),
+      ),
+    );
   }
 }

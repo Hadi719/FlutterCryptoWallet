@@ -5,14 +5,9 @@ import '../cubit/auth_cubit.dart';
 import 'auth_form.dart';
 
 class AuthPage extends StatelessWidget {
-  const AuthPage({super.key});
-
   static const String screenName = '/Auth';
 
-  static Page<void> page() => const MaterialPage<void>(
-        child: AuthPage(),
-        name: screenName,
-      );
+  const AuthPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,4 +23,9 @@ class AuthPage extends StatelessWidget {
       ),
     );
   }
+
+  static Page<void> page() => const MaterialPage<void>(
+        child: AuthPage(),
+        name: screenName,
+      );
 }

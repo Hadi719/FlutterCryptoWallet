@@ -15,15 +15,6 @@
 ///
 /// {@endtemplate}
 class CoinMarketChartRangeRequest {
-  /// {@macro CoinMarketChartRange}
-  const CoinMarketChartRangeRequest({
-    required this.id,
-    this.vsCurrency = 'usd',
-    required this.from,
-    required this.to,
-    this.precision,
-  });
-
   /// (Required) pass the coin id (can be obtained from /coins) eg. bitcoin
   final String id;
 
@@ -38,4 +29,13 @@ class CoinMarketChartRangeRequest {
 
   /// <b>full</b> or any value between 0 - 18 to specify decimal place for currency price value
   final String? precision;
+
+  /// {@macro CoinMarketChartRange}
+  const CoinMarketChartRangeRequest({
+    required this.id,
+    this.vsCurrency = 'usd',
+    required this.from,
+    required this.to,
+    this.precision,
+  });
 }

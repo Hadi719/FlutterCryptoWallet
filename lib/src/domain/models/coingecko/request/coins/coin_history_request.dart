@@ -1,10 +1,4 @@
 class CoinHistoryRequest {
-  const CoinHistoryRequest({
-    required this.id,
-    required this.date,
-    this.localization,
-  });
-
   /// (Required) pass the coin id (can be obtained from /coins) eg. bitcoin
   final String id;
 
@@ -13,4 +7,10 @@ class CoinHistoryRequest {
 
   /// Set to false to exclude localized languages in response
   final String? localization;
+
+  const CoinHistoryRequest({
+    required this.id,
+    required this.date,
+    this.localization,
+  });
 }

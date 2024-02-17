@@ -3,19 +3,6 @@ import 'package:equatable/equatable.dart';
 import '../../../../../utils/constants/strings.dart';
 
 class ExchangeResponse extends Equatable {
-  const ExchangeResponse({
-    this.id,
-    this.name,
-    this.rank,
-    this.percentTotalVolume,
-    this.volumeUsd,
-    this.tradingPairs,
-    this.socket,
-    this.exchangeUrl,
-    this.updated,
-    this.timestamp,
-  });
-
   /// unique identifier for exchange
   final String? id;
 
@@ -46,6 +33,19 @@ class ExchangeResponse extends Equatable {
   final int? updated;
 
   final int? timestamp;
+
+  const ExchangeResponse({
+    this.id,
+    this.name,
+    this.rank,
+    this.percentTotalVolume,
+    this.volumeUsd,
+    this.tradingPairs,
+    this.socket,
+    this.exchangeUrl,
+    this.updated,
+    this.timestamp,
+  });
 
   factory ExchangeResponse.fromMap(Map<String, dynamic> mapData) {
     Map<String, dynamic> data = mapData['data'] ?? mapData;

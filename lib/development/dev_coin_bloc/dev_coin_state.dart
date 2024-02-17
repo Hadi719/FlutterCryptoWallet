@@ -1,10 +1,16 @@
 part of 'dev_coin_bloc.dart';
 
-enum DevCoinStatus { initial, success, loading, failure }
-
 enum CoinApi { coinEx, coinCap, coinGecko }
 
 final class DevCoinState extends Equatable {
+  final DevCoinStatus status;
+
+  final CoinApi coinApi;
+  final DevCoinEvent? lastEvent;
+  final Object? error;
+
+  final dynamic data;
+
   const DevCoinState({
     this.status = DevCoinStatus.initial,
     this.coinApi = CoinApi.coinGecko,
@@ -13,12 +19,8 @@ final class DevCoinState extends Equatable {
     this.data = const [],
   });
 
-  final DevCoinStatus status;
-  final CoinApi coinApi;
-  final DevCoinEvent? lastEvent;
-
-  final Object? error;
-  final dynamic data;
+  @override
+  List<Object?> get props => [status, coinApi, lastEvent, error, data];
 
   DevCoinState copyWith({
     DevCoinStatus? status,
@@ -37,10 +39,9 @@ final class DevCoinState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [status, coinApi, lastEvent, error, data];
-
-  @override
   String toString() {
     return '''TestCeState { status: $status, coinApi: $coinApi, lastEvent: $lastEvent \nerror: ${error.toString()}\ndata: ${data.toString()} }''';
   }
 }
+
+enum DevCoinStatus { initial, success, loading, failure }

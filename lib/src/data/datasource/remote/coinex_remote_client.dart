@@ -10,22 +10,23 @@ part 'coinex_remote_client.g.dart';
 abstract class CoinExRemoteClient {
   factory CoinExRemoteClient(Dio dio, {String baseUrl}) = _CoinExRemoteClient;
 
-  @GET(kCoinExPathAllMarketList)
-  Future<HttpResponse<AllMarketListResponse>> getAllMarketList();
-
   @GET(kCoinExPathAllMarketInfo)
   Future<HttpResponse<AllMarketInfoResponse>> getAllMarketInfo();
 
-  @GET(kCoinExPathSingleMarketInfo)
-  Future<HttpResponse<SingleMarketInfoResponse>> getSingleMarketInfo({
-    @Query('market') required String marketName,
-  });
+  @GET(kCoinExPathAllMarketList)
+  Future<HttpResponse<AllMarketListResponse>> getAllMarketList();
 
-  @GET(kCoinExPathMarketDepth)
-  Future<HttpResponse<MarketDepthResponse>> getMarketDepth({
+  @GET(kCoinExPathAllMarketStatistics)
+  Future<HttpResponse<AllMarketStatisticsResponse>> getAllMarketStatistics();
+
+  @GET(kCoinExPathCurrencyRate)
+  Future<HttpResponse<CurrencyRateResponse>> getCurrencyRate();
+
+  @GET(kCoinExPathKLineData)
+  Future<HttpResponse<KLineDataResponse>> getKLineData({
     @Query('market') required String marketName,
-    @Query('merge') String? merge,
     @Query('limit') int? limit,
+    @Query('type') required String type,
   });
 
   @GET(kCoinExPathLatestTransactionData)
@@ -35,11 +36,16 @@ abstract class CoinExRemoteClient {
     @Query('limit') int? limit,
   });
 
-  @GET(kCoinExPathKLineData)
-  Future<HttpResponse<KLineDataResponse>> getKLineData({
+  @GET(kCoinExPathMarketDepth)
+  Future<HttpResponse<MarketDepthResponse>> getMarketDepth({
     @Query('market') required String marketName,
+    @Query('merge') String? merge,
     @Query('limit') int? limit,
-    @Query('type') required String type,
+  });
+
+  @GET(kCoinExPathSingleMarketInfo)
+  Future<HttpResponse<SingleMarketInfoResponse>> getSingleMarketInfo({
+    @Query('market') required String marketName,
   });
 
   @GET(kCoinExPathSingleMarketStatistics)
@@ -47,10 +53,4 @@ abstract class CoinExRemoteClient {
       getSingleMarketStatistics({
     @Query('market') required String marketName,
   });
-
-  @GET(kCoinExPathAllMarketStatistics)
-  Future<HttpResponse<AllMarketStatisticsResponse>> getAllMarketStatistics();
-
-  @GET(kCoinExPathCurrencyRate)
-  Future<HttpResponse<CurrencyRateResponse>> getCurrencyRate();
 }

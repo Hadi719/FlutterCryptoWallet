@@ -47,8 +47,8 @@ class AllMarketStatisticsResponse extends Equatable {
   }
 
   @override
-  bool get stringify => true;
+  List<Object?> get props => [data, dateTime];
 
   @override
-  List<Object?> get props => [data, dateTime];
+  bool get stringify => true;
 }

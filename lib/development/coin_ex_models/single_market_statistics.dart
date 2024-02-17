@@ -9,6 +9,21 @@ import '../../src/utils/constants/strings.dart';
 ///
 /// {@endtemplate}
 class SingleMarketStatistics {
+  static const urlPath = '/market/ticker';
+
+  final CoinExCryptoDetail cryptoDetail;
+
+  final DateTime serverTime;
+  final double? latestTransactionPrice;
+  final double? buyPrice;
+  final double? buyAmount;
+  final double? sellPrice;
+  final double? sellAmount;
+  final double? openingPrice24H;
+  final double? highestPrice24H;
+  final double? lowestPrice24H;
+  final double? volume24H;
+
   /// {@macro SingleMarketStatistics}
   const SingleMarketStatistics({
     this.cryptoDetail = CoinExCryptoDetail.unknown,
@@ -24,19 +39,28 @@ class SingleMarketStatistics {
     this.volume24H,
   });
 
-  static const urlPath = '/market/ticker';
-
-  final CoinExCryptoDetail cryptoDetail;
-  final DateTime serverTime;
-  final double? latestTransactionPrice;
-  final double? buyPrice;
-  final double? buyAmount;
-  final double? sellPrice;
-  final double? sellAmount;
-  final double? openingPrice24H;
-  final double? highestPrice24H;
-  final double? lowestPrice24H;
-  final double? volume24H;
+  factory SingleMarketStatistics.fromAllMarket(
+    Map<String, dynamic> jsonData, {
+    CoinExCryptoDetail? cryptoDetail,
+    int? time,
+  }) {
+    return SingleMarketStatistics(
+      cryptoDetail: cryptoDetail ?? CoinExCryptoDetail.unknown,
+      serverTime: time != null
+          ? DateTime.fromMillisecondsSinceEpoch(time)
+          : DateTime.now(),
+      latestTransactionPrice:
+          double.tryParse(jsonData['last'] ?? kDoubleRevoker),
+      buyPrice: double.tryParse(jsonData['buy'] ?? kDoubleRevoker),
+      buyAmount: double.tryParse(jsonData['buy_amount'] ?? kDoubleRevoker),
+      sellPrice: double.tryParse(jsonData['sell'] ?? kDoubleRevoker),
+      sellAmount: double.tryParse(jsonData['sell_amount'] ?? kDoubleRevoker),
+      openingPrice24H: double.tryParse(jsonData['open'] ?? kDoubleRevoker),
+      highestPrice24H: double.tryParse(jsonData['high'] ?? kDoubleRevoker),
+      lowestPrice24H: double.tryParse(jsonData['low'] ?? kDoubleRevoker),
+      volume24H: double.tryParse(jsonData['vol'] ?? kDoubleRevoker),
+    );
+  }
 
   factory SingleMarketStatistics.fromJson(
     Map<String, dynamic> jsonData, {
@@ -59,28 +83,6 @@ class SingleMarketStatistics {
       highestPrice24H: double.tryParse(data['high'] ?? kDoubleRevoker),
       lowestPrice24H: double.tryParse(data['low'] ?? kDoubleRevoker),
       volume24H: double.tryParse(data['vol'] ?? kDoubleRevoker),
-    );
-  }
-  factory SingleMarketStatistics.fromAllMarket(
-    Map<String, dynamic> jsonData, {
-    CoinExCryptoDetail? cryptoDetail,
-    int? time,
-  }) {
-    return SingleMarketStatistics(
-      cryptoDetail: cryptoDetail ?? CoinExCryptoDetail.unknown,
-      serverTime: time != null
-          ? DateTime.fromMillisecondsSinceEpoch(time)
-          : DateTime.now(),
-      latestTransactionPrice:
-          double.tryParse(jsonData['last'] ?? kDoubleRevoker),
-      buyPrice: double.tryParse(jsonData['buy'] ?? kDoubleRevoker),
-      buyAmount: double.tryParse(jsonData['buy_amount'] ?? kDoubleRevoker),
-      sellPrice: double.tryParse(jsonData['sell'] ?? kDoubleRevoker),
-      sellAmount: double.tryParse(jsonData['sell_amount'] ?? kDoubleRevoker),
-      openingPrice24H: double.tryParse(jsonData['open'] ?? kDoubleRevoker),
-      highestPrice24H: double.tryParse(jsonData['high'] ?? kDoubleRevoker),
-      lowestPrice24H: double.tryParse(jsonData['low'] ?? kDoubleRevoker),
-      volume24H: double.tryParse(jsonData['vol'] ?? kDoubleRevoker),
     );
   }
 

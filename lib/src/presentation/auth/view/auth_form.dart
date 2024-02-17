@@ -49,8 +49,67 @@ class AuthForm extends StatelessWidget {
   }
 }
 
+class _EmailInput extends StatelessWidget {
+  const _EmailInput();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<AuthCubit, AuthState>(
+      buildWhen: (previous, current) => previous.email != current.email,
+      builder: (context, state) {
+        return TextFormField(
+          key: const Key('authForm_emailInput_textFormField'),
+          onChanged: (email) => context.read<AuthCubit>().emailChanged(email),
+          keyboardType: TextInputType.emailAddress,
+          decoration: InputDecoration(
+            labelText: 'email',
+            helperText: '',
+            errorText:
+                state.email.displayError != null ? 'invalid email' : null,
+            border: const OutlineInputBorder(),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _ErrorMessageBanner extends StatelessWidget {
+  const _ErrorMessageBanner();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<AuthCubit, AuthState>(
+      builder: (context, state) {
+        return Visibility(
+          visible: state.status == FormzSubmissionStatus.failure,
+          child: MaterialBanner(
+            backgroundColor: Theme.of(context).colorScheme.error,
+            content:
+                SelectableText(state.errorMessage ?? 'Not sure what happened'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  context.read<AuthCubit>().deleteError();
+                },
+                child: const Text(
+                  'dismiss',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ],
+            contentTextStyle: const TextStyle(color: Colors.white),
+            padding: const EdgeInsets.all(10),
+          ),
+        );
+      },
+    );
+  }
+}
+
 class _GoogleLoginButton extends StatelessWidget {
   const _GoogleLoginButton();
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit, AuthState>(
@@ -77,57 +136,9 @@ class _GoogleLoginButton extends StatelessWidget {
   }
 }
 
-class _EmailInput extends StatelessWidget {
-  const _EmailInput();
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<AuthCubit, AuthState>(
-      buildWhen: (previous, current) => previous.email != current.email,
-      builder: (context, state) {
-        return TextFormField(
-          key: const Key('authForm_emailInput_textFormField'),
-          onChanged: (email) => context.read<AuthCubit>().emailChanged(email),
-          keyboardType: TextInputType.emailAddress,
-          decoration: InputDecoration(
-            labelText: 'email',
-            helperText: '',
-            errorText:
-                state.email.displayError != null ? 'invalid email' : null,
-            border: const OutlineInputBorder(),
-          ),
-        );
-      },
-    );
-  }
-}
-
-class _PasswordInput extends StatelessWidget {
-  const _PasswordInput();
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<AuthCubit, AuthState>(
-      buildWhen: (previous, current) => previous.password != current.password,
-      builder: (context, state) {
-        return TextFormField(
-          key: const Key('authForm_passwordInput_textFormField'),
-          onChanged: (password) =>
-              context.read<AuthCubit>().passwordChanged(password),
-          obscureText: true,
-          decoration: InputDecoration(
-            labelText: 'password',
-            helperText: '',
-            errorText:
-                state.password.displayError != null ? 'invalid password' : null,
-            border: const OutlineInputBorder(),
-          ),
-        );
-      },
-    );
-  }
-}
-
 class _LoginOrRegisterButton extends StatelessWidget {
   const _LoginOrRegisterButton();
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit, AuthState>(
@@ -152,6 +163,7 @@ class _LoginOrRegisterButton extends StatelessWidget {
 
 class _LoginOrRegisterMode extends StatelessWidget {
   const _LoginOrRegisterMode();
+
   @override
   Widget build(BuildContext context) {
     return BlocSelector<AuthCubit, AuthState, AuthMode>(
@@ -187,31 +199,25 @@ class _LoginOrRegisterMode extends StatelessWidget {
   }
 }
 
-class _ErrorMessageBanner extends StatelessWidget {
-  const _ErrorMessageBanner();
+class _PasswordInput extends StatelessWidget {
+  const _PasswordInput();
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit, AuthState>(
+      buildWhen: (previous, current) => previous.password != current.password,
       builder: (context, state) {
-        return Visibility(
-          visible: state.status == FormzSubmissionStatus.failure,
-          child: MaterialBanner(
-            backgroundColor: Theme.of(context).colorScheme.error,
-            content:
-                SelectableText(state.errorMessage ?? 'Not sure what happened'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  context.read<AuthCubit>().deleteError();
-                },
-                child: const Text(
-                  'dismiss',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ],
-            contentTextStyle: const TextStyle(color: Colors.white),
-            padding: const EdgeInsets.all(10),
+        return TextFormField(
+          key: const Key('authForm_passwordInput_textFormField'),
+          onChanged: (password) =>
+              context.read<AuthCubit>().passwordChanged(password),
+          obscureText: true,
+          decoration: InputDecoration(
+            labelText: 'password',
+            helperText: '',
+            errorText:
+                state.password.displayError != null ? 'invalid password' : null,
+            border: const OutlineInputBorder(),
           ),
         );
       },

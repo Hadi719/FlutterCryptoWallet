@@ -17,158 +17,36 @@ class DevCoinApi extends StatelessWidget {
   }
 }
 
-class _LayoutBuilder extends StatelessWidget {
-  const _LayoutBuilder();
+class _ChangeIcon extends StatefulWidget {
+  final Function() onPressed;
+
+  const _ChangeIcon({required this.onPressed});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: _ChangeIcon(
-          onPressed: () {
-            context.read<DevCoinBloc>().add(DevCoinChangeApi());
-          },
-        ),
-        centerTitle: true,
-        elevation: 8.0,
-        title: Text(
-          context.select(
-              (DevCoinBloc bloc) => bloc.state.coinApi == CoinApi.coinCap
-                  ? 'CoinCap'
-                  : bloc.state.coinApi == CoinApi.coinGecko
-                      ? 'CoinGecko'
-                      : 'CoinEx'),
-        ),
-      ),
-      body: Column(
-        children: [
-          context.select(
-              (DevCoinBloc bloc) => bloc.state.coinApi == CoinApi.coinCap
-                  ? const _CoinCapButtons()
-                  : bloc.state.coinApi == CoinApi.coinGecko
-                      ? const _CoinGeckoButtons()
-                      : const _CoinExButtons()),
-          const _DataView(),
-        ],
-      ),
-    );
-  }
+  State<_ChangeIcon> createState() => _ChangeIconState();
 }
 
-class _CoinGeckoButtons extends StatelessWidget {
-  const _CoinGeckoButtons();
+class _ChangeIconState extends State<_ChangeIcon>
+    with SingleTickerProviderStateMixin {
+  double turn = 0.0;
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<DevCoinBloc, DevCoinState, DevCoinEvent?>(
-      selector: (state) {
-        return state.lastEvent;
-      },
-      builder: (context, state) {
-        return Wrap(
-          children: [
-            ElevatedButton(
-              onPressed: state.runtimeType == DevCoinGeckoSimplePricesList
-                  ? null
-                  : () {
-                      context
-                          .read<DevCoinBloc>()
-                          .add(DevCoinGeckoSimplePricesList());
-                    },
-              child: const Text('SimplePricesList'),
-            ),
-            ElevatedButton(
-              onPressed:
-                  state.runtimeType == DevCoinGeckoSimpleSupportedVsCurrencies
-                      ? null
-                      : () {
-                          context
-                              .read<DevCoinBloc>()
-                              .add(DevCoinGeckoSimpleSupportedVsCurrencies());
-                        },
-              child: const Text('SimpleSupportedVsCurrencies'),
-            ),
-            ElevatedButton(
-              onPressed: state.runtimeType == DevCoinGeckoCoinMetadata
-                  ? null
-                  : () {
-                      context
-                          .read<DevCoinBloc>()
-                          .add(DevCoinGeckoCoinMetadata());
-                    },
-              child: const Text('CoinMetadata'),
-            ),
-            ElevatedButton(
-              onPressed: state.runtimeType == DevCoinGeckoCoinHistory
-                  ? null
-                  : () {
-                      context
-                          .read<DevCoinBloc>()
-                          .add(DevCoinGeckoCoinHistory());
-                    },
-              child: const Text('CoinHistory'),
-            ),
-            ElevatedButton(
-              onPressed: state.runtimeType == DevCoinGeckoCoinsMarketsList
-                  ? null
-                  : () {
-                      context
-                          .read<DevCoinBloc>()
-                          .add(DevCoinGeckoCoinsMarketsList());
-                    },
-              child: const Text('CoinsMarketsList'),
-            ),
-            ElevatedButton(
-              onPressed: state.runtimeType == DevCoinGeckoCoinMarketChart
-                  ? null
-                  : () {
-                      context
-                          .read<DevCoinBloc>()
-                          .add(DevCoinGeckoCoinMarketChart());
-                    },
-              child: const Text('CoinMarketChart'),
-            ),
-            ElevatedButton(
-              onPressed: state.runtimeType == DevCoinGeckoCoinMarketChartRange
-                  ? null
-                  : () {
-                      context
-                          .read<DevCoinBloc>()
-                          .add(DevCoinGeckoCoinMarketChartRange());
-                    },
-              child: const Text('CoinMarketChartRange'),
-            ),
-            ElevatedButton(
-              onPressed: state.runtimeType == DevCoinGeckoCoinOHLC
-                  ? null
-                  : () {
-                      context.read<DevCoinBloc>().add(DevCoinGeckoCoinOHLC());
-                    },
-              child: const Text('CoinOHLC'),
-            ),
-            ElevatedButton(
-              onPressed: state.runtimeType == DevCoinGeckoAssetPlatformsList
-                  ? null
-                  : () {
-                      context
-                          .read<DevCoinBloc>()
-                          .add(DevCoinGeckoAssetPlatformsList());
-                    },
-              child: const Text('AssetPlatformsList'),
-            ),
-            ElevatedButton(
-              onPressed: state.runtimeType == DevCoinGeckoExchangeRates
-                  ? null
-                  : () {
-                      context
-                          .read<DevCoinBloc>()
-                          .add(DevCoinGeckoExchangeRates());
-                    },
-              child: const Text('ExchangeRates'),
-            ),
-          ],
-        );
-      },
+    return AnimatedRotation(
+      turns: turn,
+      duration: const Duration(milliseconds: 500),
+      child: IconButton(
+        icon: const Icon(
+          Icons.change_circle,
+          size: 40,
+        ),
+        onPressed: () {
+          setState(() {
+            widget.onPressed();
+            turn += 0.5;
+          });
+        },
+      ),
     );
   }
 }
@@ -375,6 +253,124 @@ class _CoinExButtons extends StatelessWidget {
   }
 }
 
+class _CoinGeckoButtons extends StatelessWidget {
+  const _CoinGeckoButtons();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocSelector<DevCoinBloc, DevCoinState, DevCoinEvent?>(
+      selector: (state) {
+        return state.lastEvent;
+      },
+      builder: (context, state) {
+        return Wrap(
+          children: [
+            ElevatedButton(
+              onPressed: state.runtimeType == DevCoinGeckoSimplePricesList
+                  ? null
+                  : () {
+                      context
+                          .read<DevCoinBloc>()
+                          .add(DevCoinGeckoSimplePricesList());
+                    },
+              child: const Text('SimplePricesList'),
+            ),
+            ElevatedButton(
+              onPressed:
+                  state.runtimeType == DevCoinGeckoSimpleSupportedVsCurrencies
+                      ? null
+                      : () {
+                          context
+                              .read<DevCoinBloc>()
+                              .add(DevCoinGeckoSimpleSupportedVsCurrencies());
+                        },
+              child: const Text('SimpleSupportedVsCurrencies'),
+            ),
+            ElevatedButton(
+              onPressed: state.runtimeType == DevCoinGeckoCoinMetadata
+                  ? null
+                  : () {
+                      context
+                          .read<DevCoinBloc>()
+                          .add(DevCoinGeckoCoinMetadata());
+                    },
+              child: const Text('CoinMetadata'),
+            ),
+            ElevatedButton(
+              onPressed: state.runtimeType == DevCoinGeckoCoinHistory
+                  ? null
+                  : () {
+                      context
+                          .read<DevCoinBloc>()
+                          .add(DevCoinGeckoCoinHistory());
+                    },
+              child: const Text('CoinHistory'),
+            ),
+            ElevatedButton(
+              onPressed: state.runtimeType == DevCoinGeckoCoinsMarketsList
+                  ? null
+                  : () {
+                      context
+                          .read<DevCoinBloc>()
+                          .add(DevCoinGeckoCoinsMarketsList());
+                    },
+              child: const Text('CoinsMarketsList'),
+            ),
+            ElevatedButton(
+              onPressed: state.runtimeType == DevCoinGeckoCoinMarketChart
+                  ? null
+                  : () {
+                      context
+                          .read<DevCoinBloc>()
+                          .add(DevCoinGeckoCoinMarketChart());
+                    },
+              child: const Text('CoinMarketChart'),
+            ),
+            ElevatedButton(
+              onPressed: state.runtimeType == DevCoinGeckoCoinMarketChartRange
+                  ? null
+                  : () {
+                      context
+                          .read<DevCoinBloc>()
+                          .add(DevCoinGeckoCoinMarketChartRange());
+                    },
+              child: const Text('CoinMarketChartRange'),
+            ),
+            ElevatedButton(
+              onPressed: state.runtimeType == DevCoinGeckoCoinOHLC
+                  ? null
+                  : () {
+                      context.read<DevCoinBloc>().add(DevCoinGeckoCoinOHLC());
+                    },
+              child: const Text('CoinOHLC'),
+            ),
+            ElevatedButton(
+              onPressed: state.runtimeType == DevCoinGeckoAssetPlatformsList
+                  ? null
+                  : () {
+                      context
+                          .read<DevCoinBloc>()
+                          .add(DevCoinGeckoAssetPlatformsList());
+                    },
+              child: const Text('AssetPlatformsList'),
+            ),
+            ElevatedButton(
+              onPressed: state.runtimeType == DevCoinGeckoExchangeRates
+                  ? null
+                  : () {
+                      context
+                          .read<DevCoinBloc>()
+                          .add(DevCoinGeckoExchangeRates());
+                    },
+              child: const Text('ExchangeRates'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
 class _DataView extends StatelessWidget {
   const _DataView();
 
@@ -419,34 +415,39 @@ class _DataView extends StatelessWidget {
   }
 }
 
-class _ChangeIcon extends StatefulWidget {
-  const _ChangeIcon({required this.onPressed});
+class _LayoutBuilder extends StatelessWidget {
+  const _LayoutBuilder();
 
-  final Function() onPressed;
-
-  @override
-  State<_ChangeIcon> createState() => _ChangeIconState();
-}
-
-class _ChangeIconState extends State<_ChangeIcon>
-    with SingleTickerProviderStateMixin {
-  double turn = 0.0;
   @override
   Widget build(BuildContext context) {
-    return AnimatedRotation(
-      turns: turn,
-      duration: const Duration(milliseconds: 500),
-      child: IconButton(
-        icon: const Icon(
-          Icons.change_circle,
-          size: 40,
+    return Scaffold(
+      appBar: AppBar(
+        leading: _ChangeIcon(
+          onPressed: () {
+            context.read<DevCoinBloc>().add(DevCoinChangeApi());
+          },
         ),
-        onPressed: () {
-          setState(() {
-            widget.onPressed();
-            turn += 0.5;
-          });
-        },
+        centerTitle: true,
+        elevation: 8.0,
+        title: Text(
+          context.select(
+              (DevCoinBloc bloc) => bloc.state.coinApi == CoinApi.coinCap
+                  ? 'CoinCap'
+                  : bloc.state.coinApi == CoinApi.coinGecko
+                      ? 'CoinGecko'
+                      : 'CoinEx'),
+        ),
+      ),
+      body: Column(
+        children: [
+          context.select(
+              (DevCoinBloc bloc) => bloc.state.coinApi == CoinApi.coinCap
+                  ? const _CoinCapButtons()
+                  : bloc.state.coinApi == CoinApi.coinGecko
+                      ? const _CoinGeckoButtons()
+                      : const _CoinExButtons()),
+          const _DataView(),
+        ],
       ),
     );
   }

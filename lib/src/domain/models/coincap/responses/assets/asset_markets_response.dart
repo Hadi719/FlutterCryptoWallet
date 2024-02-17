@@ -3,12 +3,14 @@ import 'package:equatable/equatable.dart';
 import 'asset_market.dart';
 
 class AssetMarketsResponse extends Equatable {
+  final List<AssetMarket>? marketsList;
+
+  final int? timestamp;
+
   const AssetMarketsResponse({
     this.marketsList = const [],
     this.timestamp,
   });
-  final List<AssetMarket>? marketsList;
-  final int? timestamp;
 
   factory AssetMarketsResponse.fromMap(Map<String, dynamic> mapData) {
     return AssetMarketsResponse(
@@ -18,6 +20,7 @@ class AssetMarketsResponse extends Equatable {
       timestamp: mapData['timestamp'],
     );
   }
+
   @override
   List<Object?> get props => [marketsList, timestamp];
 

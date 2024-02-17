@@ -5,14 +5,9 @@ import '../../app/bloc/app_bloc.dart';
 import '../widgets/avatar.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
-
   static const String screenName = '/Profile';
 
-  static Page<void> page() => const MaterialPage<void>(
-        child: ProfilePage(),
-        name: screenName,
-      );
+  const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,4 +41,9 @@ class ProfilePage extends StatelessWidget {
       ),
     );
   }
+
+  static Page<void> page() => const MaterialPage<void>(
+        child: ProfilePage(),
+        name: screenName,
+      );
 }

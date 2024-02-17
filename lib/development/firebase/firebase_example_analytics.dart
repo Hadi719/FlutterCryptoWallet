@@ -3,11 +3,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class FirebaseExampleAnalytics extends StatelessWidget {
-  const FirebaseExampleAnalytics({super.key});
-
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
   static FirebaseAnalyticsObserver observer =
       FirebaseAnalyticsObserver(analytics: analytics);
+
+  const FirebaseExampleAnalytics({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +28,11 @@ class FirebaseExampleAnalytics extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+  final String title;
+
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
+
   const MyHomePage({
     super.key,
     required this.title,
@@ -34,103 +40,92 @@ class MyHomePage extends StatefulWidget {
     required this.observer,
   });
 
-  final String title;
-  final FirebaseAnalytics analytics;
-  final FirebaseAnalyticsObserver observer;
-
   @override
   State<StatefulWidget> createState() => _MyHomePageState();
+}
+
+class TabsPage extends StatefulWidget {
+  static const String routeName = '/tab';
+
+  final FirebaseAnalyticsObserver observer;
+
+  const TabsPage(this.observer, {super.key});
+
+  @override
+  State<StatefulWidget> createState() => _TabsPageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   String _message = '';
 
-  void setMessage(String message) {
-    setState(() {
-      _message = message;
-    });
-  }
-
-  Future<void> _setDefaultEventParameters() async {
-    if (kIsWeb) {
-      setMessage(
-        '"setDefaultEventParameters()" is not supported on web platform',
-      );
-    } else {
-      // Only strings, numbers & null (longs & doubles for android, ints and doubles for iOS) are supported for default event parameters:
-      await widget.analytics.setDefaultEventParameters(<String, dynamic>{
-        'string': 'string',
-        'int': 42,
-        'long': 12345678910,
-        'double': 42.0,
-        'bool': true.toString(),
-      });
-      setMessage('setDefaultEventParameters succeeded');
-    }
-  }
-
-  Future<void> _sendAnalyticsEvent() async {
-    // Only strings and numbers (longs & doubles for android, ints and doubles for iOS) are supported for GA custom event parameters:
-    // https://firebase.google.com/docs/reference/ios/firebaseanalytics/api/reference/Classes/FIRAnalytics#+logeventwithname:parameters:
-    // https://firebase.google.com/docs/reference/android/com/google/firebase/analytics/FirebaseAnalytics#public-void-logevent-string-name,-bundle-params
-    await widget.analytics.logEvent(
-      name: 'test_event',
-      parameters: <String, dynamic>{
-        'string': 'string',
-        'int': 42,
-        'long': 12345678910,
-        'double': 42.0,
-        // Only strings and numbers (ints & doubles) are supported for GA custom event parameters:
-        // https://developers.google.com/analytics/devguides/collection/analyticsjs/custom-dims-mets#overview
-        'bool': true.toString(),
-      },
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Column(
+        children: <Widget>[
+          MaterialButton(
+            onPressed: _sendAnalyticsEvent,
+            child: const Text('Test logEvent'),
+          ),
+          MaterialButton(
+            onPressed: _testAllEventTypes,
+            child: const Text('Test standard event types'),
+          ),
+          MaterialButton(
+            onPressed: _testSetUserId,
+            child: const Text('Test setUserId'),
+          ),
+          MaterialButton(
+            onPressed: _testSetCurrentScreen,
+            child: const Text('Test setCurrentScreen'),
+          ),
+          MaterialButton(
+            onPressed: _testSetAnalyticsCollectionEnabled,
+            child: const Text('Test setAnalyticsCollectionEnabled'),
+          ),
+          MaterialButton(
+            onPressed: _testSetSessionTimeoutDuration,
+            child: const Text('Test setSessionTimeoutDuration'),
+          ),
+          MaterialButton(
+            onPressed: _testSetUserProperty,
+            child: const Text('Test setUserProperty'),
+          ),
+          MaterialButton(
+            onPressed: _testAppInstanceId,
+            child: const Text('Test appInstanceId'),
+          ),
+          MaterialButton(
+            onPressed: _testResetAnalyticsData,
+            child: const Text('Test resetAnalyticsData'),
+          ),
+          MaterialButton(
+            onPressed: _setDefaultEventParameters,
+            child: const Text('Test setDefaultEventParameters'),
+          ),
+          Text(
+            _message,
+            style: const TextStyle(color: Color.fromARGB(255, 0, 155, 0)),
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute<TabsPage>(
+              settings: const RouteSettings(name: TabsPage.routeName),
+              builder: (BuildContext context) {
+                return TabsPage(widget.observer);
+              },
+            ),
+          );
+        },
+        child: const Icon(Icons.tab),
+      ),
     );
-
-    setMessage('logEvent succeeded');
-  }
-
-  Future<void> _testSetUserId() async {
-    await widget.analytics.setUserId(id: 'some-user');
-    setMessage('setUserId succeeded');
-  }
-
-  Future<void> _testSetCurrentScreen() async {
-    await widget.analytics.logScreenView(
-      screenName: 'Analytics Demo',
-      screenClass: 'AnalyticsDemo',
-    );
-    setMessage('setCurrentScreen succeeded');
-  }
-
-  Future<void> _testSetAnalyticsCollectionEnabled() async {
-    await widget.analytics.setAnalyticsCollectionEnabled(false);
-    await widget.analytics.setAnalyticsCollectionEnabled(true);
-    setMessage('setAnalyticsCollectionEnabled succeeded');
-  }
-
-  Future<void> _testSetSessionTimeoutDuration() async {
-    await widget.analytics
-        .setSessionTimeoutDuration(const Duration(milliseconds: 20000));
-    setMessage('setSessionTimeoutDuration succeeded');
-  }
-
-  Future<void> _testSetUserProperty() async {
-    await widget.analytics.setUserProperty(name: 'regular', value: 'indeed');
-    setMessage('setUserProperty succeeded');
-  }
-
-  Future<void> _testAppInstanceId() async {
-    String? id = await widget.analytics.appInstanceId;
-    if (id != null) {
-      setMessage('appInstanceId succeeded: $id');
-    } else {
-      setMessage('appInstanceId failed, consent declined');
-    }
-  }
-
-  Future<void> _testResetAnalyticsData() async {
-    await widget.analytics.resetAnalyticsData();
-    setMessage('resetAnalyticsData succeeded');
   }
 
   AnalyticsEventItem itemCreator() {
@@ -159,6 +154,50 @@ class _MyHomePageState extends State<MyHomePage> {
       promotionName: 'promotionName',
       quantity: 1,
     );
+  }
+
+  void setMessage(String message) {
+    setState(() {
+      _message = message;
+    });
+  }
+
+  Future<void> _sendAnalyticsEvent() async {
+    // Only strings and numbers (longs & doubles for android, ints and doubles for iOS) are supported for GA custom event parameters:
+    // https://firebase.google.com/docs/reference/ios/firebaseanalytics/api/reference/Classes/FIRAnalytics#+logeventwithname:parameters:
+    // https://firebase.google.com/docs/reference/android/com/google/firebase/analytics/FirebaseAnalytics#public-void-logevent-string-name,-bundle-params
+    await widget.analytics.logEvent(
+      name: 'test_event',
+      parameters: <String, dynamic>{
+        'string': 'string',
+        'int': 42,
+        'long': 12345678910,
+        'double': 42.0,
+        // Only strings and numbers (ints & doubles) are supported for GA custom event parameters:
+        // https://developers.google.com/analytics/devguides/collection/analyticsjs/custom-dims-mets#overview
+        'bool': true.toString(),
+      },
+    );
+
+    setMessage('logEvent succeeded');
+  }
+
+  Future<void> _setDefaultEventParameters() async {
+    if (kIsWeb) {
+      setMessage(
+        '"setDefaultEventParameters()" is not supported on web platform',
+      );
+    } else {
+      // Only strings, numbers & null (longs & doubles for android, ints and doubles for iOS) are supported for default event parameters:
+      await widget.analytics.setDefaultEventParameters(<String, dynamic>{
+        'string': 'string',
+        'int': 42,
+        'long': 12345678910,
+        'double': 42.0,
+        'bool': true.toString(),
+      });
+      setMessage('setDefaultEventParameters succeeded');
+    }
   }
 
   Future<void> _testAllEventTypes() async {
@@ -287,86 +326,49 @@ class _MyHomePageState extends State<MyHomePage> {
     setMessage('All standard events logged successfully');
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Column(
-        children: <Widget>[
-          MaterialButton(
-            onPressed: _sendAnalyticsEvent,
-            child: const Text('Test logEvent'),
-          ),
-          MaterialButton(
-            onPressed: _testAllEventTypes,
-            child: const Text('Test standard event types'),
-          ),
-          MaterialButton(
-            onPressed: _testSetUserId,
-            child: const Text('Test setUserId'),
-          ),
-          MaterialButton(
-            onPressed: _testSetCurrentScreen,
-            child: const Text('Test setCurrentScreen'),
-          ),
-          MaterialButton(
-            onPressed: _testSetAnalyticsCollectionEnabled,
-            child: const Text('Test setAnalyticsCollectionEnabled'),
-          ),
-          MaterialButton(
-            onPressed: _testSetSessionTimeoutDuration,
-            child: const Text('Test setSessionTimeoutDuration'),
-          ),
-          MaterialButton(
-            onPressed: _testSetUserProperty,
-            child: const Text('Test setUserProperty'),
-          ),
-          MaterialButton(
-            onPressed: _testAppInstanceId,
-            child: const Text('Test appInstanceId'),
-          ),
-          MaterialButton(
-            onPressed: _testResetAnalyticsData,
-            child: const Text('Test resetAnalyticsData'),
-          ),
-          MaterialButton(
-            onPressed: _setDefaultEventParameters,
-            child: const Text('Test setDefaultEventParameters'),
-          ),
-          Text(
-            _message,
-            style: const TextStyle(color: Color.fromARGB(255, 0, 155, 0)),
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute<TabsPage>(
-              settings: const RouteSettings(name: TabsPage.routeName),
-              builder: (BuildContext context) {
-                return TabsPage(widget.observer);
-              },
-            ),
-          );
-        },
-        child: const Icon(Icons.tab),
-      ),
-    );
+  Future<void> _testAppInstanceId() async {
+    String? id = await widget.analytics.appInstanceId;
+    if (id != null) {
+      setMessage('appInstanceId succeeded: $id');
+    } else {
+      setMessage('appInstanceId failed, consent declined');
+    }
   }
-}
 
-class TabsPage extends StatefulWidget {
-  const TabsPage(this.observer, {super.key});
+  Future<void> _testResetAnalyticsData() async {
+    await widget.analytics.resetAnalyticsData();
+    setMessage('resetAnalyticsData succeeded');
+  }
 
-  final FirebaseAnalyticsObserver observer;
+  Future<void> _testSetAnalyticsCollectionEnabled() async {
+    await widget.analytics.setAnalyticsCollectionEnabled(false);
+    await widget.analytics.setAnalyticsCollectionEnabled(true);
+    setMessage('setAnalyticsCollectionEnabled succeeded');
+  }
 
-  static const String routeName = '/tab';
+  Future<void> _testSetCurrentScreen() async {
+    await widget.analytics.logScreenView(
+      screenName: 'Analytics Demo',
+      screenClass: 'AnalyticsDemo',
+    );
+    setMessage('setCurrentScreen succeeded');
+  }
 
-  @override
-  State<StatefulWidget> createState() => _TabsPageState();
+  Future<void> _testSetSessionTimeoutDuration() async {
+    await widget.analytics
+        .setSessionTimeoutDuration(const Duration(milliseconds: 20000));
+    setMessage('setSessionTimeoutDuration succeeded');
+  }
+
+  Future<void> _testSetUserId() async {
+    await widget.analytics.setUserId(id: 'some-user');
+    setMessage('setUserId succeeded');
+  }
+
+  Future<void> _testSetUserProperty() async {
+    await widget.analytics.setUserProperty(name: 'regular', value: 'indeed');
+    setMessage('setUserProperty succeeded');
+  }
 }
 
 class _TabsPageState extends State<TabsPage>
@@ -389,9 +391,37 @@ class _TabsPageState extends State<TabsPage>
   ];
 
   @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        bottom: TabBar(
+          controller: _controller,
+          tabs: tabs,
+        ),
+      ),
+      body: TabBarView(
+        controller: _controller,
+        children: tabs.map((Tab tab) {
+          return Center(child: Text(tab.text!));
+        }).toList(),
+      ),
+    );
+  }
+
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     widget.observer.subscribe(this, ModalRoute.of(context)! as PageRoute);
+  }
+
+  @override
+  void didPopNext() {
+    _sendCurrentTabToAnalytics();
+  }
+
+  @override
+  void didPush() {
+    _sendCurrentTabToAnalytics();
   }
 
   @override
@@ -411,34 +441,6 @@ class _TabsPageState extends State<TabsPage>
         }
       });
     });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        bottom: TabBar(
-          controller: _controller,
-          tabs: tabs,
-        ),
-      ),
-      body: TabBarView(
-        controller: _controller,
-        children: tabs.map((Tab tab) {
-          return Center(child: Text(tab.text!));
-        }).toList(),
-      ),
-    );
-  }
-
-  @override
-  void didPush() {
-    _sendCurrentTabToAnalytics();
-  }
-
-  @override
-  void didPopNext() {
-    _sendCurrentTabToAnalytics();
   }
 
   void _sendCurrentTabToAnalytics() {

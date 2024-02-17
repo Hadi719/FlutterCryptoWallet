@@ -1,19 +1,24 @@
 part of 'home_cubit.dart';
 
-enum HomeStatus { initial, loading, success, failure }
-
 final class HomeState extends Equatable {
+  final HomeStatus status;
+
+  final AllMarketStatisticsResponse? allMarketStatisticsResponse;
+
+  /// Probably [DioException]
+  final Object? error;
+
   const HomeState({
     this.status = HomeStatus.initial,
     this.allMarketStatisticsResponse,
     this.error,
   });
 
-  final HomeStatus status;
-  final AllMarketStatisticsResponse? allMarketStatisticsResponse;
+  @override
+  List<Object?> get props => [status, allMarketStatisticsResponse];
 
-  /// Probably [DioException]
-  final Object? error;
+  @override
+  bool get stringify => true;
 
   HomeState copyWith({
     HomeStatus? status,
@@ -27,10 +32,6 @@ final class HomeState extends Equatable {
       error: error ?? this.error,
     );
   }
-
-  @override
-  bool get stringify => true;
-
-  @override
-  List<Object?> get props => [status, allMarketStatisticsResponse];
 }
+
+enum HomeStatus { initial, loading, success, failure }

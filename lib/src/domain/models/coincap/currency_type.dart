@@ -5,6 +5,7 @@ enum CurrencyType {
   crypto;
 
   const CurrencyType();
+
   factory CurrencyType.fromMap(String? source) {
     if (source == null) return CurrencyType.unknown;
     return CurrencyType.values.firstWhere(

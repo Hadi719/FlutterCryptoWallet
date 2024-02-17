@@ -6,12 +6,12 @@
 /// All values are translated into USD (United States Dollar) and can be
 /// translated into other units of measurement through the /rates endpoint
 class AssetRequest {
-  const AssetRequest({required this.id});
-
   /// asset id
   ///
   /// required
   ///
   /// e.g. ___bitcoin___
   final String id;
+
+  const AssetRequest({required this.id});
 }

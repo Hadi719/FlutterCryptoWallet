@@ -11,9 +11,9 @@ import '../../../utils/resources/data_state.dart';
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(const HomeState());
-
   final coinExRepo = serviceLocator<CoinExApiRepository>();
+
+  HomeCubit() : super(const HomeState());
 
   Future<void> getAllMarketStatistics() async {
     emit(state.copyWith(status: HomeStatus.loading));

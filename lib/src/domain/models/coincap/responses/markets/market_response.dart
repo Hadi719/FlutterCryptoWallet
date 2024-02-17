@@ -3,21 +3,6 @@ import 'package:equatable/equatable.dart';
 import '../../../../../utils/constants/strings.dart';
 
 class MarketResponse extends Equatable {
-  const MarketResponse({
-    this.exchangeId,
-    this.rank,
-    this.baseSymbol,
-    this.baseId,
-    this.quoteSymbol,
-    this.quoteId,
-    this.priceQuote,
-    this.priceUsd,
-    this.volumeUsd24Hr,
-    this.percentExchangeVolume,
-    this.tradesCount24Hr,
-    this.updated,
-  });
-
   /// unique identifier for exchange
   final String? exchangeId;
 
@@ -53,6 +38,21 @@ class MarketResponse extends Equatable {
 
   /// UNIX timestamp (milliseconds) since information was received from this particular market
   final int? updated;
+
+  const MarketResponse({
+    this.exchangeId,
+    this.rank,
+    this.baseSymbol,
+    this.baseId,
+    this.quoteSymbol,
+    this.quoteId,
+    this.priceQuote,
+    this.priceUsd,
+    this.volumeUsd24Hr,
+    this.percentExchangeVolume,
+    this.tradesCount24Hr,
+    this.updated,
+  });
 
   factory MarketResponse.fromMap(Map<String, dynamic> mapData) {
     return MarketResponse(

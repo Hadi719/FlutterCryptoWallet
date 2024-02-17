@@ -8,15 +8,6 @@ import '../../currency_type.dart';
 /// We offer fiat and top cryptocurrency translated rates.
 /// Fiat rates are available through OpenExchangeRates.org.
 class RateResponse extends Equatable {
-  const RateResponse({
-    this.id,
-    this.symbol,
-    this.currencySymbol,
-    this.type,
-    this.rateUsd,
-    this.timestamp,
-  });
-
   /// unique identifier for asset or fiat
   final String? id;
 
@@ -31,7 +22,17 @@ class RateResponse extends Equatable {
 
   /// rate conversion to USD
   final double? rateUsd;
+
   final int? timestamp;
+
+  const RateResponse({
+    this.id,
+    this.symbol,
+    this.currencySymbol,
+    this.type,
+    this.rateUsd,
+    this.timestamp,
+  });
 
   factory RateResponse.fromMap(Map<String, dynamic> mapData) {
     Map<String, dynamic> data = mapData['data'] ?? mapData;

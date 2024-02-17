@@ -39,29 +39,6 @@ class SingleMarketStatisticsResponse extends Equatable {
   });
 
   /// {@macro SingleMarketStatistics}
-  factory SingleMarketStatisticsResponse.fromMap(
-      Map<String, dynamic> map, String marketName) {
-    Map<String, dynamic> data = map['data']['ticker'];
-    int? time = map['data']['date'];
-
-    return SingleMarketStatisticsResponse(
-      cryptoDetail: CoinExCryptoDetail.fromMarketName(marketName),
-      serverTime: time != null
-          ? DateTime.fromMillisecondsSinceEpoch(time)
-          : DateTime.now(),
-      latestTransactionPrice: double.tryParse(data['last'] ?? kDoubleRevoker),
-      buyPrice: double.tryParse(data['buy'] ?? kDoubleRevoker),
-      buyAmount: double.tryParse(data['buy_amount'] ?? kDoubleRevoker),
-      sellPrice: double.tryParse(data['sell'] ?? kDoubleRevoker),
-      sellAmount: double.tryParse(data['sell_amount'] ?? kDoubleRevoker),
-      openingPrice24H: double.tryParse(data['open'] ?? kDoubleRevoker),
-      highestPrice24H: double.tryParse(data['high'] ?? kDoubleRevoker),
-      lowestPrice24H: double.tryParse(data['low'] ?? kDoubleRevoker),
-      volume24H: double.tryParse(data['vol'] ?? kDoubleRevoker),
-    );
-  }
-
-  /// {@macro SingleMarketStatistics}
   factory SingleMarketStatisticsResponse.fromAllMarket(
     Map<String, dynamic> map, {
     required CoinExCryptoDetail cryptoDetail,
@@ -84,8 +61,28 @@ class SingleMarketStatisticsResponse extends Equatable {
     );
   }
 
-  @override
-  bool? get stringify => true;
+  /// {@macro SingleMarketStatistics}
+  factory SingleMarketStatisticsResponse.fromMap(
+      Map<String, dynamic> map, String marketName) {
+    Map<String, dynamic> data = map['data']['ticker'];
+    int? time = map['data']['date'];
+
+    return SingleMarketStatisticsResponse(
+      cryptoDetail: CoinExCryptoDetail.fromMarketName(marketName),
+      serverTime: time != null
+          ? DateTime.fromMillisecondsSinceEpoch(time)
+          : DateTime.now(),
+      latestTransactionPrice: double.tryParse(data['last'] ?? kDoubleRevoker),
+      buyPrice: double.tryParse(data['buy'] ?? kDoubleRevoker),
+      buyAmount: double.tryParse(data['buy_amount'] ?? kDoubleRevoker),
+      sellPrice: double.tryParse(data['sell'] ?? kDoubleRevoker),
+      sellAmount: double.tryParse(data['sell_amount'] ?? kDoubleRevoker),
+      openingPrice24H: double.tryParse(data['open'] ?? kDoubleRevoker),
+      highestPrice24H: double.tryParse(data['high'] ?? kDoubleRevoker),
+      lowestPrice24H: double.tryParse(data['low'] ?? kDoubleRevoker),
+      volume24H: double.tryParse(data['vol'] ?? kDoubleRevoker),
+    );
+  }
 
   @override
   List<Object?> get props => [
@@ -101,4 +98,7 @@ class SingleMarketStatisticsResponse extends Equatable {
         lowestPrice24H,
         volume24H,
       ];
+
+  @override
+  bool? get stringify => true;
 }

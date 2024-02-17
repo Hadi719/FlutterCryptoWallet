@@ -9,6 +9,14 @@ import '../../src/utils/constants/strings.dart';
 ///
 /// {@endtemplate}
 class MarketDepth {
+  static const urlPath = '/market/depth';
+
+  final double? latestTransactionPrice;
+
+  final DateTime time;
+  final List<Order> askOrders;
+  final List<Order> bidOrders;
+
   /// {@macro MarketDepth}
   const MarketDepth({
     this.latestTransactionPrice,
@@ -16,13 +24,6 @@ class MarketDepth {
     this.askOrders = const <Order>[],
     this.bidOrders = const <Order>[],
   });
-
-  static const urlPath = '/market/depth';
-
-  final double? latestTransactionPrice;
-  final DateTime time;
-  final List<Order> askOrders;
-  final List<Order> bidOrders;
 
   factory MarketDepth.fromJson(Map<String, dynamic> jsonData) {
     Map<String, dynamic> data = jsonData['data'];
@@ -44,13 +45,14 @@ class MarketDepth {
 }
 
 class Order {
+  final double? price;
+
+  final double? amount;
+
   Order({
     this.price,
     this.amount,
   });
-
-  final double? price;
-  final double? amount;
 
   factory Order.fromJson(List<String?>? jsonData) {
     return Order(

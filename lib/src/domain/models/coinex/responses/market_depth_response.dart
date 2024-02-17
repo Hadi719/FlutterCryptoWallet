@@ -2,6 +2,33 @@ import 'package:equatable/equatable.dart';
 
 import '../../../../utils/constants/strings.dart';
 
+/// Defines market depth parameters:
+///
+/// * [MarketDepthResponse.askOrders]
+/// * [MarketDepthResponse.bidOrders]
+class MarketDepthOrder extends Equatable {
+  final double? price;
+  final double? amount;
+
+  const MarketDepthOrder({
+    this.price,
+    this.amount,
+  });
+
+  factory MarketDepthOrder.fromMap(List<dynamic> jsonData) {
+    return MarketDepthOrder(
+      price: double.tryParse(jsonData[0][0] ?? kDoubleRevoker),
+      amount: double.tryParse(jsonData[0][1] ?? kDoubleRevoker),
+    );
+  }
+
+  @override
+  List<Object?> get props => [price, amount];
+
+  @override
+  bool? get stringify => true;
+}
+
 /// {@template MarketDepthResponse}
 ///
 /// Gets market depth in a single market.
@@ -39,40 +66,13 @@ class MarketDepthResponse extends Equatable {
   }
 
   @override
-  bool? get stringify => true;
-
-  @override
   List<Object?> get props => [
         time,
         latestTransactionPrice,
         askOrders,
         bidOrders,
       ];
-}
-
-/// Defines market depth parameters:
-///
-/// * [MarketDepthResponse.askOrders]
-/// * [MarketDepthResponse.bidOrders]
-class MarketDepthOrder extends Equatable {
-  final double? price;
-  final double? amount;
-
-  const MarketDepthOrder({
-    this.price,
-    this.amount,
-  });
-
-  factory MarketDepthOrder.fromMap(List<dynamic> jsonData) {
-    return MarketDepthOrder(
-      price: double.tryParse(jsonData[0][0] ?? kDoubleRevoker),
-      amount: double.tryParse(jsonData[0][1] ?? kDoubleRevoker),
-    );
-  }
 
   @override
   bool? get stringify => true;
-
-  @override
-  List<Object?> get props => [price, amount];
 }

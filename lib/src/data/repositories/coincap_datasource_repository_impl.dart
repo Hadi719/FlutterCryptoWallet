@@ -12,20 +12,6 @@ class CoinCapDataSourceRepositoryImpl extends BaseDataSourceRepository
   CoinCapDataSourceRepositoryImpl(this._coinCapRemoteClient);
 
   @override
-  Future<DataState<AssetsListResponse>> getAssetsList({
-    required AssetsListRequest request,
-  }) {
-    return getStateOf<AssetsListResponse>(
-      request: () => _coinCapRemoteClient.getAssetsList(
-        search: request.search,
-        ids: request.ids,
-        limit: request.limit,
-        offset: request.offset,
-      ),
-    );
-  }
-
-  @override
   Future<DataState<AssetResponse>> getAsset({
     required AssetRequest request,
   }) {
@@ -61,26 +47,31 @@ class CoinCapDataSourceRepositoryImpl extends BaseDataSourceRepository
   }
 
   @override
-  Future<DataState<RatesListResponse>> getRatesList(
-      {required RatesListRequest request}) {
-    return getStateOf<RatesListResponse>(
-      request: () => _coinCapRemoteClient.getRatesList(),
+  Future<DataState<AssetsListResponse>> getAssetsList({
+    required AssetsListRequest request,
+  }) {
+    return getStateOf<AssetsListResponse>(
+      request: () => _coinCapRemoteClient.getAssetsList(
+        search: request.search,
+        ids: request.ids,
+        limit: request.limit,
+        offset: request.offset,
+      ),
     );
   }
 
   @override
-  Future<DataState<RateResponse>> getRate({required RateRequest request}) {
-    return getStateOf<RateResponse>(
-        request: () => _coinCapRemoteClient.getRate(
-              id: request.id,
-            ));
-  }
-
-  @override
-  Future<DataState<ExchangesListResponse>> getExchangesList(
-      {required ExchangesListRequest request}) {
-    return getStateOf<ExchangesListResponse>(
-      request: () => _coinCapRemoteClient.getExchangesList(),
+  Future<DataState<CandlesListResponse>> getCandlesList(
+      {required CandlesListRequest request}) {
+    return getStateOf<CandlesListResponse>(
+      request: () => _coinCapRemoteClient.getCandlesList(
+        exchange: request.exchange,
+        interval: request.interval.name,
+        baseId: request.baseId,
+        quoteId: request.quoteId,
+        start: request.start,
+        end: request.end,
+      ),
     );
   }
 
@@ -91,6 +82,14 @@ class CoinCapDataSourceRepositoryImpl extends BaseDataSourceRepository
         request: () => _coinCapRemoteClient.getExchange(
               id: request.id,
             ));
+  }
+
+  @override
+  Future<DataState<ExchangesListResponse>> getExchangesList(
+      {required ExchangesListRequest request}) {
+    return getStateOf<ExchangesListResponse>(
+      request: () => _coinCapRemoteClient.getExchangesList(),
+    );
   }
 
   @override
@@ -112,17 +111,18 @@ class CoinCapDataSourceRepositoryImpl extends BaseDataSourceRepository
   }
 
   @override
-  Future<DataState<CandlesListResponse>> getCandlesList(
-      {required CandlesListRequest request}) {
-    return getStateOf<CandlesListResponse>(
-      request: () => _coinCapRemoteClient.getCandlesList(
-        exchange: request.exchange,
-        interval: request.interval.name,
-        baseId: request.baseId,
-        quoteId: request.quoteId,
-        start: request.start,
-        end: request.end,
-      ),
+  Future<DataState<RateResponse>> getRate({required RateRequest request}) {
+    return getStateOf<RateResponse>(
+        request: () => _coinCapRemoteClient.getRate(
+              id: request.id,
+            ));
+  }
+
+  @override
+  Future<DataState<RatesListResponse>> getRatesList(
+      {required RatesListRequest request}) {
+    return getStateOf<RatesListResponse>(
+      request: () => _coinCapRemoteClient.getRatesList(),
     );
   }
 }

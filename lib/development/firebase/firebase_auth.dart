@@ -18,14 +18,140 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../src/service_locator.dart';
 
-typedef OAuthSignIn = void Function();
-
 // If set to true, the app will request notification permissions to use
 // silent verification for SMS MFA instead of Recaptcha.
 const withSilentVerificationSMSMFA = true;
 
+Future<String?> getSmsCodeFromUser(BuildContext context) async {
+  String? smsCode;
+
+  // Update the UI - wait for the user to enter the SMS code
+  await showDialog<String>(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text('SMS code:'),
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('Sign in'),
+          ),
+          OutlinedButton(
+            onPressed: () {
+              smsCode = null;
+              Navigator.of(context).pop();
+            },
+            child: const Text('Cancel'),
+          ),
+        ],
+        content: Container(
+          padding: const EdgeInsets.all(20),
+          child: TextField(
+            onChanged: (value) {
+              smsCode = value;
+            },
+            textAlign: TextAlign.center,
+            autofocus: true,
+          ),
+        ),
+      );
+    },
+  );
+
+  return smsCode;
+}
+
+Future<String?> getTotpFromUser(
+  BuildContext context,
+  TotpSecret totpSecret,
+) async {
+  String? smsCode;
+
+  final qrCodeUrl = await totpSecret.generateQrCodeUrl(
+    accountName: FirebaseAuth.instance.currentUser!.email,
+    issuer: 'Firebase',
+  );
+
+  // Update the UI - wait for the user to enter the SMS code
+  await showDialog<String>(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text('TOTP code:'),
+        content: Container(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              BarcodeWidget(
+                barcode: Barcode.qrCode(),
+                data: qrCodeUrl,
+                width: 150,
+                height: 150,
+              ),
+              TextField(
+                onChanged: (value) {
+                  smsCode = value;
+                },
+                textAlign: TextAlign.center,
+                autofocus: true,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  totpSecret.openInOtpApp(qrCodeUrl);
+                },
+                child: const Text('Open in OTP App'),
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('Sign in'),
+          ),
+          OutlinedButton(
+            onPressed: () {
+              smsCode = null;
+              Navigator.of(context).pop();
+            },
+            child: const Text('Cancel'),
+          ),
+        ],
+      );
+    },
+  );
+
+  return smsCode;
+}
+
+typedef OAuthSignIn = void Function();
+
+/// Entrypoint example for various sign-in flows with Firebase.
+class AuthGate extends StatefulWidget {
+  static String? appleAuthorizationCode;
+
+  // ignore: public_member_api_docs
+  const AuthGate({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _AuthGateState();
+}
+
+/// The mode of the current auth session, either [AuthMode.login] or [AuthMode.register].
+// ignore: public_member_api_docs
+enum AuthMode { login, register, phone }
+
 /// Helper class to show a [SnackBar] using the passed context.
 class HelperScaffoldSnackBar {
+  final BuildContext _context;
+
   // ignore: public_member_api_docs
   HelperScaffoldSnackBar(this._context);
 
@@ -33,8 +159,6 @@ class HelperScaffoldSnackBar {
   factory HelperScaffoldSnackBar.of(BuildContext context) {
     return HelperScaffoldSnackBar(context);
   }
-
-  final BuildContext _context;
 
   /// Helper method to show a SnackBar.
   void show(String message) {
@@ -47,27 +171,6 @@ class HelperScaffoldSnackBar {
         ),
       );
   }
-}
-
-/// The mode of the current auth session, either [AuthMode.login] or [AuthMode.register].
-// ignore: public_member_api_docs
-enum AuthMode { login, register, phone }
-
-extension on AuthMode {
-  String get label => this == AuthMode.login
-      ? 'Sign in'
-      : this == AuthMode.phone
-          ? 'Sign in'
-          : 'Register';
-}
-
-/// Entrypoint example for various sign-in flows with Firebase.
-class AuthGate extends StatefulWidget {
-  // ignore: public_member_api_docs
-  const AuthGate({super.key});
-  static String? appleAuthorizationCode;
-  @override
-  State<StatefulWidget> createState() => _AuthGateState();
 }
 
 class _AuthGateState extends State<AuthGate> {
@@ -83,53 +186,9 @@ class _AuthGateState extends State<AuthGate> {
 
   bool isLoading = false;
 
-  void setIsLoading() {
-    setState(() {
-      isLoading = !isLoading;
-    });
-  }
-
   late Map<Buttons, OAuthSignIn> authButtons;
+
   final FirebaseAuth auth = serviceLocator<FirebaseAuth>();
-
-  @override
-  void initState() {
-    super.initState();
-
-    if (withSilentVerificationSMSMFA && !kIsWeb) {
-      FirebaseMessaging messaging = FirebaseMessaging.instance;
-      messaging.requestPermission();
-    }
-
-    if (!kIsWeb && Platform.isMacOS) {
-      authButtons = {
-        Buttons.Apple: () => _handleMultiFactorException(
-              _signInWithApple,
-            ),
-      };
-    } else {
-      authButtons = {
-        Buttons.Apple: () => _handleMultiFactorException(
-              _signInWithApple,
-            ),
-        Buttons.Google: () => _handleMultiFactorException(
-              _signInWithGoogle,
-            ),
-        Buttons.GitHub: () => _handleMultiFactorException(
-              _signInWithGitHub,
-            ),
-        Buttons.Microsoft: () => _handleMultiFactorException(
-              _signInWithMicrosoft,
-            ),
-        Buttons.Twitter: () => _handleMultiFactorException(
-              _signInWithTwitter,
-            ),
-        Buttons.Yahoo: () => _handleMultiFactorException(
-              _signInWithYahoo,
-            ),
-      };
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -342,45 +401,49 @@ class _AuthGateState extends State<AuthGate> {
     );
   }
 
-  Future _resetPassword() async {
-    String? email;
-    await showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Send'),
-            ),
-          ],
-          content: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text('Enter your email'),
-              const SizedBox(height: 20),
-              TextFormField(
-                onChanged: (value) {
-                  email = value;
-                },
-              ),
-            ],
-          ),
-        );
-      },
-    );
+  @override
+  void initState() {
+    super.initState();
 
-    if (email != null) {
-      try {
-        await auth.sendPasswordResetEmail(email: email!);
-        HelperScaffoldSnackBar.of(context).show('Password reset email is sent');
-      } catch (e) {
-        HelperScaffoldSnackBar.of(context).show('Error resetting');
-      }
+    if (withSilentVerificationSMSMFA && !kIsWeb) {
+      FirebaseMessaging messaging = FirebaseMessaging.instance;
+      messaging.requestPermission();
     }
+
+    if (!kIsWeb && Platform.isMacOS) {
+      authButtons = {
+        Buttons.Apple: () => _handleMultiFactorException(
+              _signInWithApple,
+            ),
+      };
+    } else {
+      authButtons = {
+        Buttons.Apple: () => _handleMultiFactorException(
+              _signInWithApple,
+            ),
+        Buttons.Google: () => _handleMultiFactorException(
+              _signInWithGoogle,
+            ),
+        Buttons.GitHub: () => _handleMultiFactorException(
+              _signInWithGitHub,
+            ),
+        Buttons.Microsoft: () => _handleMultiFactorException(
+              _signInWithMicrosoft,
+            ),
+        Buttons.Twitter: () => _handleMultiFactorException(
+              _signInWithTwitter,
+            ),
+        Buttons.Yahoo: () => _handleMultiFactorException(
+              _signInWithYahoo,
+            ),
+      };
+    }
+  }
+
+  void setIsLoading() {
+    setState(() {
+      isLoading = !isLoading;
+    });
   }
 
   Future<void> _anonymousAuth() async {
@@ -398,6 +461,24 @@ class _AuthGateState extends State<AuthGate> {
       });
     } finally {
       setIsLoading();
+    }
+  }
+
+  Future<void> _emailAndPassword() async {
+    if (formKey.currentState?.validate() ?? false) {
+      if (mode == AuthMode.login) {
+        await auth.signInWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text,
+        );
+      } else if (mode == AuthMode.register) {
+        await auth.createUserWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text,
+        );
+      } else {
+        await _phoneAuth();
+      }
     }
   }
 
@@ -469,24 +550,6 @@ class _AuthGateState extends State<AuthGate> {
     setIsLoading();
   }
 
-  Future<void> _emailAndPassword() async {
-    if (formKey.currentState?.validate() ?? false) {
-      if (mode == AuthMode.login) {
-        await auth.signInWithEmailAndPassword(
-          email: emailController.text,
-          password: passwordController.text,
-        );
-      } else if (mode == AuthMode.register) {
-        await auth.createUserWithEmailAndPassword(
-          email: emailController.text,
-          password: passwordController.text,
-        );
-      } else {
-        await _phoneAuth();
-      }
-    }
-  }
-
   Future<void> _phoneAuth() async {
     if (mode != AuthMode.phone) {
       setState(() {
@@ -540,6 +603,71 @@ class _AuthGateState extends State<AuthGate> {
     }
   }
 
+  Future _resetPassword() async {
+    String? email;
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Send'),
+            ),
+          ],
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text('Enter your email'),
+              const SizedBox(height: 20),
+              TextFormField(
+                onChanged: (value) {
+                  email = value;
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+
+    if (email != null) {
+      try {
+        await auth.sendPasswordResetEmail(email: email!);
+        HelperScaffoldSnackBar.of(context).show('Password reset email is sent');
+      } catch (e) {
+        HelperScaffoldSnackBar.of(context).show('Error resetting');
+      }
+    }
+  }
+
+  Future<void> _signInWithApple() async {
+    final appleProvider = AppleAuthProvider();
+    appleProvider.addScope('email');
+
+    if (kIsWeb) {
+      // Once signed in, return the UserCredential
+      await auth.signInWithPopup(appleProvider);
+    } else {
+      final userCred = await auth.signInWithProvider(appleProvider);
+      AuthGate.appleAuthorizationCode =
+          userCred.additionalUserInfo?.authorizationCode;
+    }
+  }
+
+  Future<void> _signInWithGitHub() async {
+    final githubProvider = GithubAuthProvider();
+
+    if (kIsWeb) {
+      await auth.signInWithPopup(githubProvider);
+    } else {
+      await auth.signInWithProvider(githubProvider);
+    }
+  }
+
   Future<void> _signInWithGoogle() async {
     // Trigger the authentication flow
     final googleUser = await GoogleSignIn().signIn();
@@ -559,6 +687,16 @@ class _AuthGateState extends State<AuthGate> {
     }
   }
 
+  Future<void> _signInWithMicrosoft() async {
+    final microsoftProvider = MicrosoftAuthProvider();
+
+    if (kIsWeb) {
+      await auth.signInWithPopup(microsoftProvider);
+    } else {
+      await auth.signInWithProvider(microsoftProvider);
+    }
+  }
+
   Future<void> _signInWithTwitter() async {
     TwitterAuthProvider twitterProvider = TwitterAuthProvider();
 
@@ -566,20 +704,6 @@ class _AuthGateState extends State<AuthGate> {
       await auth.signInWithPopup(twitterProvider);
     } else {
       await auth.signInWithProvider(twitterProvider);
-    }
-  }
-
-  Future<void> _signInWithApple() async {
-    final appleProvider = AppleAuthProvider();
-    appleProvider.addScope('email');
-
-    if (kIsWeb) {
-      // Once signed in, return the UserCredential
-      await auth.signInWithPopup(appleProvider);
-    } else {
-      final userCred = await auth.signInWithProvider(appleProvider);
-      AuthGate.appleAuthorizationCode =
-          userCred.additionalUserInfo?.authorizationCode;
     }
   }
 
@@ -593,133 +717,12 @@ class _AuthGateState extends State<AuthGate> {
       await auth.signInWithProvider(yahooProvider);
     }
   }
-
-  Future<void> _signInWithGitHub() async {
-    final githubProvider = GithubAuthProvider();
-
-    if (kIsWeb) {
-      await auth.signInWithPopup(githubProvider);
-    } else {
-      await auth.signInWithProvider(githubProvider);
-    }
-  }
-
-  Future<void> _signInWithMicrosoft() async {
-    final microsoftProvider = MicrosoftAuthProvider();
-
-    if (kIsWeb) {
-      await auth.signInWithPopup(microsoftProvider);
-    } else {
-      await auth.signInWithProvider(microsoftProvider);
-    }
-  }
 }
 
-Future<String?> getSmsCodeFromUser(BuildContext context) async {
-  String? smsCode;
-
-  // Update the UI - wait for the user to enter the SMS code
-  await showDialog<String>(
-    context: context,
-    barrierDismissible: false,
-    builder: (context) {
-      return AlertDialog(
-        title: const Text('SMS code:'),
-        actions: [
-          ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text('Sign in'),
-          ),
-          OutlinedButton(
-            onPressed: () {
-              smsCode = null;
-              Navigator.of(context).pop();
-            },
-            child: const Text('Cancel'),
-          ),
-        ],
-        content: Container(
-          padding: const EdgeInsets.all(20),
-          child: TextField(
-            onChanged: (value) {
-              smsCode = value;
-            },
-            textAlign: TextAlign.center,
-            autofocus: true,
-          ),
-        ),
-      );
-    },
-  );
-
-  return smsCode;
-}
-
-Future<String?> getTotpFromUser(
-  BuildContext context,
-  TotpSecret totpSecret,
-) async {
-  String? smsCode;
-
-  final qrCodeUrl = await totpSecret.generateQrCodeUrl(
-    accountName: FirebaseAuth.instance.currentUser!.email,
-    issuer: 'Firebase',
-  );
-
-  // Update the UI - wait for the user to enter the SMS code
-  await showDialog<String>(
-    context: context,
-    barrierDismissible: false,
-    builder: (context) {
-      return AlertDialog(
-        title: const Text('TOTP code:'),
-        content: Container(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              BarcodeWidget(
-                barcode: Barcode.qrCode(),
-                data: qrCodeUrl,
-                width: 150,
-                height: 150,
-              ),
-              TextField(
-                onChanged: (value) {
-                  smsCode = value;
-                },
-                textAlign: TextAlign.center,
-                autofocus: true,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  totpSecret.openInOtpApp(qrCodeUrl);
-                },
-                child: const Text('Open in OTP App'),
-              ),
-            ],
-          ),
-        ),
-        actions: [
-          ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text('Sign in'),
-          ),
-          OutlinedButton(
-            onPressed: () {
-              smsCode = null;
-              Navigator.of(context).pop();
-            },
-            child: const Text('Cancel'),
-          ),
-        ],
-      );
-    },
-  );
-
-  return smsCode;
+extension on AuthMode {
+  String get label => this == AuthMode.login
+      ? 'Sign in'
+      : this == AuthMode.phone
+          ? 'Sign in'
+          : 'Register';
 }

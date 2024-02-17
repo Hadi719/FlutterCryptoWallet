@@ -9,6 +9,16 @@ import '../../src/utils/constants/strings.dart';
 ///
 /// {@endtemplate}
 class KLineData {
+  static const urlPath = '/market/kline';
+  final DateTime dateTime;
+
+  final double? openingPrice;
+  final double? closingPrice;
+  final double? highestPrice;
+  final double? lowestPrice;
+  final double? tradingVolume;
+  final double? tradingAmount;
+
   /// {@macro KLineData}
   KLineData({
     required this.dateTime,
@@ -19,15 +29,6 @@ class KLineData {
     this.tradingVolume,
     this.tradingAmount,
   });
-  static const urlPath = '/market/kline';
-
-  final DateTime dateTime;
-  final double? openingPrice;
-  final double? closingPrice;
-  final double? highestPrice;
-  final double? lowestPrice;
-  final double? tradingVolume;
-  final double? tradingAmount;
 
   factory KLineData.fromJson(List<dynamic> jsonData) {
     return KLineData(

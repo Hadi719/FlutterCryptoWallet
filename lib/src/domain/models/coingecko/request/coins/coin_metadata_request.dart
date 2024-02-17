@@ -7,16 +7,6 @@
 ///
 /// Note: to check if a price is stale, please refer to last_updated of the price.
 class CoinMetadataRequest {
-  const CoinMetadataRequest({
-    required this.id,
-    this.localization,
-    this.tickers,
-    this.marketData,
-    this.communityData,
-    this.developerData,
-    this.sparkline,
-  });
-
   /// pass the coin id (can be obtained from /coins) eg. bitcoin
   final String id;
 
@@ -37,4 +27,14 @@ class CoinMetadataRequest {
 
   /// Include sparkline 7 days data (eg. true, false) [default: false]
   final bool? sparkline;
+
+  const CoinMetadataRequest({
+    required this.id,
+    this.localization,
+    this.tickers,
+    this.marketData,
+    this.communityData,
+    this.developerData,
+    this.sparkline,
+  });
 }

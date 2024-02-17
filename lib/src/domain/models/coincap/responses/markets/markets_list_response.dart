@@ -10,13 +10,14 @@ import 'market_response.dart';
 /// orders on an exchange are not represented.
 /// Data received from individual markets is used to calculate the current price of an asset.
 class MarketsListResponse extends Equatable {
+  final List<MarketResponse> marketsList;
+
+  final int? timestamp;
+
   const MarketsListResponse({
     this.marketsList = const [],
     this.timestamp,
   });
-
-  final List<MarketResponse> marketsList;
-  final int? timestamp;
 
   factory MarketsListResponse.fromMap(Map<String, dynamic> mapData) {
     return MarketsListResponse(

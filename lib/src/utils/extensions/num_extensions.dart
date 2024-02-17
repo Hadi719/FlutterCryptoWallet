@@ -1,12 +1,6 @@
 import 'dart:math' as math;
 
 extension NumExtensions on num {
-  /// Converts Degree to Radian.
-  double get degreeToRadian => this * math.pi / 180;
-
-  /// Converts Radian to Degree.
-  double get radianToDegree => this * 180 / math.pi;
-
   /// Adds comma on every three digits on numbers.
   String get asThousands {
     String number = toString();
@@ -30,4 +24,10 @@ extension NumExtensions on num {
     numberInText = numberInText.trim();
     return '$numberInText.$numberDecimals';
   }
+
+  /// Converts Degree to Radian.
+  double get degreeToRadian => this * math.pi / 180;
+
+  /// Converts Radian to Degree.
+  double get radianToDegree => this * 180 / math.pi;
 }

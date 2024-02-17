@@ -6,18 +6,6 @@
 /// orders on an exchange are not represented.
 /// Data received from individual markets is used to calculate the current price of an asset.
 class MarketsListRequest {
-  const MarketsListRequest({
-    this.exchangeId,
-    this.baseSymbol,
-    this.quoteSymbol,
-    this.baseId,
-    this.quoteId,
-    this.assetSymbol,
-    this.assetId,
-    this.limit,
-    this.offset,
-  });
-
   /// search by exchange id
   ///
   /// e.g. poloniex
@@ -62,4 +50,16 @@ class MarketsListRequest {
   ///
   /// e.g. 1
   final int? offset;
+
+  const MarketsListRequest({
+    this.exchangeId,
+    this.baseSymbol,
+    this.quoteSymbol,
+    this.baseId,
+    this.quoteId,
+    this.assetSymbol,
+    this.assetId,
+    this.limit,
+    this.offset,
+  });
 }

@@ -11,7 +11,7 @@ import 'data/datasource/remote/coinex_remote_client.dart';
 import 'data/datasource/remote/coingecko_remote_client.dart';
 import 'data/repositories/coincap_datasource_repository_impl.dart';
 import 'data/repositories/coinex_datasource_repository_impl.dart';
-import 'data/repositories/coingeko_datasource_repository_impl.dart';
+import 'data/repositories/coingecko_datasource_repository_impl.dart';
 import 'domain/repositories/coincap_api_repository.dart';
 import 'domain/repositories/coinex_api_repository.dart';
 import 'domain/repositories/coingecko_api_repository.dart';
@@ -33,23 +33,13 @@ Future<void> setup() async {
   await _setupAuthenticationRepository();
 }
 
-void _setupDio() {
-  final Dio dio = Dio();
-  serviceLocator.registerSingleton<Dio>(dio);
-}
-
-void _setupCoinExApi() {
-  serviceLocator.registerSingleton<CoinExRemoteClient>(
-    CoinExRemoteClient(
-      serviceLocator<Dio>(),
+Future<void> _setupAuthenticationRepository() async {
+  serviceLocator.registerSingleton<AuthenticationRepository>(
+    AuthenticationRepository(
+      firebaseAuth: serviceLocator<FirebaseAuth>(),
     ),
   );
-
-  serviceLocator.registerSingleton<CoinExApiRepository>(
-    CoinExDataSourceRepositoryImpl(
-      serviceLocator<CoinExRemoteClient>(),
-    ),
-  );
+  await serviceLocator<AuthenticationRepository>().user.first;
 }
 
 void _setupCoinCapApi() {
@@ -66,6 +56,20 @@ void _setupCoinCapApi() {
   );
 }
 
+void _setupCoinExApi() {
+  serviceLocator.registerSingleton<CoinExRemoteClient>(
+    CoinExRemoteClient(
+      serviceLocator<Dio>(),
+    ),
+  );
+
+  serviceLocator.registerSingleton<CoinExApiRepository>(
+    CoinExDataSourceRepositoryImpl(
+      serviceLocator<CoinExRemoteClient>(),
+    ),
+  );
+}
+
 void _setupCoinGeckoApi() {
   serviceLocator.registerSingleton<CoinGeckoRemoteClient>(
     CoinGeckoRemoteClient(
@@ -78,6 +82,11 @@ void _setupCoinGeckoApi() {
       serviceLocator<CoinGeckoRemoteClient>(),
     ),
   );
+}
+
+void _setupDio() {
+  final Dio dio = Dio();
+  serviceLocator.registerSingleton<Dio>(dio);
 }
 
 Future<void> _setupFirebase() async {
@@ -100,13 +109,4 @@ Future<void> _setupFirebase() async {
       app: serviceLocator<FirebaseApp>(),
     ),
   );
-}
-
-Future<void> _setupAuthenticationRepository() async {
-  serviceLocator.registerSingleton<AuthenticationRepository>(
-    AuthenticationRepository(
-      firebaseAuth: serviceLocator<FirebaseAuth>(),
-    ),
-  );
-  await serviceLocator<AuthenticationRepository>().user.first;
 }

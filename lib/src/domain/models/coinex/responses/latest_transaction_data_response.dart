@@ -2,39 +2,6 @@ import 'package:equatable/equatable.dart';
 
 import '../../../../utils/constants/strings.dart';
 
-/// {@template LatestTransactionDataResponse}
-///
-/// Gets the latest transaction data of a single market.
-///
-/// * Signature required: No
-/// * Max.return: 1000
-///
-/// {@endtemplate}
-class LatestTransactionDataResponse extends Equatable {
-  /// List of [LatestTransactionData].
-  final List<LatestTransactionData> data;
-
-  /// {@macro LatestTransactionDataResponse}
-  const LatestTransactionDataResponse(
-      {this.data = const <LatestTransactionData>[]});
-
-  /// {@macro LatestTransactionDataResponse}
-  factory LatestTransactionDataResponse.fromMap(Map<String, dynamic> map) {
-    var mapData = map['data'] ?? map;
-    return LatestTransactionDataResponse(
-      data: (mapData as List)
-          .map((e) => LatestTransactionData.fromMap(e))
-          .toList(),
-    );
-  }
-
-  @override
-  bool? get stringify => true;
-
-  @override
-  List<Object?> get props => [data];
-}
-
 /// {@macro LatestTransactionDataResponse}
 class LatestTransactionData extends Equatable {
   final int id;
@@ -67,9 +34,6 @@ class LatestTransactionData extends Equatable {
   }
 
   @override
-  bool? get stringify => true;
-
-  @override
   List<Object?> get props => [
         id,
         dateTime,
@@ -78,6 +42,42 @@ class LatestTransactionData extends Equatable {
         price,
         type,
       ];
+
+  @override
+  bool? get stringify => true;
+}
+
+/// {@template LatestTransactionDataResponse}
+///
+/// Gets the latest transaction data of a single market.
+///
+/// * Signature required: No
+/// * Max.return: 1000
+///
+/// {@endtemplate}
+class LatestTransactionDataResponse extends Equatable {
+  /// List of [LatestTransactionData].
+  final List<LatestTransactionData> data;
+
+  /// {@macro LatestTransactionDataResponse}
+  const LatestTransactionDataResponse(
+      {this.data = const <LatestTransactionData>[]});
+
+  /// {@macro LatestTransactionDataResponse}
+  factory LatestTransactionDataResponse.fromMap(Map<String, dynamic> map) {
+    var mapData = map['data'] ?? map;
+    return LatestTransactionDataResponse(
+      data: (mapData as List)
+          .map((e) => LatestTransactionData.fromMap(e))
+          .toList(),
+    );
+  }
+
+  @override
+  List<Object?> get props => [data];
+
+  @override
+  bool? get stringify => true;
 }
 
 /// Defines latest transaction data parameter [LatestTransactionData.type].

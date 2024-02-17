@@ -43,9 +43,6 @@ class SingleMarketInfoResponse extends Equatable {
   }
 
   @override
-  bool? get stringify => true;
-
-  @override
   List<Object?> get props => [
         cryptoDetail,
         minAmount,
@@ -54,4 +51,7 @@ class SingleMarketInfoResponse extends Equatable {
         tradingDecimal,
         pricingDecimal,
       ];
+
+  @override
+  bool? get stringify => true;
 }

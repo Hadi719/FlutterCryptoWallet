@@ -4,16 +4,6 @@ part 'coins_markets_list_response.freezed.dart';
 part 'coins_markets_list_response.g.dart';
 
 @Freezed(toJson: false)
-class CoinsMarketsListResponse with _$CoinsMarketsListResponse {
-  const factory CoinsMarketsListResponse({
-    List<Map<String, dynamic>>? coinsMarketsDataList,
-  }) = _CoinsMarketsListResponse;
-
-  factory CoinsMarketsListResponse.fromJson(Map<String, dynamic> json) =>
-      _$CoinsMarketsListResponseFromJson(json);
-}
-
-@Freezed(toJson: false)
 class CoinMarketData with _$CoinMarketData {
   const factory CoinMarketData(
     String? id,
@@ -48,4 +38,14 @@ class CoinMarketData with _$CoinMarketData {
 
   factory CoinMarketData.fromJson(Map<String, dynamic> json) =>
       _$CoinMarketDataFromJson(json);
+}
+
+@Freezed(toJson: false)
+class CoinsMarketsListResponse with _$CoinsMarketsListResponse {
+  const factory CoinsMarketsListResponse({
+    List<Map<String, dynamic>>? coinsMarketsDataList,
+  }) = _CoinsMarketsListResponse;
+
+  factory CoinsMarketsListResponse.fromJson(Map<String, dynamic> json) =>
+      _$CoinsMarketsListResponseFromJson(json);
 }

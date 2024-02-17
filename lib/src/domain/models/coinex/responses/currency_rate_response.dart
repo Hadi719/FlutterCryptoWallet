@@ -51,9 +51,6 @@ class CurrencyRateResponse extends Equatable {
   }
 
   @override
-  bool? get stringify => true;
-
-  @override
   List<Object?> get props => [
         USDT,
         USDC,
@@ -62,4 +59,7 @@ class CurrencyRateResponse extends Equatable {
         ETH,
         CET,
       ];
+
+  @override
+  bool? get stringify => true;
 }

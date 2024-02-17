@@ -3,8 +3,8 @@
 /// We offer fiat and top cryptocurrency translated rates.
 /// Fiat rates are available through OpenExchangeRates.org.
 class RateRequest {
-  const RateRequest({required this.id});
-
   /// asset id
   final String id;
+
+  const RateRequest({required this.id});
 }

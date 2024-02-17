@@ -1,5 +1,32 @@
 part of 'dev_coin_bloc.dart';
 
+final class DevCoinCapAsset extends DevCoinEvent {}
+
+final class DevCoinCapAssetHistories extends DevCoinEvent {}
+
+final class DevCoinCapAssetMarkets extends DevCoinEvent {}
+
+// CoinCap -- Assets
+final class DevCoinCapAssetsList extends DevCoinEvent {}
+
+// CoinCap -- Candles
+final class DevCoinCapCandlesList extends DevCoinEvent {}
+
+final class DevCoinCapExchange extends DevCoinEvent {}
+
+// CoinCap -- Exchanges
+final class DevCoinCapExchangesList extends DevCoinEvent {}
+
+// CoinCap -- Markets
+final class DevCoinCapMarketsList extends DevCoinEvent {}
+
+final class DevCoinCapRate extends DevCoinEvent {}
+
+// CoinCap -- Rates
+final class DevCoinCapRatesList extends DevCoinEvent {}
+
+final class DevCoinChangeApi extends DevCoinEvent {}
+
 sealed class DevCoinEvent extends Equatable {
   const DevCoinEvent();
 
@@ -7,72 +34,45 @@ sealed class DevCoinEvent extends Equatable {
   List<Object> get props => [];
 }
 
-final class DevCoinChangeApi extends DevCoinEvent {}
+final class DevCoinExAllMarketInfo extends DevCoinEvent {}
 
-// CoinGecko -- Simple
-final class DevCoinGeckoSimplePricesList extends DevCoinEvent {}
+// CoinEX
+final class DevCoinExAllMarketList extends DevCoinEvent {}
 
-final class DevCoinGeckoSimpleSupportedVsCurrencies extends DevCoinEvent {}
+final class DevCoinExAllMarketStatistics extends DevCoinEvent {}
 
-// CoinGecko -- Coins
-final class DevCoinGeckoCoinMetadata extends DevCoinEvent {}
+final class DevCoinExCurrencyRate extends DevCoinEvent {}
+
+final class DevCoinExKLineData extends DevCoinEvent {}
+
+final class DevCoinExLatestTransactionData extends DevCoinEvent {}
+
+final class DevCoinExMarketDepth extends DevCoinEvent {}
+
+final class DevCoinExSingleMarketInfo extends DevCoinEvent {}
+
+final class DevCoinExSingleMarketStatistics extends DevCoinEvent {}
+
+// CoinGecko -- Asset Platforms
+final class DevCoinGeckoAssetPlatformsList extends DevCoinEvent {}
 
 final class DevCoinGeckoCoinHistory extends DevCoinEvent {}
-
-final class DevCoinGeckoCoinsMarketsList extends DevCoinEvent {}
 
 final class DevCoinGeckoCoinMarketChart extends DevCoinEvent {}
 
 final class DevCoinGeckoCoinMarketChartRange extends DevCoinEvent {}
 
+// CoinGecko -- Coins
+final class DevCoinGeckoCoinMetadata extends DevCoinEvent {}
+
 final class DevCoinGeckoCoinOHLC extends DevCoinEvent {}
 
-// CoinGecko -- Asset Platforms
-final class DevCoinGeckoAssetPlatformsList extends DevCoinEvent {}
+final class DevCoinGeckoCoinsMarketsList extends DevCoinEvent {}
 
 // CoinGecko -- Exchange Rates
 final class DevCoinGeckoExchangeRates extends DevCoinEvent {}
 
-// CoinCap -- Assets
-final class DevCoinCapAssetsList extends DevCoinEvent {}
+// CoinGecko -- Simple
+final class DevCoinGeckoSimplePricesList extends DevCoinEvent {}
 
-final class DevCoinCapAsset extends DevCoinEvent {}
-
-final class DevCoinCapAssetHistories extends DevCoinEvent {}
-
-final class DevCoinCapAssetMarkets extends DevCoinEvent {}
-
-// CoinCap -- Rates
-final class DevCoinCapRatesList extends DevCoinEvent {}
-
-final class DevCoinCapRate extends DevCoinEvent {}
-
-// CoinCap -- Exchanges
-final class DevCoinCapExchangesList extends DevCoinEvent {}
-
-final class DevCoinCapExchange extends DevCoinEvent {}
-
-// CoinCap -- Markets
-final class DevCoinCapMarketsList extends DevCoinEvent {}
-
-// CoinCap -- Candles
-final class DevCoinCapCandlesList extends DevCoinEvent {}
-
-// CoinEX
-final class DevCoinExAllMarketList extends DevCoinEvent {}
-
-final class DevCoinExAllMarketInfo extends DevCoinEvent {}
-
-final class DevCoinExSingleMarketInfo extends DevCoinEvent {}
-
-final class DevCoinExMarketDepth extends DevCoinEvent {}
-
-final class DevCoinExLatestTransactionData extends DevCoinEvent {}
-
-final class DevCoinExKLineData extends DevCoinEvent {}
-
-final class DevCoinExSingleMarketStatistics extends DevCoinEvent {}
-
-final class DevCoinExAllMarketStatistics extends DevCoinEvent {}
-
-final class DevCoinExCurrencyRate extends DevCoinEvent {}
+final class DevCoinGeckoSimpleSupportedVsCurrencies extends DevCoinEvent {}

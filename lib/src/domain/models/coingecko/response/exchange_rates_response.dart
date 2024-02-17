@@ -16,22 +16,6 @@ class ExchangeRatesResponse with _$ExchangeRatesResponse {
       _$ExchangeRatesResponseFromJson(json);
 }
 
-/// {@macro ExchangeRates}
-@Freezed(toJson: false)
-class RatesResponse with _$RatesResponse {
-  /// {@macro ExchangeRates}
-  const factory RatesResponse({
-    String? name,
-    String? unit,
-    double? value,
-    String? type,
-  }) = _RatesResponse;
-
-  /// {@macro ExchangeRates}
-  factory RatesResponse.fromJson(Map<String, dynamic> json) =>
-      _$RatesResponseFromJson(json);
-}
-
 /// A JsonConverter for [ExchangeRatesResponse.rates]
 class RateResponseConverter
     implements JsonConverter<List<RatesResponse>?, Map<String, dynamic>> {
@@ -48,4 +32,20 @@ class RateResponseConverter
 
   @override
   Map<String, dynamic> toJson(List<RatesResponse>? object) => {};
+}
+
+/// {@macro ExchangeRates}
+@Freezed(toJson: false)
+class RatesResponse with _$RatesResponse {
+  /// {@macro ExchangeRates}
+  const factory RatesResponse({
+    String? name,
+    String? unit,
+    double? value,
+    String? type,
+  }) = _RatesResponse;
+
+  /// {@macro ExchangeRates}
+  factory RatesResponse.fromJson(Map<String, dynamic> json) =>
+      _$RatesResponseFromJson(json);
 }

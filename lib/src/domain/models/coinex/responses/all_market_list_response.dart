@@ -22,8 +22,8 @@ class AllMarketListResponse extends Equatable {
   }
 
   @override
-  bool? get stringify => true;
+  List<Object?> get props => [data];
 
   @override
-  List<Object?> get props => [data];
+  bool? get stringify => true;
 }

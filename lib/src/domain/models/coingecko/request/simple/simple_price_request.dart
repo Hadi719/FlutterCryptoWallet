@@ -1,14 +1,4 @@
 class SimplePriceRequest {
-  const SimplePriceRequest({
-    required this.ids,
-    required this.vsCurrencies,
-    this.includeMarketCap,
-    this.include24hrVol,
-    this.include24hrChange,
-    this.includeLastUpdatedAt,
-    this.precision,
-  });
-
   /// (Required) id of coins, comma-separated if querying more than 1 coin
   ///
   /// *refers to ___coins/list___
@@ -33,4 +23,14 @@ class SimplePriceRequest {
 
   /// <b>full</b> or any value between 0 - 18 to specify decimal place for currency price value
   final int? precision;
+
+  const SimplePriceRequest({
+    required this.ids,
+    required this.vsCurrencies,
+    this.includeMarketCap,
+    this.include24hrVol,
+    this.include24hrChange,
+    this.includeLastUpdatedAt,
+    this.precision,
+  });
 }

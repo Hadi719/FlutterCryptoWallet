@@ -7,14 +7,14 @@ import 'rate_response.dart';
 /// We offer fiat and top cryptocurrency translated rates.
 /// Fiat rates are available through OpenExchangeRates.org.
 class RatesListResponse extends Equatable {
+  final List<RateResponse> ratesList;
+
+  final int? timestamp;
+
   const RatesListResponse({
     this.ratesList = const [],
     this.timestamp,
   });
-
-  final List<RateResponse> ratesList;
-
-  final int? timestamp;
 
   factory RatesListResponse.fromMap(Map<String, dynamic> mapData) {
     return RatesListResponse(

@@ -1,11 +1,4 @@
 class AssetHistoriesRequest {
-  const AssetHistoriesRequest({
-    required this.id,
-    this.interval = HistoryIntervals.d1,
-    this.start,
-    this.end,
-  });
-
   /// asset id
   ///
   /// __required__
@@ -36,6 +29,13 @@ class AssetHistoriesRequest {
   ///
   /// Optional
   final int? end;
+
+  const AssetHistoriesRequest({
+    required this.id,
+    this.interval = HistoryIntervals.d1,
+    this.start,
+    this.end,
+  });
 }
 
 /// point-in-time interval.

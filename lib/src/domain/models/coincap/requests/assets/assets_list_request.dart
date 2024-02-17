@@ -1,6 +1,4 @@
 class AssetsListRequest {
-  const AssetsListRequest({this.search, this.ids, this.limit, this.offset});
-
   /// search by asset id (bitcoin) or symbol (BTC)
   ///
   /// optional
@@ -28,4 +26,6 @@ class AssetsListRequest {
   ///
   /// e.g. ___1___
   final int? offset;
+
+  const AssetsListRequest({this.search, this.ids, this.limit, this.offset});
 }

@@ -12,41 +12,11 @@ class CoinGeckoDataSourceRepositoryImpl extends BaseDataSourceRepository
   CoinGeckoDataSourceRepositoryImpl(this._coinGeckoRemoteClient);
 
   @override
-  Future<DataState<SimplePricesListResponse>> getSimplePricesList(
-      {required SimplePriceRequest request}) {
-    return getStateOf<SimplePricesListResponse>(
-      request: () => _coinGeckoRemoteClient.getSimplePricesList(
-        ids: request.ids,
-        vsCurrencies: request.vsCurrencies,
-        includeMarketCap: request.includeMarketCap,
-        include24hrVol: request.include24hrVol,
-        include24hrChange: request.include24hrChange,
-        includeLastUpdatedAt: request.includeLastUpdatedAt,
-        precision: request.precision,
-      ),
-    );
-  }
-
-  @override
-  Future<DataState<SimpleSupportedVsCurrenciesResponse>>
-      getSimpleSupportedVsCurrencies(
-          {required SimpleSupportedVsCurrenciesRequest request}) {
-    return getStateOf<SimpleSupportedVsCurrenciesResponse>(
-        request: () => _coinGeckoRemoteClient.getSimpleSupportedVsCurrencies());
-  }
-
-  @override
-  Future<DataState<CoinMetadataResponse>> getCoinMetadata(
-      {required CoinMetadataRequest request}) {
-    return getStateOf<CoinMetadataResponse>(
-        request: () => _coinGeckoRemoteClient.getCoinMetadata(
-              id: request.id,
-              localization: request.localization,
-              tickers: request.tickers,
-              marketData: request.marketData,
-              communityData: request.communityData,
-              developerData: request.developerData,
-              sparkline: request.sparkline,
+  Future<DataState<AssetPlatformsListResponse>> getAssetPlatformsList(
+      {required AssetPlatformsListRequest request}) {
+    return getStateOf<AssetPlatformsListResponse>(
+        request: () => _coinGeckoRemoteClient.getAssetPlatformsList(
+              filter: request.filter,
             ));
   }
 
@@ -58,24 +28,6 @@ class CoinGeckoDataSourceRepositoryImpl extends BaseDataSourceRepository
               id: request.id,
               date: request.date,
               localization: request.localization,
-            ));
-  }
-
-  @override
-  Future<DataState<CoinsMarketsListResponse>> getCoinsMarketsList(
-      {required CoinsMarketsListRequest request}) {
-    return getStateOf<CoinsMarketsListResponse>(
-        request: () => _coinGeckoRemoteClient.getCoinsMarketsList(
-              vsCurrency: request.vsCurrency,
-              ids: request.ids,
-              category: request.category,
-              order: request.order?.value,
-              perPage: request.perPage,
-              page: request.page,
-              sparkline: request.sparkline,
-              priceChangePercentage: request.priceChangePercentage,
-              locale: request.locale?.name,
-              precision: request.precision,
             ));
   }
 
@@ -106,6 +58,21 @@ class CoinGeckoDataSourceRepositoryImpl extends BaseDataSourceRepository
   }
 
   @override
+  Future<DataState<CoinMetadataResponse>> getCoinMetadata(
+      {required CoinMetadataRequest request}) {
+    return getStateOf<CoinMetadataResponse>(
+        request: () => _coinGeckoRemoteClient.getCoinMetadata(
+              id: request.id,
+              localization: request.localization,
+              tickers: request.tickers,
+              marketData: request.marketData,
+              communityData: request.communityData,
+              developerData: request.developerData,
+              sparkline: request.sparkline,
+            ));
+  }
+
+  @override
   Future<DataState<CoinOHLCResponse>> getCoinOHLC(
       {required CoinOHLCRequest request}) {
     return getStateOf<CoinOHLCResponse>(
@@ -118,11 +85,20 @@ class CoinGeckoDataSourceRepositoryImpl extends BaseDataSourceRepository
   }
 
   @override
-  Future<DataState<AssetPlatformsListResponse>> getAssetPlatformsList(
-      {required AssetPlatformsListRequest request}) {
-    return getStateOf<AssetPlatformsListResponse>(
-        request: () => _coinGeckoRemoteClient.getAssetPlatformsList(
-              filter: request.filter,
+  Future<DataState<CoinsMarketsListResponse>> getCoinsMarketsList(
+      {required CoinsMarketsListRequest request}) {
+    return getStateOf<CoinsMarketsListResponse>(
+        request: () => _coinGeckoRemoteClient.getCoinsMarketsList(
+              vsCurrency: request.vsCurrency,
+              ids: request.ids,
+              category: request.category,
+              order: request.order?.value,
+              perPage: request.perPage,
+              page: request.page,
+              sparkline: request.sparkline,
+              priceChangePercentage: request.priceChangePercentage,
+              locale: request.locale?.name,
+              precision: request.precision,
             ));
   }
 
@@ -131,5 +107,29 @@ class CoinGeckoDataSourceRepositoryImpl extends BaseDataSourceRepository
       {required ExchangeRatesRequest request}) {
     return getStateOf<ExchangeRatesResponse>(
         request: () => _coinGeckoRemoteClient.getExchangeRates());
+  }
+
+  @override
+  Future<DataState<SimplePricesListResponse>> getSimplePricesList(
+      {required SimplePriceRequest request}) {
+    return getStateOf<SimplePricesListResponse>(
+      request: () => _coinGeckoRemoteClient.getSimplePricesList(
+        ids: request.ids,
+        vsCurrencies: request.vsCurrencies,
+        includeMarketCap: request.includeMarketCap,
+        include24hrVol: request.include24hrVol,
+        include24hrChange: request.include24hrChange,
+        includeLastUpdatedAt: request.includeLastUpdatedAt,
+        precision: request.precision,
+      ),
+    );
+  }
+
+  @override
+  Future<DataState<SimpleSupportedVsCurrenciesResponse>>
+      getSimpleSupportedVsCurrencies(
+          {required SimpleSupportedVsCurrenciesRequest request}) {
+    return getStateOf<SimpleSupportedVsCurrenciesResponse>(
+        request: () => _coinGeckoRemoteClient.getSimpleSupportedVsCurrencies());
   }
 }

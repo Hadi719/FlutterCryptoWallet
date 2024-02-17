@@ -3,17 +3,6 @@ import 'package:equatable/equatable.dart';
 import '../../../../../utils/constants/strings.dart';
 
 class AssetMarket extends Equatable {
-  const AssetMarket({
-    this.exchangeId,
-    this.baseId,
-    this.quoteId,
-    this.baseSymbol,
-    this.quoteSymbol,
-    this.volumeUsd24Hr,
-    this.priceUsd,
-    this.volumePercent,
-  });
-
   /// unique identifier for exchange
   final String? exchangeId;
 
@@ -37,6 +26,17 @@ class AssetMarket extends Equatable {
 
   /// percent of quote asset volume
   final double? volumePercent;
+
+  const AssetMarket({
+    this.exchangeId,
+    this.baseId,
+    this.quoteId,
+    this.baseSymbol,
+    this.quoteSymbol,
+    this.volumeUsd24Hr,
+    this.priceUsd,
+    this.volumePercent,
+  });
 
   factory AssetMarket.fromMap(Map<String, dynamic> mapData) {
     return AssetMarket(

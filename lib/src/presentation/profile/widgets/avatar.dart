@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 const double _avatarSize = 48.0;
 
 class Avatar extends StatelessWidget {
-  const Avatar({super.key, this.photo});
-
   final String? photo;
+
+  const Avatar({super.key, this.photo});
 
   @override
   Widget build(BuildContext context) {

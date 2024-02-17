@@ -12,14 +12,6 @@ class CoinExDataSourceRepositoryImpl extends BaseDataSourceRepository
   CoinExDataSourceRepositoryImpl(this._coinExRemoteClient);
 
   @override
-  Future<DataState<AllMarketListResponse>> getAllMarketList({
-    required AllMarketListRequest request,
-  }) {
-    return getStateOf<AllMarketListResponse>(
-        request: () => _coinExRemoteClient.getAllMarketList());
-  }
-
-  @override
   Future<DataState<AllMarketInfoResponse>> getAllMarketInfo({
     required AllMarketInfoRequest request,
   }) {
@@ -28,24 +20,35 @@ class CoinExDataSourceRepositoryImpl extends BaseDataSourceRepository
   }
 
   @override
-  Future<DataState<SingleMarketInfoResponse>> getSingleMarketInfo({
-    required SingleMarketInfoRequest request,
+  Future<DataState<AllMarketListResponse>> getAllMarketList({
+    required AllMarketListRequest request,
   }) {
-    return getStateOf<SingleMarketInfoResponse>(
-      request: () => _coinExRemoteClient.getSingleMarketInfo(
-        marketName: request.marketName,
-      ),
-    );
+    return getStateOf<AllMarketListResponse>(
+        request: () => _coinExRemoteClient.getAllMarketList());
   }
 
   @override
-  Future<DataState<MarketDepthResponse>> getMarketDepth(
-      {required MarketDepthRequest request}) {
-    return getStateOf<MarketDepthResponse>(
-        request: () => _coinExRemoteClient.getMarketDepth(
+  Future<DataState<AllMarketStatisticsResponse>> getAllMarketStatistics(
+      {required AllMarketStatisticsRequest request}) {
+    return getStateOf<AllMarketStatisticsResponse>(
+        request: () => _coinExRemoteClient.getAllMarketStatistics());
+  }
+
+  @override
+  Future<DataState<CurrencyRateResponse>> getCurrencyRate(
+      {required CurrencyRateRequest request}) {
+    return getStateOf<CurrencyRateResponse>(
+        request: () => _coinExRemoteClient.getCurrencyRate());
+  }
+
+  @override
+  Future<DataState<KLineDataResponse>> getKLineData(
+      {required KLineDataRequest request}) {
+    return getStateOf<KLineDataResponse>(
+        request: () => _coinExRemoteClient.getKLineData(
               marketName: request.marketName,
-              merge: request.merge.value,
-              limit: request.limit?.value,
+              limit: request.limit,
+              type: request.type.value,
             ));
   }
 
@@ -61,14 +64,25 @@ class CoinExDataSourceRepositoryImpl extends BaseDataSourceRepository
   }
 
   @override
-  Future<DataState<KLineDataResponse>> getKLineData(
-      {required KLineDataRequest request}) {
-    return getStateOf<KLineDataResponse>(
-        request: () => _coinExRemoteClient.getKLineData(
+  Future<DataState<MarketDepthResponse>> getMarketDepth(
+      {required MarketDepthRequest request}) {
+    return getStateOf<MarketDepthResponse>(
+        request: () => _coinExRemoteClient.getMarketDepth(
               marketName: request.marketName,
-              limit: request.limit,
-              type: request.type.value,
+              merge: request.merge.value,
+              limit: request.limit?.value,
             ));
+  }
+
+  @override
+  Future<DataState<SingleMarketInfoResponse>> getSingleMarketInfo({
+    required SingleMarketInfoRequest request,
+  }) {
+    return getStateOf<SingleMarketInfoResponse>(
+      request: () => _coinExRemoteClient.getSingleMarketInfo(
+        marketName: request.marketName,
+      ),
+    );
   }
 
   @override
@@ -78,19 +92,5 @@ class CoinExDataSourceRepositoryImpl extends BaseDataSourceRepository
         request: () => _coinExRemoteClient.getSingleMarketStatistics(
               marketName: request.marketName,
             ));
-  }
-
-  @override
-  Future<DataState<AllMarketStatisticsResponse>> getAllMarketStatistics(
-      {required AllMarketStatisticsRequest request}) {
-    return getStateOf<AllMarketStatisticsResponse>(
-        request: () => _coinExRemoteClient.getAllMarketStatistics());
-  }
-
-  @override
-  Future<DataState<CurrencyRateResponse>> getCurrencyRate(
-      {required CurrencyRateRequest request}) {
-    return getStateOf<CurrencyRateResponse>(
-        request: () => _coinExRemoteClient.getCurrencyRate());
   }
 }

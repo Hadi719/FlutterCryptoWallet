@@ -9,6 +9,16 @@ import '../../src/utils/constants/strings.dart';
 ///
 /// {@endtemplate}
 class LatestTransactionData {
+  static const String urlPath = '/market/deals';
+
+  final int id;
+
+  final int dateTime;
+  final DateTime dateTimeMilliseconds;
+  final double? amount;
+  final double? price;
+  final String type;
+
   /// {@macro LatestTransactionData}
   const LatestTransactionData({
     required this.id,
@@ -18,15 +28,6 @@ class LatestTransactionData {
     this.price,
     required this.type,
   });
-
-  static const String urlPath = '/market/deals';
-
-  final int id;
-  final int dateTime;
-  final DateTime dateTimeMilliseconds;
-  final double? amount;
-  final double? price;
-  final String type;
 
   factory LatestTransactionData.fromJson(Map<String, dynamic> jsonData) {
     return LatestTransactionData(

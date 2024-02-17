@@ -3,13 +3,14 @@ import 'package:equatable/equatable.dart';
 import 'asset_response.dart';
 
 class AssetsListResponse extends Equatable {
+  final List<AssetResponse> assetsList;
+
+  final int timestamp;
+
   const AssetsListResponse({
     this.assetsList = const [],
     required this.timestamp,
   });
-
-  final List<AssetResponse> assetsList;
-  final int timestamp;
 
   factory AssetsListResponse.fromMap(Map<String, dynamic> json) {
     return AssetsListResponse(
