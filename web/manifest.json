@@ -5,7 +5,7 @@
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A crypto wallet build with Flutter.",
+    "description": "A crypto wallet management build with Flutter.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

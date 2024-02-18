@@ -1,13 +1,11 @@
 name: flutter_crypto_wallet
-description: A crypto wallet build with Flutter.
-
+description: "A crypto wallet management build with Flutter."
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 version: 0.1.0+1
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
-
 
 dependencies:
   flutter:
@@ -19,7 +17,7 @@ dependencies:
   flow_builder: ^0.0.10
 
   # Networking
-#  http: ^1.2.1
+  http: ^1.2.0
   dio: ^5.4.0
   retrofit: ^4.1.0
 
@@ -41,28 +39,27 @@ dependencies:
   get_it: ^7.6.7
   equatable: ^2.0.5
   formz: ^0.6.1
+  freezed_annotation: ^2.4.1
+  json_annotation: ^4.8.1
 
   # local
   authentication_repository:
     path: packages/authentication_repository
   form_inputs:
     path: packages/form_inputs
-  freezed_annotation: ^2.4.1
-  json_annotation: ^4.8.1
 
 dev_dependencies:
-#  flutter_test:
-#    sdk: flutter
-
+  flutter_test:
+    sdk: flutter
   flutter_lints: ^3.0.1
+
+
   retrofit_generator: ^8.1.0
   build_runner: ^2.4.8
   freezed: ^2.4.7
   json_serializable: ^6.7.1
 
-
 flutter:
-
   uses-material-design: true
 
   assets:
