@@ -18,15 +18,15 @@ dependencies:
 
   # Networking
   http: ^1.2.0
-  dio: ^5.4.0
+  dio: ^5.4.1
   retrofit: ^4.1.0
 
   # firebase
   firebase_core: ^2.25.4
-  firebase_auth: ^4.17.4
-  firebase_messaging: ^14.7.15
-  firebase_analytics: ^10.8.5
-  firebase_crashlytics: ^3.4.14
+  firebase_auth: ^4.17.5
+  firebase_messaging: ^14.7.16
+  firebase_analytics: ^10.8.6
+  firebase_crashlytics: ^3.4.15
   google_sign_in: ^6.2.1
 
   # Themes & Icons & Widgets
