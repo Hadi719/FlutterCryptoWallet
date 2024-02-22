@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../domain/models/coinex/responses/single_market_statistics_response.dart';
+import '../../../domain/models/coingecko/response/coins/coins_markets_list_response.dart';
+import '../../widgets/widgets.dart' show MyLoading, MyError;
 import '../cubit/home_cubit.dart';
+import '../widgets/coin_data.dart';
+import '../widgets/coin_image.dart';
 
 const double kImageSize = 50;
 const double kItemSize = 50;
@@ -16,7 +19,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<HomeCubit>(
       create: (context) => HomeCubit(),
-      child: const HomeView(),
+      child: const _HomeView(),
     );
   }
 
@@ -26,8 +29,8 @@ class HomePage extends StatelessWidget {
       );
 }
 
-class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+class _HomeView extends StatelessWidget {
+  const _HomeView();
 
   @override
   Widget build(BuildContext context) {
@@ -36,22 +39,22 @@ class HomeView extends StatelessWidget {
         builder: (context, state) {
           switch (state.status) {
             case HomeStatus.initial:
-              context.read<HomeCubit>().getAllMarketStatistics();
-              return const _LoadingWidget(
+              context.read<HomeCubit>().getCoinsMarketsList();
+              return const MyLoading(
                 key: ObjectKey('__Home_Initial_loading_widget'),
               );
             case HomeStatus.loading:
-              return const _LoadingWidget(
+              return const MyLoading(
                 key: ObjectKey('_Home_Loading_widget'),
               );
             case HomeStatus.failure:
-              return _ErrorWidget(
+              return MyError(
                 key: const ObjectKey('_Home_Error_widget'),
                 error: state.error.toString(),
               );
             case HomeStatus.success:
             default:
-              return const _ListWidget(
+              return const _CoinsList(
                 key: ObjectKey('_Home_List_widget'),
               );
           }
@@ -61,27 +64,8 @@ class HomeView extends StatelessWidget {
   }
 }
 
-class _ErrorWidget extends StatelessWidget {
-  final String error;
-
-  const _ErrorWidget({
-    super.key,
-    required this.error,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        error,
-        style: const TextStyle(color: Colors.red),
-      ),
-    );
-  }
-}
-
-class _ListWidget extends StatelessWidget {
-  const _ListWidget({super.key});
+class _CoinsList extends StatelessWidget {
+  const _CoinsList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -91,10 +75,9 @@ class _ListWidget extends StatelessWidget {
         initialItemCount: 9,
         shrinkWrap: true,
         itemBuilder: (ctx, index, animation) {
-          return BlocSelector<HomeCubit, HomeState,
-              SingleMarketStatisticsResponse>(
+          return BlocSelector<HomeCubit, HomeState, CoinMarketData?>(
             selector: (state) {
-              return state.allMarketStatisticsResponse!.data[index];
+              return state.coins?[index];
             },
             builder: (context, state) {
               return SizedBox(
@@ -103,42 +86,12 @@ class _ListWidget extends StatelessWidget {
                   margin: const EdgeInsets.all(8),
                   child: Stack(
                     children: [
-                      Image(
-                        image: AssetImage(state.cryptoDetail.iconPath),
+                      CoinImage(
+                        imageUrl: state?.image,
                         height: kImageSize,
                         width: kImageSize,
                       ),
-                      Wrap(
-                        spacing: 4,
-                        runSpacing: 10,
-                        // crossAxisAlignment: WrapCrossAlignment.center,
-                        alignment: WrapAlignment.center,
-                        // runAlignment: WrapAlignment.center,
-                        direction: Axis.horizontal,
-                        children: [
-                          const SizedBox(width: kImageSize),
-                          Text(
-                            'latestTransactionPrice\n${state.latestTransactionPrice}',
-                            textAlign: TextAlign.center,
-                          ),
-                          Text(
-                            'openingPrice24H\n${state.openingPrice24H}',
-                            textAlign: TextAlign.center,
-                          ),
-                          Text(
-                            'highestPrice24H\n${state.highestPrice24H}',
-                            textAlign: TextAlign.center,
-                          ),
-                          Text(
-                            'lowestPrice24H\n${state.lowestPrice24H}',
-                            textAlign: TextAlign.center,
-                          ),
-                          Text(
-                            'volume24H\n${state.volume24H}',
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
+                      CoinData(coin: state, imageSize: kImageSize),
                     ],
                   ),
                 ),
@@ -150,45 +103,3 @@ class _ListWidget extends StatelessWidget {
     );
   }
 }
-
-class _LoadingWidget extends StatelessWidget {
-  const _LoadingWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: CircularProgressIndicator(),
-    );
-  }
-}
-
-/*
-
-class  extends StatefulWidget {
-  const ({super.key});
-
-  @override
-  State<> createState() => _State();
-}
-
-class _State extends State<> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
-*/

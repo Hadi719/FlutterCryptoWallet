@@ -3,28 +3,35 @@ import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../config/utils/resources/data_state.dart';
-import '../../../domain/models/coinex/requests/all_market_statistics_request.dart';
-import '../../../domain/models/coinex/responses/all_market_statistics_response.dart';
-import '../../../domain/repositories/coinex_api_repository.dart';
+import '../../../domain/models/coingecko/request/request.dart';
+import '../../../domain/models/coingecko/response/response.dart';
+import '../../../domain/repositories/coingecko_api_repository.dart';
 import '../../../service_locator.dart';
 
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  final coinExRepo = serviceLocator<CoinExApiRepository>();
+  final CoinGeckoApiRepository geckoRepo =
+      serviceLocator<CoinGeckoApiRepository>();
 
   HomeCubit() : super(const HomeState());
 
-  Future<void> getAllMarketStatistics() async {
+  Future<void> getCoinsMarketsList() async {
     emit(state.copyWith(status: HomeStatus.loading));
 
-    final response = await coinExRepo.getAllMarketStatistics(
-      request: const AllMarketStatisticsRequest(),
+    final DataState<CoinsMarketsListResponse> response =
+        await geckoRepo.getCoinsMarketsList(
+      /// Todo: add Currencies, Order,
+      request: CoinsMarketsListRequest(
+        vsCurrency: 'usd',
+        perPage: 10,
+        page: 1,
+      ),
     );
     if (response is DataSuccess) {
       emit(state.copyWith(
         status: HomeStatus.success,
-        allMarketStatisticsResponse: response.data,
+        coins: response.data?.data,
       ));
     } else {
       emit(state.copyWith(
