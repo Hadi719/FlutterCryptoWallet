@@ -1129,7 +1129,11 @@ class _RemoteCoinGecko {
   static Future<CoinsMarketsListResponse> getCoinsMarketsList() async {
     final DataState<CoinsMarketsListResponse> response =
         await serviceLocator<CoinGeckoApiRepository>().getCoinsMarketsList(
-      request: CoinsMarketsListRequest(vsCurrency: 'usd'),
+      request: CoinsMarketsListRequest(
+        vsCurrency: 'usd',
+        perPage: 3,
+        page: 1,
+      ),
     );
     if (response is DataSuccess) {
       debugPrint('SUCCESS: $getCoinsMarketsList()');

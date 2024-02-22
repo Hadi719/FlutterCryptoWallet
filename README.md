@@ -97,7 +97,7 @@ dart run build_runner build --delete-conflicting-outputs
     ```
     - change this `final value = CoinsMarketsListResponse.fromJson(_result.data!);` to:
     ```dart
-    final editedResult = {'coinsMarketsDataList': _result.data!};
+    final editedResult = {'coins': _result.data!};
     final value = CoinsMarketsListResponse.fromJson(editedResult);
     ```  
   - go to `getCoinOHLC()` function.
