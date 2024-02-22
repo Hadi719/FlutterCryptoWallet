@@ -1,7 +1,7 @@
 import '../../domain/models/coinex/requests/requests.dart';
 import '../../domain/models/coinex/responses/responses.dart';
 import '../../domain/repositories/coinex_api_repository.dart';
-import '../../utils/resources/data_state.dart';
+import '../../config/utils/resources/data_state.dart';
 import '../datasource/remote/coinex_remote_client.dart';
 import 'base/base_datasource_repository.dart';
 

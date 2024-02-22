@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../../utils/constants/strings.dart';
+import '../../../../config/utils/constants/strings.dart';
 
 /// {@macro KLineData}
 class KLineData extends Equatable {

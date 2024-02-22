@@ -1,4 +1,4 @@
-import '../../src/utils/constants/strings.dart';
+import '../../src/config/utils/constants/strings.dart';
 
 /// {@template CurrencyRate}
 ///

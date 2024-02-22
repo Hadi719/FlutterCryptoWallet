@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../../../utils/constants/strings.dart';
+import '../../../../../config/utils/constants/strings.dart';
 import '../../currency_type.dart';
 
 /// All prices on the CoinCap API are standardized in USD (United States Dollar).

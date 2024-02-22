@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../../../utils/constants/strings.dart';
+import '../../../../../config/utils/constants/strings.dart';
 
 class CandleResponse extends Equatable {
   /// the price (quote) at which the first transaction was completed in a given time period

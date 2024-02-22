@@ -1,4 +1,4 @@
-import '../../utils/resources/data_state.dart';
+import '../../config/utils/resources/data_state.dart';
 import '../models/coincap/requests/requests.dart';
 import '../models/coincap/responses/responses.dart';
 

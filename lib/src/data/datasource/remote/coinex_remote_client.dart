@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../../domain/models/coinex/responses/responses.dart';
-import '../../../utils/constants/strings.dart';
+import '../../../config/utils/constants/strings.dart';
 
 part 'coinex_remote_client.g.dart';
 

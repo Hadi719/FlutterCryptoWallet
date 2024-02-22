@@ -6,7 +6,7 @@ import '../../../domain/models/coinex/requests/all_market_statistics_request.dar
 import '../../../domain/models/coinex/responses/all_market_statistics_response.dart';
 import '../../../domain/repositories/coinex_api_repository.dart';
 import '../../../service_locator.dart';
-import '../../../utils/resources/data_state.dart';
+import '../../../config/utils/resources/data_state.dart';
 
 part 'home_state.dart';
 

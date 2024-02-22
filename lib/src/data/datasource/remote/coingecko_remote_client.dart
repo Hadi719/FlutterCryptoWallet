@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../../domain/models/coingecko/response/response.dart';
-import '../../../utils/constants/strings.dart';
+import '../../../config/utils/constants/strings.dart';
 
 part 'coingecko_remote_client.g.dart';
 

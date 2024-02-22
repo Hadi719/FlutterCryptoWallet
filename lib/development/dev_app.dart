@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../src/utils/constants/strings.dart';
+import '../src/config/utils/constants/strings.dart';
 import 'dev_coin_api.dart';
 
 class DevApp extends StatelessWidget {

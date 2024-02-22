@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../../domain/models/coincap/responses/responses.dart';
-import '../../../utils/constants/strings.dart';
+import '../../../config/utils/constants/strings.dart';
 
 part 'coincap_remote_client.g.dart';
 

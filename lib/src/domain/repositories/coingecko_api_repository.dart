@@ -1,4 +1,4 @@
-import '../../utils/resources/data_state.dart';
+import '../../config/utils/resources/data_state.dart';
 import '../models/coingecko/request/request.dart';
 import '../models/coingecko/response/response.dart';
 

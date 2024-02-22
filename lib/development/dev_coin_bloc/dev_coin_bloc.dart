@@ -15,7 +15,7 @@ import '../../src/domain/repositories/coincap_api_repository.dart';
 import '../../src/domain/repositories/coinex_api_repository.dart';
 import '../../src/domain/repositories/coingecko_api_repository.dart';
 import '../../src/service_locator.dart';
-import '../../src/utils/resources/data_state.dart';
+import '../../src/config/utils/resources/data_state.dart';
 
 part 'dev_coin_event.dart';
 part 'dev_coin_state.dart';

@@ -1,5 +1,5 @@
 import '../../src/domain/models/coinex/crypto.dart';
-import '../../src/utils/constants/strings.dart';
+import '../../src/config/utils/constants/strings.dart';
 
 /// {@template SingleMarketStatistics}
 ///

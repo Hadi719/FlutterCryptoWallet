@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../config/router/router.dart';
 import '../../../service_locator.dart';
-import '../../../utils/constants/strings.dart' show kAppTitle;
+import '../../../config/utils/constants/strings.dart' show kAppTitle;
 import '../bloc/app_bloc.dart';
 
 class App extends StatelessWidget {

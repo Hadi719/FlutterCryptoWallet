@@ -1,4 +1,4 @@
-import '../../utils/resources/data_state.dart';
+import '../../config/utils/resources/data_state.dart';
 import '../models/coinex/requests/requests.dart';
 import '../models/coinex/responses/responses.dart';
 

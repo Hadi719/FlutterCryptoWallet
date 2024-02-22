@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 import 'package:retrofit/retrofit.dart';
 
-import '../../../utils/resources/data_state.dart';
+import '../../../config/utils/resources/data_state.dart';
 
 abstract class BaseDataSourceRepository {
   /// This method is responsible of handling the given `request`, in which
