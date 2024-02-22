@@ -2,11 +2,11 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../../config/utils/resources/data_state.dart';
 import '../../../domain/models/coinex/requests/all_market_statistics_request.dart';
 import '../../../domain/models/coinex/responses/all_market_statistics_response.dart';
 import '../../../domain/repositories/coinex_api_repository.dart';
 import '../../../service_locator.dart';
-import '../../../config/utils/resources/data_state.dart';
 
 part 'home_state.dart';
 

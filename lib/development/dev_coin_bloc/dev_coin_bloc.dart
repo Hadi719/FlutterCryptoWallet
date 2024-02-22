@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
+import '../../src/config/utils/resources/data_state.dart';
 import '../../src/domain/models/coincap/requests/requests.dart';
 import '../../src/domain/models/coincap/responses/responses.dart';
 import '../../src/domain/models/coinex/crypto.dart';
@@ -15,7 +16,6 @@ import '../../src/domain/repositories/coincap_api_repository.dart';
 import '../../src/domain/repositories/coinex_api_repository.dart';
 import '../../src/domain/repositories/coingecko_api_repository.dart';
 import '../../src/service_locator.dart';
-import '../../src/config/utils/resources/data_state.dart';
 
 part 'dev_coin_event.dart';
 part 'dev_coin_state.dart';

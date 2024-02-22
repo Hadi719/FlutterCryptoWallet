@@ -1,7 +1,7 @@
+import '../../config/utils/resources/data_state.dart';
 import '../../domain/models/coingecko/request/request.dart';
 import '../../domain/models/coingecko/response/response.dart';
 import '../../domain/repositories/coingecko_api_repository.dart';
-import '../../config/utils/resources/data_state.dart';
 import '../datasource/remote/coingecko_remote_client.dart';
 import 'base/base_datasource_repository.dart';
 

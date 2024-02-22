@@ -1,7 +1,7 @@
+import '../../config/utils/resources/data_state.dart';
 import '../../domain/models/coincap/requests/requests.dart';
 import '../../domain/models/coincap/responses/responses.dart';
 import '../../domain/repositories/coincap_api_repository.dart';
-import '../../config/utils/resources/data_state.dart';
 import '../datasource/remote/coincap_remote_client.dart';
 import 'base/base_datasource_repository.dart';
 
