@@ -8,11 +8,11 @@ part 'coin_ohlc_response.g.dart';
 class CoinOHLCResponse with _$CoinOHLCResponse {
   /// {@macro CoinOHLC}
   const factory CoinOHLCResponse({
-    List<OHLCValues>? ohlcList,
+    List<OHLCValues>? data,
   }) = _CoinOHLCResponse;
 
   /// {@macro CoinOHLC}
-  factory CoinOHLCResponse.fromJson(Map<String, dynamic> json) =>
+  factory CoinOHLCResponse.fromJson(Map<String, Object?> json) =>
       _$CoinOHLCResponseFromJson(json);
 }
 

@@ -74,52 +74,26 @@ flutterfire configure --project=<PROJECT_NAME_FROM_FIREBASE>
 dart run build_runner build --delete-conflicting-outputs
 ```
 - go to `lib/src/data/datasource/remote/coinex_remote_client.g.dart` file,  
-  - go to `getSingleMarketStatistics()` function.
+  - search for `getSingleMarketStatistics()` function.
   - change this `final value = SingleMarketStatisticsResponse.fromMap(_result.data!)` to:
   ```dart
   final value = SingleMarketStatisticsResponse.fromMap(_result.data!, marketName);
   ```
-- go to `lib/src/data/datasource/remote/coingecko_remote_client.g.dart` file,  
-  - go to `getSimpleSupportedVsCurrencies()` function.
-    - change this `await _dio.fetch<Map<String, dynamic>>` to:
-    ```
-    await _dio.fetch<List<dynamic>>
-    ```
-    - change this `final value = SimpleSupportedVsCurrenciesResponse.fromJson(_result.data!);` to:
-    ```dart
-    final editedResult = {'currenciesList': _result.data!};
-    final value = SimpleSupportedVsCurrenciesResponse.fromJson(editedResult);
-    ```  
-  - go to `getCoinsMarketsList()` function.
-    - change `await _dio.fetch<Map<String, dynamic>>` to:
-    ```
-    await _dio.fetch<List<dynamic>>
-    ```
-    - change this `final value = CoinsMarketsListResponse.fromJson(_result.data!);` to:
-    ```dart
-    final editedResult = {'coins': _result.data!};
-    final value = CoinsMarketsListResponse.fromJson(editedResult);
-    ```  
-  - go to `getCoinOHLC()` function.
-    - change `await _dio.fetch<Map<String, dynamic>>` to:
-    ```
-    await _dio.fetch<List<dynamic>>
-    ```
-    - change `final value = CoinOHLCResponse.fromJson(_result.data!);` to:
-    ```dart
-    final editedResult = {'ohlcList': _result.data!};
-    final value = CoinOHLCResponse.fromJson(editedResult);
-    ```  
-  - go to `getAssetPlatformsList()` function.
-    - change `await _dio.fetch<Map<String, dynamic>>` to:
-    ```
-    await _dio.fetch<List<dynamic>>
-    ```
-    - change `final value = AssetPlatformsListResponse.fromJson(_result.data!);` to:
-    ```dart
-    final editedResult = {'assetPlatformsList': _result.data!};
-    final value = AssetPlatformsListResponse.fromJson(editedResult);
-    ```
+- go to `lib/src/data/datasource/remote/coingecko_remote_client.g.dart` file, 
+  - and search for these functions:
+    - `getSimpleSupportedVsCurrencies()`
+    - `getCoinsMarketsList()`
+    - `getCoinOHLC()`
+    - `getAssetPlatformsList()`
+      - change `await _dio.fetch<Map<String, dynamic>>` to:
+      ```
+      await _dio.fetch<List<dynamic>>
+      ```
+      - change `final value = $ResponseName.fromJson(_result.data!);` to:
+      ```dart
+      final editedResult = {'data': _result.data!};
+      final value = $ResponeName.fromJson(editedResult);
+      ```  
 
 # Release build note
 - __Obfuscate Dart code:__

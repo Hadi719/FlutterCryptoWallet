@@ -6,7 +6,7 @@ part 'coins_markets_list_response.g.dart';
 @Freezed(toJson: false)
 class CoinsMarketsListResponse with _$CoinsMarketsListResponse {
   const factory CoinsMarketsListResponse({
-    List<CoinMarketData>? coins,
+    List<CoinMarketData>? data,
   }) = _CoinsMarketsListResponse;
 
   factory CoinsMarketsListResponse.fromJson(Map<String, Object?> json) =>

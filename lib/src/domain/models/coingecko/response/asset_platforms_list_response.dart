@@ -18,20 +18,14 @@ class AssetPlatformResponse with _$AssetPlatformResponse {
 }
 
 /// {@macro AssetPlatformsList}
-@Freezed(toJson: false, fromJson: false)
+@Freezed(toJson: false)
 class AssetPlatformsListResponse with _$AssetPlatformsListResponse {
   /// {@macro AssetPlatformsList}
   const factory AssetPlatformsListResponse({
-    List<AssetPlatformResponse>? assetPlatformsList,
+    List<AssetPlatformResponse>? data,
   }) = _AssetPlatformsListResponse;
 
   /// {@macro AssetPlatformsList}
-  factory AssetPlatformsListResponse.fromJson(Map<String, dynamic> json) =>
-      AssetPlatformsListResponse(
-        assetPlatformsList: (json['assetPlatformsList'] as List<dynamic>?)
-            ?.map(
-              (e) => AssetPlatformResponse.fromJson(e as Map<String, dynamic>),
-            )
-            .toList(),
-      );
+  factory AssetPlatformsListResponse.fromJson(Map<String, Object?> json) =>
+      _$AssetPlatformsListResponseFromJson(json);
 }
