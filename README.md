@@ -71,7 +71,7 @@ flutterfire configure --project=<PROJECT_NAME_FROM_FIREBASE>
 ## Run The Generator 
 - run below in `project root` directory for building `Retrofit` files.
 ```
-dart run build_runner build
+dart run build_runner build --delete-conflicting-outputs
 ```
 - go to `lib/src/data/datasource/remote/coinex_remote_client.g.dart` file,  
   - go to `getSingleMarketStatistics()` function.
