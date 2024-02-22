@@ -49,21 +49,3 @@ class CoinMarketData with _$CoinMarketData {
   factory CoinMarketData.fromJson(Map<String, dynamic> json) =>
       _$CoinMarketDataFromJson(json);
 }
-/*
-/// A JsonConverter for [CoinsMarketsListResponse.coins]
-class CoinMarketDataConverter
-    implements JsonConverter<List<CoinMarketData>?, Map<String, dynamic>> {
-  /// A JsonConverter for [CoinsMarketsListResponse.coins]
-  const CoinMarketDataConverter();
-
-  @override
-  List<CoinMarketData>? fromJson(Map<String, dynamic> json) {
-    var coinValues = json.values;
-    List<CoinMarketData> coins =
-        List.from(coinValues.map((e) => CoinMarketData.fromJson(e)).toList());
-    return coins;
-  }
-
-  @override
-  Map<String, dynamic> toJson(List<CoinMarketData>? object) => {};
-}*/
