@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'coins_markets_list_response.freezed.dart';
 part 'coins_markets_list_response.g.dart';
 
-@Freezed(toJson: false)
+@Freezed()
 class CoinsMarketsListResponse with _$CoinsMarketsListResponse {
   const factory CoinsMarketsListResponse({
     List<CoinMarketData>? data,
@@ -13,7 +13,7 @@ class CoinsMarketsListResponse with _$CoinsMarketsListResponse {
       _$CoinsMarketsListResponseFromJson(json);
 }
 
-@Freezed(toJson: false)
+@Freezed()
 class CoinMarketData with _$CoinMarketData {
   const factory CoinMarketData({
     String? id,
@@ -44,6 +44,21 @@ class CoinMarketData with _$CoinMarketData {
     @JsonKey(name: 'atl_date') String? atlDate,
     Map<String, dynamic>? roi,
     @JsonKey(name: 'last_updated') String? lastUpdated,
+    @JsonKey(name: 'sparkline_in_7d') Map<String, dynamic>? sparklineIn7day,
+    @JsonKey(name: 'price_change_percentage_1h_in_currency')
+    double? priceChangePercentage1hInCurrency,
+    @JsonKey(name: 'price_change_percentage_24h_in_currency')
+    double? priceChangePercentage24hInCurrency,
+    @JsonKey(name: 'price_change_percentage_7d_in_currency')
+    double? priceChangePercentage7dInCurrency,
+    @JsonKey(name: 'price_change_percentage_14d_in_currency')
+    double? priceChangePercentage14dInCurrency,
+    @JsonKey(name: 'price_change_percentage_30d_in_currency')
+    double? priceChangePercentage30dInCurrency,
+    @JsonKey(name: 'price_change_percentage_200d_in_currency')
+    double? priceChangePercentage200dInCurrency,
+    @JsonKey(name: 'price_change_percentage_1y_in_currency')
+    double? priceChangePercentage1yInCurrency,
   }) = _CoinMarketData;
 
   factory CoinMarketData.fromJson(Map<String, dynamic> json) =>
