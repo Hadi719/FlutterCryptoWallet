@@ -1,8 +1,7 @@
 // App
 const String kAppTitle = 'Flutter Crypto Wallet';
 
-// const String kCoinGeckoPath = '';
-
+// Networking & APIs
 // -- CoinCap
 const String kCoinCapBaseUrl = 'https://api.coincap.io/v2';
 const String kCoinCapPathAsset = '/assets/{id}';
@@ -15,6 +14,7 @@ const String kCoinCapPathExchangesList = '/exchanges';
 const String kCoinCapPathMarketsList = '/markets';
 const String kCoinCapPathRate = '/rates/{id}';
 const String kCoinCapPathRatesList = '/rates';
+
 // -- CoinEX
 const String kCoinExBaseUrl = 'https://api.coinex.com/v1';
 const String kCoinExPathAllMarketInfo = '/market/info';
@@ -26,13 +26,11 @@ const String kCoinExPathLatestTransactionData = '/market/deals';
 const String kCoinExPathMarketDepth = '/market/depth';
 const String kCoinExPathSingleMarketInfo = '/market/detail';
 const String kCoinExPathSingleMarketStatistics = '/market/ticker';
-// Networking & APIs
 
 // -- CoinGecko
 const String kCoinGeckoBaseUrl = 'https://api.coingecko.com/api/v3';
 const String kCoinGeckoPathAssetPlatformsList = '/asset_platforms';
 const String kCoinGeckoPathCoinHistory = '/coins/{id}/history';
-
 const String kCoinGeckoPathCoinMarketChart = '/coins/{id}/market_chart';
 const String kCoinGeckoPathCoinMarketChartRange =
     '/coins/{id}/market_chart/range';
@@ -46,12 +44,7 @@ const String kCoinGeckoPathSimplePricesList = '/simple/price';
 const String kCoinGeckoPathSimpleSupportedVsCurrencies =
     '/simple/supported_vs_currencies';
 
-/// Making [double.tryParse()] returns null instead of an error;
-///
-/// ```dart
-/// double.tryParse(map['maxSupply'] ?? kDoubleRevoker);
-/// ```
-const String kDoubleRevoker = '0xFF';
+// Assets - Icons
 const String kIconPathADA = '${kIconsDirPath}ADA.png';
 const String kIconPathBNB = '${kIconsDirPath}BNB.png';
 const String kIconPathBTC = '${kIconsDirPath}BTC.png';
@@ -63,15 +56,19 @@ const String kIconPathUSDC = '${kIconsDirPath}USDC.png';
 const String kIconPathUSDT = '${kIconsDirPath}USDT.png';
 const String kIconPathXRP = '${kIconsDirPath}XRP.png';
 
-// Storage and Databases
-
-// Utils
-// Assets - Icons
 const String kIconsDirPath = 'assets/images/icons/crypto_icons/';
 
+// Utils
 /// Making [int.tryParse()] returns null instead of an error;
 ///
 /// ```dart
 /// int.tryParse(map['maxSupply'] ?? kIntRevoker);
 /// ```
 const String kIntRevoker = '1f';
+
+/// Making [double.tryParse()] returns null instead of an error;
+///
+/// ```dart
+/// double.tryParse(map['maxSupply'] ?? kDoubleRevoker);
+/// ```
+const String kDoubleRevoker = '0xFF';
