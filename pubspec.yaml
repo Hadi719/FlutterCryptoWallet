@@ -67,6 +67,7 @@ flutter:
     - assets/images/
     - assets/images/icons/
     - assets/images/icons/crypto_icons/
+    - lib/development/coins_response_examples/gecko/
 
     # example:
     # fonts:
