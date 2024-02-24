@@ -12,7 +12,7 @@ class CoinOHLCResponse with _$CoinOHLCResponse {
   }) = _CoinOHLCResponse;
 
   /// {@macro CoinOHLC}
-  factory CoinOHLCResponse.fromJson(Map<String, Object?> json) =>
+  factory CoinOHLCResponse.fromJson(Map<String, dynamic> json) =>
       _$CoinOHLCResponseFromJson(json);
 }
 

@@ -5,12 +5,22 @@ part 'coins_markets_list_response.g.dart';
 
 @freezed
 class CoinsMarketsListResponse with _$CoinsMarketsListResponse {
+  const CoinsMarketsListResponse._();
   const factory CoinsMarketsListResponse({
     List<CoinMarketData>? data,
   }) = _CoinsMarketsListResponse;
 
-  factory CoinsMarketsListResponse.fromJson(Map<String, Object?> json) =>
+  factory CoinsMarketsListResponse.fromJson(Map<String, dynamic> json) =>
       _$CoinsMarketsListResponseFromJson(json);
+
+  Map<String, dynamic> toFirestore() {
+    if (data == null) return {};
+    List<Map<String, dynamic>> dataMapList = [];
+    for (CoinMarketData cmd in data!) {
+      dataMapList.add(cmd.toJson());
+    }
+    return {'data': dataMapList};
+  }
 }
 
 @freezed

@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'coin_history_response.freezed.dart';
 part 'coin_history_response.g.dart';
 
-@Freezed(toJson: false)
+@freezed
 class CoinHistoryResponse with _$CoinHistoryResponse {
   const factory CoinHistoryResponse({
     String? id,

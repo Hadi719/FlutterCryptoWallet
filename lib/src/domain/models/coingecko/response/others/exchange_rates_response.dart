@@ -4,7 +4,7 @@ part 'exchange_rates_response.freezed.dart';
 part 'exchange_rates_response.g.dart';
 
 /// {@macro ExchangeRates}
-@Freezed(toJson: false)
+@freezed
 class ExchangeRatesResponse with _$ExchangeRatesResponse {
   /// {@macro ExchangeRates}
   factory ExchangeRatesResponse({
@@ -12,7 +12,7 @@ class ExchangeRatesResponse with _$ExchangeRatesResponse {
   }) = _ExchangeRatesResponse;
 
   /// {@macro ExchangeRates}
-  factory ExchangeRatesResponse.fromJson(Map<String, Object?> json) =>
+  factory ExchangeRatesResponse.fromJson(Map<String, dynamic> json) =>
       _$ExchangeRatesResponseFromJson(json);
 }
 
@@ -31,11 +31,18 @@ class RateResponseConverter
   }
 
   @override
-  Map<String, dynamic> toJson(List<RatesResponse>? object) => {};
+  Map<String, dynamic> toJson(List<RatesResponse>? object) {
+    if (object == null) return {};
+    List<Map<String, dynamic>> dataMapList = [];
+    for (RatesResponse element in object) {
+      dataMapList.add(element.toJson());
+    }
+    return {'rates': dataMapList};
+  }
 }
 
 /// {@macro ExchangeRates}
-@Freezed(toJson: false)
+@freezed
 class RatesResponse with _$RatesResponse {
   /// {@macro ExchangeRates}
   const factory RatesResponse({

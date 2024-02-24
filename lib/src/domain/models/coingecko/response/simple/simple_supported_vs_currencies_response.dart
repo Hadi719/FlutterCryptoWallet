@@ -11,6 +11,6 @@ class SimpleSupportedVsCurrenciesResponse
   }) = _SimpleSupportedVsCurrenciesResponse;
 
   factory SimpleSupportedVsCurrenciesResponse.fromJson(
-          Map<String, Object?> json) =>
+          Map<String, dynamic> json) =>
       _$SimpleSupportedVsCurrenciesResponseFromJson(json);
 }

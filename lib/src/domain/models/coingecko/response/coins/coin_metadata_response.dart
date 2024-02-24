@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'coin_metadata_response.freezed.dart';
 part 'coin_metadata_response.g.dart';
 
-@Freezed(toJson: false)
+@freezed
 class CoinMetadataResponse with _$CoinMetadataResponse {
   const factory CoinMetadataResponse({
     String? id,

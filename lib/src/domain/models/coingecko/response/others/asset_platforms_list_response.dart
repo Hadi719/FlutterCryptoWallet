@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'asset_platforms_list_response.freezed.dart';
 part 'asset_platforms_list_response.g.dart';
 
-@Freezed(toJson: false)
+@freezed
 class AssetPlatformResponse with _$AssetPlatformResponse {
   const factory AssetPlatformResponse({
     String? id,
@@ -18,7 +18,7 @@ class AssetPlatformResponse with _$AssetPlatformResponse {
 }
 
 /// {@macro AssetPlatformsList}
-@Freezed(toJson: false)
+@freezed
 class AssetPlatformsListResponse with _$AssetPlatformsListResponse {
   /// {@macro AssetPlatformsList}
   const factory AssetPlatformsListResponse({
@@ -26,6 +26,6 @@ class AssetPlatformsListResponse with _$AssetPlatformsListResponse {
   }) = _AssetPlatformsListResponse;
 
   /// {@macro AssetPlatformsList}
-  factory AssetPlatformsListResponse.fromJson(Map<String, Object?> json) =>
+  factory AssetPlatformsListResponse.fromJson(Map<String, dynamic> json) =>
       _$AssetPlatformsListResponseFromJson(json);
 }

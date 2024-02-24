@@ -4,7 +4,7 @@ part 'coin_market_chart_response.freezed.dart';
 part 'coin_market_chart_response.g.dart';
 
 /// {@macro CoinMarketChart}
-@Freezed(toJson: false)
+@freezed
 class CoinMarketChartResponse with _$CoinMarketChartResponse {
   /// {@macro CoinMarketChart}
   const factory CoinMarketChartResponse({
