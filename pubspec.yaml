@@ -22,11 +22,12 @@ dependencies:
   retrofit: ^4.1.0
 
   # firebase
-  firebase_core: ^2.25.4
   firebase_auth: ^4.17.5
+  cloud_firestore: ^4.15.5
   firebase_messaging: ^14.7.16
   firebase_analytics: ^10.8.6
   firebase_crashlytics: ^3.4.15
+  firebase_core: ^2.25.4
   google_sign_in: ^6.2.1
 
   # Themes & Icons & Widgets

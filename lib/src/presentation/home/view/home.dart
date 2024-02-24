@@ -39,13 +39,11 @@ class _HomeView extends StatelessWidget {
         builder: (context, state) {
           switch (state.status) {
             case HomeStatus.initial:
-              context.read<HomeCubit>().getCoinsMarketsList();
+              // context.read<HomeCubit>().getCoinsMarketsList();
+              // context.read<HomeCubit>().getMarketsListJsonFile();
+              context.read<HomeCubit>().getFromFirestore();
               return const MyLoading(
                 key: ObjectKey('__Home_Initial_loading_widget'),
-              );
-            case HomeStatus.loading:
-              return const MyLoading(
-                key: ObjectKey('_Home_Loading_widget'),
               );
             case HomeStatus.failure:
               return MyError(
@@ -53,9 +51,13 @@ class _HomeView extends StatelessWidget {
                 error: state.error.toString(),
               );
             case HomeStatus.success:
-            default:
               return const _CoinsList(
                 key: ObjectKey('_Home_List_widget'),
+              );
+            case HomeStatus.loading:
+            default:
+              return const MyLoading(
+                key: ObjectKey('_Home_Loading_widget'),
               );
           }
         },
@@ -72,7 +74,8 @@ class _CoinsList extends StatelessWidget {
     return SafeArea(
       child: AnimatedList(
         padding: const EdgeInsets.all(8),
-        initialItemCount: 9,
+        initialItemCount:
+            context.select((HomeCubit cubit) => cubit.state.coins?.length ?? 0),
         shrinkWrap: true,
         itemBuilder: (ctx, index, animation) {
           return BlocSelector<HomeCubit, HomeState, CoinMarketData?>(
@@ -80,20 +83,17 @@ class _CoinsList extends StatelessWidget {
               return state.coins?[index];
             },
             builder: (context, state) {
-              return SizedBox(
-                height: 120,
-                child: Card(
-                  margin: const EdgeInsets.all(8),
-                  child: Stack(
-                    children: [
-                      CoinImage(
-                        imageUrl: state?.image,
-                        height: kImageSize,
-                        width: kImageSize,
-                      ),
-                      CoinData(coin: state, imageSize: kImageSize),
-                    ],
-                  ),
+              return Card(
+                margin: const EdgeInsets.all(8),
+                child: Stack(
+                  children: [
+                    CoinImage(
+                      imageUrl: state?.image,
+                      height: kImageSize,
+                      width: kImageSize,
+                    ),
+                    CoinData(coin: state, imageSize: kImageSize),
+                  ],
                 ),
               );
             },

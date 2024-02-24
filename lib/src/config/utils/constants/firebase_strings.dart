@@ -1,0 +1,23 @@
+const String kFirestoreAPIsDataId = 'APIsData';
+const String kFirestoreAPIsDataPath = 'APIsData';
+const String kFirestoreGeckoId = 'Gecko';
+const String kFirestoreGeckoPath = '$kFirestoreAPIsDataPath/Gecko';
+const String kFirestoreCoinsId = 'Coins';
+const String kFirestoreCoinsPath = '$kFirestoreGeckoPath/Coins';
+const String kFirestoreHistoryId = 'History';
+const String kFirestoreHistoryPath = '$kFirestoreCoinsPath/History';
+const String kFirestoreMarketChartId = 'MarketChart';
+const String kFirestoreMarketChartPath = '$kFirestoreCoinsPath/MarketChart';
+const String kFirestoreMarketChartRangeId = 'MarketChartRange';
+const String kFirestoreMarketChartRangePath =
+    '$kFirestoreCoinsPath/MarketChartRange';
+const String kFirestoreMetaDataId = 'MetaData';
+const String kFirestoreMetaDataPath = '$kFirestoreCoinsPath/MetaData';
+const String kFirestoreOHLCId = 'OHLC';
+const String kFirestoreOHLCPath = '$kFirestoreCoinsPath/OHLC';
+const String kFirestoreMarketsListId = 'MarketsList';
+const String kFirestoreMarketsListPath = '$kFirestoreCoinsPath/MarketsList';
+const String kFirestoreSimpleId = 'Simple';
+const String kFirestoreSimplePath = '$kFirestoreGeckoPath/Simple';
+const String kFirestoreOthersId = 'Others';
+const String kFirestoreOthersPath = '$kFirestoreGeckoPath/Others';

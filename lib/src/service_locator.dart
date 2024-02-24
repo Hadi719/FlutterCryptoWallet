@@ -1,4 +1,5 @@
 import 'package:authentication_repository/authentication_repository.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -90,23 +91,25 @@ void _setupDio() {
 }
 
 Future<void> _setupFirebase() async {
-  // Initialize Firebase App
+  /// Initialize Firebase App
   final FirebaseApp firebaseApp = await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
   serviceLocator.registerSingleton<FirebaseApp>(firebaseApp);
 
+  /// Initialize Firebase Auth
   serviceLocator.registerSingleton<FirebaseAuth>(
-    FirebaseAuth.instanceFor(
-      app: serviceLocator<FirebaseApp>(),
-    ),
+    FirebaseAuth.instanceFor(app: firebaseApp),
   );
 
-  // Add Firebase Analytics
+  /// Initialize Cloud Firestore
+  FirebaseFirestore db = FirebaseFirestore.instanceFor(app: firebaseApp);
+  db.settings = const Settings(persistenceEnabled: true);
+  serviceLocator.registerSingleton<FirebaseFirestore>(db);
+
+  /// Initialize Firebase Analytics
   serviceLocator.registerSingleton<FirebaseAnalytics>(
-    FirebaseAnalytics.instanceFor(
-      app: serviceLocator<FirebaseApp>(),
-    ),
+    FirebaseAnalytics.instanceFor(app: firebaseApp),
   );
 }

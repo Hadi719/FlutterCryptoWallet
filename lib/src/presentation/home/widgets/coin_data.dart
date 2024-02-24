@@ -11,14 +11,26 @@ class CoinData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      spacing: 8,
-      runSpacing: 10,
+      spacing: 10,
+      runSpacing: 20,
       // crossAxisAlignment: WrapCrossAlignment.center,
       alignment: WrapAlignment.start,
       // runAlignment: WrapAlignment.center,
       direction: Axis.horizontal,
       children: [
         SizedBox(width: imageSize),
+        _CoinText(
+          '${coin?.name ?? 'Oops'}\n ${coin?.symbol ?? 'Oops'}',
+        ),
+        _CoinText(
+          'Price\n${coin?.currentPrice.toString() ?? 'Oops'}',
+        ),
+        _CoinText(
+          'Market Cap\n${coin?.marketCap.toString() ?? 'Oops'}',
+        ),
+        _CoinText(
+          '24h\n${coin?.priceChangePercentage24h.toString() ?? 'Oops'}',
+        ),
         _CoinText(
           '${coin?.name ?? 'Oops'}\n ${coin?.symbol ?? 'Oops'}',
         ),
