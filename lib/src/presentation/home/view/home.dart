@@ -39,9 +39,7 @@ class _HomeView extends StatelessWidget {
         builder: (context, state) {
           switch (state.status) {
             case HomeStatus.initial:
-              // context.read<HomeCubit>().getCoinsMarketsList();
-              // context.read<HomeCubit>().getMarketsListJsonFile();
-              context.read<HomeCubit>().getFromFirestore();
+              context.read<HomeCubit>().getCoinsDataFromJson();
               return const MyLoading(
                 key: ObjectKey('__Home_Initial_loading_widget'),
               );

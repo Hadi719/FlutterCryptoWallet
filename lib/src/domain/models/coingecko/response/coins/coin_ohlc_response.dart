@@ -4,7 +4,7 @@ part 'coin_ohlc_response.freezed.dart';
 part 'coin_ohlc_response.g.dart';
 
 /// {@macro CoinOHLC}
-@Freezed(toJson: false)
+@freezed
 class CoinOHLCResponse with _$CoinOHLCResponse {
   /// {@macro CoinOHLC}
   const factory CoinOHLCResponse({
@@ -16,7 +16,7 @@ class CoinOHLCResponse with _$CoinOHLCResponse {
       _$CoinOHLCResponseFromJson(json);
 }
 
-@Freezed(toJson: false, fromJson: false)
+@Freezed(fromJson: false)
 class OHLCValues with _$OHLCValues {
   const factory OHLCValues({
     required int time,

@@ -12,15 +12,6 @@ class CoinsMarketsListResponse with _$CoinsMarketsListResponse {
 
   factory CoinsMarketsListResponse.fromJson(Map<String, dynamic> json) =>
       _$CoinsMarketsListResponseFromJson(json);
-
-  Map<String, dynamic> toFirestore() {
-    if (data == null) return {};
-    List<Map<String, dynamic>> dataMapList = [];
-    for (CoinMarketData cmd in data!) {
-      dataMapList.add(cmd.toJson());
-    }
-    return {'data': dataMapList};
-  }
 }
 
 @freezed

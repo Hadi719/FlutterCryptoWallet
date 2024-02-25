@@ -1,5 +1,4 @@
 import 'package:authentication_repository/authentication_repository.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -102,11 +101,6 @@ Future<void> _setupFirebase() async {
   serviceLocator.registerSingleton<FirebaseAuth>(
     FirebaseAuth.instanceFor(app: firebaseApp),
   );
-
-  /// Initialize Cloud Firestore
-  FirebaseFirestore db = FirebaseFirestore.instanceFor(app: firebaseApp);
-  db.settings = const Settings(persistenceEnabled: true);
-  serviceLocator.registerSingleton<FirebaseFirestore>(db);
 
   /// Initialize Firebase Analytics
   serviceLocator.registerSingleton<FirebaseAnalytics>(
