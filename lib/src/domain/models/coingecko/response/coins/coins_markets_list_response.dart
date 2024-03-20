@@ -5,7 +5,6 @@ part 'coins_markets_list_response.g.dart';
 
 @freezed
 class CoinsMarketsListResponse with _$CoinsMarketsListResponse {
-  const CoinsMarketsListResponse._();
   const factory CoinsMarketsListResponse({
     List<CoinMarketData>? data,
   }) = _CoinsMarketsListResponse;
