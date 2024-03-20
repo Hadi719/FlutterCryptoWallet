@@ -244,7 +244,7 @@ class AuthenticationRepository {
       throw LogInWithGoogleFailure.fromCode(e.code);
     } catch (e) {
       if (e is LogInWithGoogleFailure) throw e;
-      throw LogInWithGoogleFailure();
+      throw LogInWithGoogleFailure(e.toString());
     }
   }
 
