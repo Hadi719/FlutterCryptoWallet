@@ -97,8 +97,8 @@ A crypto wallet with Flutter.
      - Now submit app's package name and SHA1 (and SHA256) fingerprint(s) in [Firebase Settings page](https://console.firebase.google.com/project/_/settings/general).
 
 - Add `google_service.json` downloaded from firebase to [android/app](android/app).
-  - if you have problems with firebase repeat___Setup Firebase
-    ___ [Step 2](#step-2-active-the-flutterfire-cli)
+  - if you have problems with firebase repeat
+    ___Setup Firebase___ [Step 2](#step-2-active-the-flutterfire-cli)
     and [Step 3](#step-3-configure-your-apps-to-use-firebase).
 
 ## Run The Generator
