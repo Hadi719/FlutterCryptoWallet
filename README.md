@@ -1,5 +1,4 @@
 <!-- TOC -->
-
 * [Flutter Crypto Wallet](#flutter-crypto-wallet)
   * [Setup Firebase](#setup-firebase)
     * [__Step 1:__ Install Firebase CLI in Ubuntu:](#step-1-install-firebase-cli-in-ubuntu)
@@ -10,7 +9,6 @@
     * [Android](#android)
   * [Run The Generator](#run-the-generator)
 * [Release build note](#release-build-note)
-
 <!-- TOC -->
 # Flutter Crypto Wallet
 
@@ -112,7 +110,7 @@ A crypto wallet with Flutter.
 
 - Add `google_service.json` downloaded from firebase to [android/app](android/app).
   - if you have problems with firebase repeat___Setup Firebase
-    ___ [Step 2](#step-2-active-the-flutterfire-cli-by-running-the-following-command-from-any-directory)
+    ___ [Step 2](#step-2-active-the-flutterfire-cli)
     and [Step 3](#step-3-configure-your-apps-to-use-firebase).
 
 ## Run The Generator
