@@ -1,16 +1,21 @@
-class CoinHistoryRequest {
-  /// (Required) pass the coin id (can be obtained from /coins) eg. bitcoin
-  final String id;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  /// (Required) The date of data snapshot in dd-mm-yyyy eg. 30-12-2022
-  final String date;
+part 'coin_history_request.freezed.dart';
+part 'coin_history_request.g.dart';
 
-  /// Set to false to exclude localized languages in response
-  final String? localization;
+@freezed
+class CoinHistoryRequest with _$CoinHistoryRequest {
+  const factory CoinHistoryRequest({
+    /// (Required) pass the coin id (can be obtained from /coins) eg. bitcoin
+    required String id,
 
-  const CoinHistoryRequest({
-    required this.id,
-    required this.date,
-    this.localization,
-  });
+    /// (Required) The date of data snapshot in dd-mm-yyyy eg. 30-12-2022
+    required String date,
+
+    /// Set to false to exclude localized languages in response
+    String? localization,
+  }) = _CoinHistoryRequest;
+
+  factory CoinHistoryRequest.fromJson(Map<String, dynamic> json) =>
+      _$CoinHistoryRequestFromJson(json);
 }

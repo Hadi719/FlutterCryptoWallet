@@ -1,11 +1,17 @@
+import 'dart:ui';
+
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 import 'config/firebase/firebase_options.dart';
+import 'data/datasource/firebase/firebase_storage_client.dart';
 import 'data/datasource/remote/coincap_remote_client.dart';
 import 'data/datasource/remote/coinex_remote_client.dart';
 import 'data/datasource/remote/coingecko_remote_client.dart';
@@ -97,13 +103,31 @@ Future<void> _setupFirebase() async {
 
   serviceLocator.registerSingleton<FirebaseApp>(firebaseApp);
 
+  /// Initialize Firebase Analytics
+  serviceLocator.registerSingleton<FirebaseAnalytics>(
+    FirebaseAnalytics.instanceFor(app: firebaseApp),
+  );
+
+  /// Initialize Firebase Crashlytics
+  // Pass all uncaught "fatal" errors from the framework to Crashlytics
+  FlutterError.onError = (errorDetails) {
+    FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+  };
+  // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
+
   /// Initialize Firebase Auth
   serviceLocator.registerSingleton<FirebaseAuth>(
     FirebaseAuth.instanceFor(app: firebaseApp),
   );
 
-  /// Initialize Firebase Analytics
-  serviceLocator.registerSingleton<FirebaseAnalytics>(
-    FirebaseAnalytics.instanceFor(app: firebaseApp),
+  /// Initialize Firebase Cloud Storage
+  FirebaseStorage storage = FirebaseStorage.instanceFor(app: firebaseApp);
+  serviceLocator.registerSingleton<FirebaseStorage>(storage);
+  serviceLocator.registerSingleton<FirebaseStorageClient>(
+    FirebaseStorageClient(storage),
   );
 }

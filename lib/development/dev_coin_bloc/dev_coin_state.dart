@@ -1,6 +1,6 @@
 part of 'dev_coin_bloc.dart';
 
-enum CoinApi { coinEx, coinCap, coinGecko }
+enum CoinApi { coinEx, coinCap, coinGecko, firebaseStorage }
 
 final class DevCoinState extends Equatable {
   final DevCoinStatus status;
@@ -8,19 +8,27 @@ final class DevCoinState extends Equatable {
   final CoinApi coinApi;
   final DevCoinEvent? lastEvent;
   final Object? error;
-
   final dynamic data;
+  final String subtitle;
 
   const DevCoinState({
     this.status = DevCoinStatus.initial,
-    this.coinApi = CoinApi.coinGecko,
+    this.coinApi = CoinApi.firebaseStorage,
     this.lastEvent,
     this.error,
     this.data = const [],
+    this.subtitle = '---',
   });
 
   @override
-  List<Object?> get props => [status, coinApi, lastEvent, error, data];
+  List<Object?> get props => [
+        status,
+        coinApi,
+        lastEvent,
+        error,
+        data,
+        subtitle,
+      ];
 
   DevCoinState copyWith({
     DevCoinStatus? status,
@@ -28,6 +36,7 @@ final class DevCoinState extends Equatable {
     DevCoinEvent? lastEvent,
     Object? error,
     dynamic data,
+    String? subtitle,
   }) {
     return DevCoinState(
       status: status ?? this.status,
@@ -35,6 +44,7 @@ final class DevCoinState extends Equatable {
       lastEvent: lastEvent ?? this.lastEvent,
       error: error ?? this.error,
       data: data ?? this.data,
+      subtitle: subtitle ?? this.subtitle,
     );
   }
 

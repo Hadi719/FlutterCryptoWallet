@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,6 +13,46 @@ class DevCoinApi extends StatelessWidget {
       child: BlocProvider<DevCoinBloc>(
         create: (_) => DevCoinBloc(),
         child: const _LayoutBuilder(),
+      ),
+    );
+  }
+}
+
+class _LayoutBuilder extends StatelessWidget {
+  const _LayoutBuilder();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: _ChangeIcon(
+          onPressed: () {
+            context.read<DevCoinBloc>().add(DevCoinChangeApi());
+          },
+        ),
+        centerTitle: true,
+        elevation: 8.0,
+        title: Text(
+          context.select((DevCoinBloc bloc) => bloc.state.coinApi.name),
+        ),
+      ),
+      body: Column(
+        children: [
+          context.select((DevCoinBloc bloc) {
+            switch (bloc.state.coinApi) {
+              case CoinApi.firebaseStorage:
+                return const _FirebaseStorageButtons();
+              case CoinApi.coinGecko:
+                return const _CoinGeckoButtons();
+              case CoinApi.coinCap:
+                return const _CoinCapButtons();
+              case CoinApi.coinEx:
+              default:
+                return const _CoinExButtons();
+            }
+          }),
+          const _DataView(),
+        ],
       ),
     );
   }
@@ -371,6 +412,45 @@ class _CoinGeckoButtons extends StatelessWidget {
   }
 }
 
+class _FirebaseStorageButtons extends StatelessWidget {
+  const _FirebaseStorageButtons();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocSelector<DevCoinBloc, DevCoinState, DevCoinEvent?>(
+      selector: (state) {
+        return state.lastEvent;
+      },
+      builder: (context, state) {
+        return Wrap(
+          children: [
+            ElevatedButton(
+              onPressed: state.runtimeType == DevCoinGeckoFsUploadCoinHistory
+                  ? null
+                  : () {
+                      context
+                          .read<DevCoinBloc>()
+                          .add(DevCoinGeckoFsUploadCoinHistory());
+                    },
+              child: const Text('UploadCoinHistory'),
+            ),
+            ElevatedButton(
+              onPressed: state.runtimeType == DevCoinGeckoFsDownloadCoinHistory
+                  ? null
+                  : () {
+                      context
+                          .read<DevCoinBloc>()
+                          .add(DevCoinGeckoFsDownloadCoinHistory());
+                    },
+              child: const Text('DownloadCoinHistory'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
 class _DataView extends StatelessWidget {
   const _DataView();
 
@@ -401,6 +481,9 @@ class _DataView extends StatelessWidget {
                   ),
                 );
               case DevCoinStatus.success:
+                if (state.data.runtimeType == UploadTask) {
+                  return const _UploadTaskListTile();
+                }
                 return Scrollbar(
                   interactive: true,
                   child: SingleChildScrollView(
@@ -415,40 +498,110 @@ class _DataView extends StatelessWidget {
   }
 }
 
-class _LayoutBuilder extends StatelessWidget {
-  const _LayoutBuilder();
+class _UploadTaskListTile extends StatelessWidget {
+  const _UploadTaskListTile({super.key});
+
+  /// Displays the current transferred bytes of the task.
+  String _bytesTransferred(TaskSnapshot snapshot) {
+    return '${snapshot.bytesTransferred}/${snapshot.totalBytes}';
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: _ChangeIcon(
-          onPressed: () {
-            context.read<DevCoinBloc>().add(DevCoinChangeApi());
+    return BlocSelector<DevCoinBloc, DevCoinState, UploadTask>(
+      selector: (state) => state.data,
+      builder: (context, task) {
+        return StreamBuilder<TaskSnapshot>(
+          stream: task.snapshotEvents,
+          builder: (
+            BuildContext context,
+            AsyncSnapshot<TaskSnapshot> asyncSnapshot,
+          ) {
+            TaskSnapshot? snapshot = asyncSnapshot.data;
+            TaskState? taskState = snapshot?.state;
+
+            if (asyncSnapshot.hasError) {
+              if (asyncSnapshot.error is FirebaseException &&
+                  // ignore: cast_nullable_to_non_nullable
+                  (asyncSnapshot.error as FirebaseException).code ==
+                      'canceled') {
+                context.read<DevCoinBloc>().add(const DevCoinChangeSubtitle(
+                      subtitle: 'Upload canceled.',
+                    ));
+              } else {
+                // ignore: avoid_print
+                print(asyncSnapshot.error);
+                context.read<DevCoinBloc>().add(const DevCoinChangeSubtitle(
+                      subtitle: 'Something went wrong.',
+                    ));
+              }
+            } else if (snapshot != null) {
+              context.read<DevCoinBloc>().add(DevCoinChangeSubtitle(
+                    subtitle:
+                        '$taskState: ${_bytesTransferred(snapshot)} bytes sent',
+                  ));
+            }
+
+            return Dismissible(
+              key: Key(task.hashCode.toString()),
+              onDismissed: ($) => task.cancel(),
+              child: ListTile(
+                title: Text('Upload Task #${task.hashCode}'),
+                subtitle: SelectableText(
+                  context.select((DevCoinBloc bloc) => bloc.state.subtitle),
+                ),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    if (taskState == TaskState.running)
+                      IconButton(
+                        icon: const Icon(Icons.pause),
+                        onPressed: task.pause,
+                      ),
+                    if (taskState == TaskState.running)
+                      IconButton(
+                        icon: const Icon(Icons.cancel),
+                        onPressed: task.cancel,
+                      ),
+                    if (taskState == TaskState.paused)
+                      IconButton(
+                        icon: const Icon(Icons.file_upload),
+                        onPressed: task.resume,
+                      ),
+                    if (taskState == TaskState.success)
+                      IconButton(
+                        icon: const Icon(Icons.file_download),
+                        onPressed: () {
+                          context.read<DevCoinBloc>().add(
+                                DevCoinGeckoFsDownloadCoinHistory(),
+                              );
+                        },
+                      ),
+                    if (taskState == TaskState.success)
+                      IconButton(
+                        icon: const Icon(Icons.link),
+                        onPressed: () async {
+                          final downloadLink =
+                              await snapshot?.ref.getDownloadURL();
+                          context.read<DevCoinBloc>().add(
+                                DevCoinChangeSubtitle(
+                                  subtitle: downloadLink ?? 'Oops 1',
+                                ),
+                              );
+                        },
+                      ),
+                    if (taskState == TaskState.success)
+                      IconButton(
+                        icon: const Icon(Icons.delete),
+                        onPressed: () => snapshot?.ref.delete(),
+                      ),
+                  ],
+                ),
+              ),
+            );
           },
-        ),
-        centerTitle: true,
-        elevation: 8.0,
-        title: Text(
-          context.select(
-              (DevCoinBloc bloc) => bloc.state.coinApi == CoinApi.coinCap
-                  ? 'CoinCap'
-                  : bloc.state.coinApi == CoinApi.coinGecko
-                      ? 'CoinGecko'
-                      : 'CoinEx'),
-        ),
-      ),
-      body: Column(
-        children: [
-          context.select(
-              (DevCoinBloc bloc) => bloc.state.coinApi == CoinApi.coinCap
-                  ? const _CoinCapButtons()
-                  : bloc.state.coinApi == CoinApi.coinGecko
-                      ? const _CoinGeckoButtons()
-                      : const _CoinExButtons()),
-          const _DataView(),
-        ],
-      ),
+        );
+      },
     );
   }
 }

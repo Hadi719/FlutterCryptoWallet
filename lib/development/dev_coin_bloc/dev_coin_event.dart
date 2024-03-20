@@ -1,32 +1,5 @@
 part of 'dev_coin_bloc.dart';
 
-final class DevCoinCapAsset extends DevCoinEvent {}
-
-final class DevCoinCapAssetHistories extends DevCoinEvent {}
-
-final class DevCoinCapAssetMarkets extends DevCoinEvent {}
-
-// CoinCap -- Assets
-final class DevCoinCapAssetsList extends DevCoinEvent {}
-
-// CoinCap -- Candles
-final class DevCoinCapCandlesList extends DevCoinEvent {}
-
-final class DevCoinCapExchange extends DevCoinEvent {}
-
-// CoinCap -- Exchanges
-final class DevCoinCapExchangesList extends DevCoinEvent {}
-
-// CoinCap -- Markets
-final class DevCoinCapMarketsList extends DevCoinEvent {}
-
-final class DevCoinCapRate extends DevCoinEvent {}
-
-// CoinCap -- Rates
-final class DevCoinCapRatesList extends DevCoinEvent {}
-
-final class DevCoinChangeApi extends DevCoinEvent {}
-
 sealed class DevCoinEvent extends Equatable {
   const DevCoinEvent();
 
@@ -34,9 +7,36 @@ sealed class DevCoinEvent extends Equatable {
   List<Object> get props => [];
 }
 
+final class DevCoinChangeApi extends DevCoinEvent {}
+
+final class DevCoinChangeSubtitle extends DevCoinEvent {
+  const DevCoinChangeSubtitle({required this.subtitle});
+
+  final String subtitle;
+}
+
+final class DevCoinCapAsset extends DevCoinEvent {}
+
+final class DevCoinCapAssetHistories extends DevCoinEvent {}
+
+final class DevCoinCapAssetMarkets extends DevCoinEvent {}
+
+final class DevCoinCapAssetsList extends DevCoinEvent {}
+
+final class DevCoinCapCandlesList extends DevCoinEvent {}
+
+final class DevCoinCapExchange extends DevCoinEvent {}
+
+final class DevCoinCapExchangesList extends DevCoinEvent {}
+
+final class DevCoinCapMarketsList extends DevCoinEvent {}
+
+final class DevCoinCapRate extends DevCoinEvent {}
+
+final class DevCoinCapRatesList extends DevCoinEvent {}
+
 final class DevCoinExAllMarketInfo extends DevCoinEvent {}
 
-// CoinEX
 final class DevCoinExAllMarketList extends DevCoinEvent {}
 
 final class DevCoinExAllMarketStatistics extends DevCoinEvent {}
@@ -53,7 +53,6 @@ final class DevCoinExSingleMarketInfo extends DevCoinEvent {}
 
 final class DevCoinExSingleMarketStatistics extends DevCoinEvent {}
 
-// CoinGecko -- Asset Platforms
 final class DevCoinGeckoAssetPlatformsList extends DevCoinEvent {}
 
 final class DevCoinGeckoCoinHistory extends DevCoinEvent {}
@@ -62,17 +61,18 @@ final class DevCoinGeckoCoinMarketChart extends DevCoinEvent {}
 
 final class DevCoinGeckoCoinMarketChartRange extends DevCoinEvent {}
 
-// CoinGecko -- Coins
 final class DevCoinGeckoCoinMetadata extends DevCoinEvent {}
 
 final class DevCoinGeckoCoinOHLC extends DevCoinEvent {}
 
 final class DevCoinGeckoCoinsMarketsList extends DevCoinEvent {}
 
-// CoinGecko -- Exchange Rates
 final class DevCoinGeckoExchangeRates extends DevCoinEvent {}
 
-// CoinGecko -- Simple
 final class DevCoinGeckoSimplePricesList extends DevCoinEvent {}
 
 final class DevCoinGeckoSimpleSupportedVsCurrencies extends DevCoinEvent {}
+
+final class DevCoinGeckoFsUploadCoinHistory extends DevCoinEvent {}
+
+final class DevCoinGeckoFsDownloadCoinHistory extends DevCoinEvent {}
