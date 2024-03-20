@@ -1,15 +1,3 @@
-<!-- TOC -->
-* [Flutter Crypto Wallet](#flutter-crypto-wallet)
-  * [Setup Firebase](#setup-firebase)
-    * [__Step 1:__ Install Firebase CLI in Ubuntu:](#step-1-install-firebase-cli-in-ubuntu)
-    * [__Step 2:__ Active the FlutterFire CLI](#step-2-active-the-flutterfire-cli)
-    * [__Step 3:
-      __ Configure your apps to use Firebase:](#step-3-configure-your-apps-to-use-firebase)
-  * [Firebase Authentication](#firebase-authentication)
-    * [Android](#android)
-  * [Run The Generator](#run-the-generator)
-* [Release build note](#release-build-note)
-<!-- TOC -->
 # Flutter Crypto Wallet
 
 A crypto wallet with Flutter.
