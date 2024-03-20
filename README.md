@@ -41,10 +41,10 @@ A crypto wallet with Flutter.
 
   - __Ubuntu:__ run these commands separately:
     ```shell
-     echo 'export PATH="$PATH":"$HOME/.pub-cache/bin"' >>~/.bash_profile
+    echo 'export PATH="$PATH":"$HOME/.pub-cache/bin"' >>~/.bash_profile
     ```
     ```shell
-     echo 'export PATH="$PATH":"$HOME/.pub-cache/bin"' >>~/.bashrc
+    echo 'export PATH="$PATH":"$HOME/.pub-cache/bin"' >>~/.bashrc
     ```  
     ```shell
     source .bashrc
