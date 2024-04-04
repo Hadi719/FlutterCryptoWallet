@@ -9,10 +9,10 @@ sealed class DevCoinEvent extends Equatable {
 
 final class DevCoinChangeApi extends DevCoinEvent {}
 
-final class DevCoinChangeSubtitle extends DevCoinEvent {
-  const DevCoinChangeSubtitle({required this.subtitle});
+final class DevCoinGetDownloadLink extends DevCoinEvent {
+  const DevCoinGetDownloadLink({required this.downloadLink});
 
-  final String subtitle;
+  final String downloadLink;
 }
 
 final class DevCoinCapAsset extends DevCoinEvent {}
@@ -76,3 +76,7 @@ final class DevCoinGeckoSimpleSupportedVsCurrencies extends DevCoinEvent {}
 final class DevCoinGeckoFsUploadCoinHistory extends DevCoinEvent {}
 
 final class DevCoinGeckoFsDownloadCoinHistory extends DevCoinEvent {}
+
+final class DevCoinGeckoFsUploadCoinsMarketsList extends DevCoinEvent {}
+
+final class DevCoinGeckoFsDownloadCoinsMarketsList extends DevCoinEvent {}

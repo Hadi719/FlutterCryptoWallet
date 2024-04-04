@@ -92,7 +92,7 @@ class CoinGeckoDataSourceRepositoryImpl extends BaseDataSourceRepository
               vsCurrency: request.vsCurrency,
               ids: request.ids,
               category: request.category,
-              order: request.order?.value,
+              order: request.order?.geckoKey,
               perPage: request.perPage,
               page: request.page,
               sparkline: request.sparkline,

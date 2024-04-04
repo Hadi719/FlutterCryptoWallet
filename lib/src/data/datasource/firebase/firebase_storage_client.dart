@@ -14,11 +14,12 @@ class FirebaseStorageClient {
 
   final FirebaseStorage _storage;
 
+  /// Downloading [CoinHistoryResponse] base on _[id]_
   Future<FirebaseStorageResponse<CoinHistoryResponse>> downloadCoinHistory({
     required String id,
   }) async {
     final storageResponse = await _downloadData(
-      fullFilePath: '$kStoragePathGeckoHistory/$id',
+      fullFilePath: '$kStoragePathGeckoHistory/$id.json',
     );
 
     final value = CoinHistoryResponse.fromJson(storageResponse.jsonData!);
@@ -28,16 +29,102 @@ class FirebaseStorageClient {
     return firebaseStorageResponse;
   }
 
-  UploadTask uploadCoinHistory({
+  /// Uploading [CoinHistoryResponse]
+  List<UploadTask> uploadCoinHistory({
     required CoinHistoryResponse response,
     required CoinHistoryRequest request,
   }) {
     UploadTask uploadTask = _uploadData(
-      fullFilePath: '$kStoragePathGeckoHistory/${request.id}',
+      fullFilePath: '$kStoragePathGeckoHistory/${request.id}.json',
       data: response.toJson(),
       request: request.toJson(),
     );
-    return uploadTask;
+    return [uploadTask];
+  }
+
+  List<UploadTask> uploadCoinsMarketsList({
+    required CoinsMarketsListResponse response,
+    required CoinsMarketsListRequest request,
+  }) {
+    if (response.data == null) {
+      throw const FormatException('CoinsMarketsListResponse data is null');
+    }
+
+    List<UploadTask> uploadTasks = [];
+
+    UploadTask uploadResponseTask = _uploadData(
+      fullFilePath: '$kStoragePathGeckoMarketsList/response.json',
+      data: response.toJson(),
+      request: request.toJson(),
+    );
+
+    uploadTasks.add(uploadResponseTask);
+
+    for (CoinMarketData cmd in response.data!) {
+      /// Todo: Log the [CoinMarketData] with null id;
+      if (cmd.id == null) continue;
+
+      UploadTask uploadCMDTask = _uploadData(
+        fullFilePath: '$kStoragePathGeckoMarketsList/${cmd.id}.json',
+        data: cmd.toJson(),
+      );
+
+      uploadTasks.add(uploadCMDTask);
+    }
+
+    return uploadTasks;
+  }
+
+  Future<FirebaseStorageResponse<CoinsMarketsListResponse>>
+      downloadCoinsMarketsList({
+    required String? ids,
+  }) async {
+    StorageResponse storageResponse = await _downloadData(
+      fullFilePath: '$kStoragePathGeckoMarketsList/response.json',
+    );
+
+    CoinsMarketsListResponse result;
+
+    // Download requested [CoinMarketData] ids.
+    if (ids != null) {
+      List<CoinMarketData> cmds = [];
+      final List<String> splitIds = ids.split(',');
+      for (int i = 0; i < splitIds.length; i++) {
+        StorageResponse sr = await _downloadData(
+          fullFilePath:
+              '$kStoragePathGeckoMarketsList/${splitIds[i].trim()}.json',
+        );
+
+        cmds.add(CoinMarketData.fromJson(sr.jsonData!));
+      }
+
+      result = CoinsMarketsListResponse(data: cmds);
+    } else {
+      // Download latest [CoinsMarketsListResponse]
+      result = CoinsMarketsListResponse.fromJson(
+        storageResponse.jsonData!,
+      );
+    }
+
+    final FirebaseStorageResponse<CoinsMarketsListResponse>
+        firebaseStorageResponse = FirebaseStorageResponse(
+      result,
+      storageResponse,
+    );
+
+    return firebaseStorageResponse;
+  }
+
+  Future<ListResult> _downloadList({
+    required String fullListPath,
+    int maxResults = 10,
+  }) async {
+    Reference ref = _storage.ref().child(fullListPath);
+    ListResult listResults = await ref.list(
+      ListOptions(maxResults: maxResults),
+    );
+
+    return listResults;
   }
 
   Future<StorageResponse> _downloadData({
@@ -49,6 +136,7 @@ class FirebaseStorageClient {
     if (rawData == null) {
       throw FormatException(
         'Firebase storage response data is null\n'
+        'Full Path: $fullFilePath\n'
         'Reference:\n${ref.toString()}\n'
         'metadata: ${metadata.toString()}',
       );
@@ -68,16 +156,27 @@ class FirebaseStorageClient {
   UploadTask _uploadData({
     required String fullFilePath,
     required Map<String, dynamic> data,
-    required Map<String, dynamic> request,
+    Map<String, dynamic>? request,
+    Map<String, String>? customMetadata,
   }) {
     UploadTask uploadTask;
 
     String jsonData = jsonEncode(data);
 
+    Map<String, String>? fullCustomMetadata = {};
+
+    if (request != null) {
+      fullCustomMetadata.addAll({'request': jsonEncode(request)});
+    }
+
+    if (customMetadata != null) {
+      fullCustomMetadata.addAll(customMetadata);
+    }
+
     SettableMetadata metadata = SettableMetadata(
       contentLanguage: 'en',
-      contentType: 'gecko/json',
-      customMetadata: {'request': jsonEncode(request)},
+      contentType: 'application/json',
+      customMetadata: fullCustomMetadata,
     );
 
     Uint8List uint8ListData = utf8.encode(jsonData);
@@ -87,48 +186,5 @@ class FirebaseStorageClient {
         );
 
     return uploadTask;
-  }
-
-  /// Todo: Delete this
-  Future<TaskSnapshot> putTest({
-    required Map<String, dynamic> data,
-    CoinHistoryRequest? request,
-    SettableMetadata? metadata,
-  }) async {
-    TaskSnapshot snapshot;
-    CoinHistoryRequest defaultRequest = const CoinHistoryRequest(
-      id: 'bitcoin',
-      date: '30-12-2022',
-    );
-    final SettableMetadata defaultMetadata = SettableMetadata(
-      contentLanguage: 'en',
-      contentType: 'application/json',
-      customMetadata: {'request': defaultRequest.toJson().toString()},
-    );
-    final jsonData = jsonEncode(data);
-
-    snapshot = await _storage
-        .ref()
-        .child('$kStoragePathGeckoHistory/${request?.id}.json')
-        .putString(
-          jsonData,
-          metadata: metadata ?? defaultMetadata,
-        );
-
-    return Future.value(snapshot);
-  }
-
-  /// Todo: Delete this
-  Future<CoinHistoryResponse> getTest({
-    required String id,
-  }) async {
-    Uint8List? data = await _storage
-        .ref()
-        .child('$kStoragePathGeckoHistory/$id.json')
-        .getData();
-    String dataString = String.fromCharCodes(data!.toList());
-    var dataJson = jsonDecode(dataString);
-
-    return CoinHistoryResponse.fromJson(dataJson);
   }
 }

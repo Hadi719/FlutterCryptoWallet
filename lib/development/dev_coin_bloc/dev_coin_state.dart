@@ -9,7 +9,7 @@ final class DevCoinState extends Equatable {
   final DevCoinEvent? lastEvent;
   final Object? error;
   final dynamic data;
-  final String subtitle;
+  final String? downloadLink;
 
   const DevCoinState({
     this.status = DevCoinStatus.initial,
@@ -17,7 +17,7 @@ final class DevCoinState extends Equatable {
     this.lastEvent,
     this.error,
     this.data = const [],
-    this.subtitle = '---',
+    this.downloadLink,
   });
 
   @override
@@ -27,7 +27,7 @@ final class DevCoinState extends Equatable {
         lastEvent,
         error,
         data,
-        subtitle,
+        downloadLink,
       ];
 
   DevCoinState copyWith({
@@ -36,7 +36,7 @@ final class DevCoinState extends Equatable {
     DevCoinEvent? lastEvent,
     Object? error,
     dynamic data,
-    String? subtitle,
+    String? downloadLink,
   }) {
     return DevCoinState(
       status: status ?? this.status,
@@ -44,7 +44,7 @@ final class DevCoinState extends Equatable {
       lastEvent: lastEvent ?? this.lastEvent,
       error: error ?? this.error,
       data: data ?? this.data,
-      subtitle: subtitle ?? this.subtitle,
+      downloadLink: downloadLink ?? this.downloadLink,
     );
   }
 

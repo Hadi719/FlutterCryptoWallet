@@ -18,9 +18,11 @@ import 'data/datasource/remote/coingecko_remote_client.dart';
 import 'data/repositories/coincap_datasource_repository_impl.dart';
 import 'data/repositories/coinex_datasource_repository_impl.dart';
 import 'data/repositories/coingecko_datasource_repository_impl.dart';
+import 'data/repositories/firebase_storage_datasource_repository_impl.dart';
 import 'domain/repositories/coincap_api_repository.dart';
 import 'domain/repositories/coinex_api_repository.dart';
 import 'domain/repositories/coingecko_api_repository.dart';
+import 'domain/repositories/firebase_storage_api_repository.dart';
 
 final GetIt serviceLocator = GetIt.instance;
 
@@ -129,5 +131,10 @@ Future<void> _setupFirebase() async {
   serviceLocator.registerSingleton<FirebaseStorage>(storage);
   serviceLocator.registerSingleton<FirebaseStorageClient>(
     FirebaseStorageClient(storage),
+  );
+  serviceLocator.registerSingleton<FirebaseStorageApiRepository>(
+    FirebaseStorageDatasourceRepositoryImpl(
+      serviceLocator<FirebaseStorageClient>(),
+    ),
   );
 }

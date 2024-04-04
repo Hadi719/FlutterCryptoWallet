@@ -1,6 +1,7 @@
 import 'dart:io' show HttpStatus;
 
 import 'package:dio/dio.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:meta/meta.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -40,15 +41,31 @@ abstract class BaseDataSourceRepository {
   }
 
   @protected
-  Future<StorageDataState<T>> getStorageStateOf<T>({
+  Future<StorageDataState<T>> getStorageDownloadStateOf<T>({
     required Future<FirebaseStorageResponse<T>> Function() request,
   }) async {
     try {
-      final FirebaseStorageResponse<T> firebaseResponse = await request();
-      return StorageDataSuccess(
-        data: firebaseResponse.data,
-        storageResponse: firebaseResponse.storageResponse,
+      final FirebaseStorageResponse<T> response = await request();
+      return StorageDataDownloadSuccess(
+        data: response.data,
+        storageResponse: response.storageResponse,
       );
+    } catch (error) {
+      if (error is Exception) {
+        return StorageDataFailed(error: error);
+      } else {
+        return StorageDataFailed(error: Exception(error));
+      }
+    }
+  }
+
+  @protected
+  StorageDataState<List<UploadTask>> getStorageUploadStateOf<T>({
+    required List<UploadTask> Function() request,
+  }) {
+    try {
+      final List<UploadTask> uploadTasks = request();
+      return StorageDataUploadTasks(uploadTasks: uploadTasks);
     } catch (error) {
       if (error is Exception) {
         return StorageDataFailed(error: error);

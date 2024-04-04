@@ -25,7 +25,7 @@ class HomeCubit extends Cubit<HomeState> {
     final DataState<CoinsMarketsListResponse> response =
         await _geckoRepo.getCoinsMarketsList(
       /// Todo: add Currencies, Order,
-      request: CoinsMarketsListRequest(
+      request: const CoinsMarketsListRequest(
         vsCurrency: 'usd',
         perPage: 10,
         page: 1,

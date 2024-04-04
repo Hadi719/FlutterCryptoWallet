@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import '../../src/config/utils/resources/data_state.dart';
-import '../../src/data/datasource/firebase/firebase_storage_client.dart';
+import '../../src/config/utils/resources/storage_data_state.dart';
 import '../../src/domain/models/coincap/requests/requests.dart';
 import '../../src/domain/models/coincap/responses/responses.dart';
 import '../../src/domain/models/coinex/crypto.dart';
@@ -19,6 +19,7 @@ import '../../src/domain/models/coingecko/response/response.dart';
 import '../../src/domain/repositories/coincap_api_repository.dart';
 import '../../src/domain/repositories/coinex_api_repository.dart';
 import '../../src/domain/repositories/coingecko_api_repository.dart';
+import '../../src/domain/repositories/firebase_storage_api_repository.dart';
 import '../../src/service_locator.dart';
 
 part 'dev_coin_event.dart';
@@ -27,11 +28,15 @@ part 'dev_coin_state.dart';
 class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
   DevCoinBloc() : super(const DevCoinState()) {
     on<DevCoinChangeApi>(_onDevCoinChangeApi);
-    on<DevCoinChangeSubtitle>(_onDevCoinChangeSubtitle);
+    on<DevCoinGetDownloadLink>(_onDevCoinGetDownloadLink);
 
     // firebase
     on<DevCoinGeckoFsUploadCoinHistory>(_onDevCoinGeckoFsUploadCoinHistory);
     on<DevCoinGeckoFsDownloadCoinHistory>(_onDevCoinGeckoFsDownloadCoinHistory);
+    on<DevCoinGeckoFsUploadCoinsMarketsList>(
+        _onDevCoinGeckoFsUploadCoinsMarketsList);
+    on<DevCoinGeckoFsDownloadCoinsMarketsList>(
+        _onDevCoinGeckoFsDownloadCoinsMarketsList);
 
     // CoinGecko
     on<DevCoinGeckoSimplePricesList>(_onDevCoinGeckoSimplePricesList);
@@ -70,24 +75,23 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
     on<DevCoinExCurrencyRate>(_onDevCoinExCurrencyRate);
   }
 
-  void _onDevCoinChangeSubtitle(
-    DevCoinChangeSubtitle event,
+  void _onDevCoinGetDownloadLink(
+    DevCoinGetDownloadLink event,
     Emitter<DevCoinState> emit,
   ) {
-    emit(state.copyWith(subtitle: event.subtitle));
+    emit(state.copyWith(downloadLink: event.downloadLink));
   }
 
-  Future<void> _onDevCoinGeckoFsUploadCoinHistory(
-    DevCoinGeckoFsUploadCoinHistory event,
+  Future<void> _onDevCoinGeckoFsUploadCoinsMarketsList(
+    DevCoinGeckoFsUploadCoinsMarketsList event,
     Emitter<DevCoinState> emit,
   ) async {
     try {
       emit(state.copyWith(
         status: DevCoinStatus.loading,
-        lastEvent: DevCoinGeckoFsUploadCoinHistory(),
+        lastEvent: DevCoinGeckoFsUploadCoinsMarketsList(),
       ));
-      // final data = await _FirebaseClient.putTest();
-      final data = await _FirebaseClient.uploadCoinHistory();
+      final data = await _FirebaseClient.uploadCoinsMarketsList();
       emit(state.copyWith(
         status: DevCoinStatus.success,
         data: data,
@@ -100,16 +104,75 @@ class DevCoinBloc extends Bloc<DevCoinEvent, DevCoinState> {
     }
   }
 
+  Future<void> _onDevCoinGeckoFsDownloadCoinsMarketsList(
+    DevCoinGeckoFsDownloadCoinsMarketsList event,
+    Emitter<DevCoinState> emit,
+  ) async {
+    try {
+      emit(state.copyWith(
+        status: DevCoinStatus.loading,
+        lastEvent: DevCoinGeckoFsDownloadCoinsMarketsList(),
+      ));
+      final data = await _FirebaseClient.downloadCoinsMarketsList();
+      emit(state.copyWith(
+        status: DevCoinStatus.success,
+        data: data,
+      ));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: DevCoinStatus.failure,
+          error: e.toString(),
+        ),
+      );
+    }
+  }
+
+  Future<void> _onDevCoinGeckoFsUploadCoinHistory(
+    DevCoinGeckoFsUploadCoinHistory event,
+    Emitter<DevCoinState> emit,
+  ) async {
+    try {
+      emit(state.copyWith(
+        status: DevCoinStatus.loading,
+        lastEvent: DevCoinGeckoFsUploadCoinHistory(),
+      ));
+      final data = await _FirebaseClient.uploadCoinHistory();
+      emit(state.copyWith(
+        status: DevCoinStatus.success,
+        data: data,
+      ));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          status: DevCoinStatus.failure,
+          error: e.toString(),
+        ),
+      );
+    }
+  }
+
   Future<void> _onDevCoinGeckoFsDownloadCoinHistory(
     DevCoinGeckoFsDownloadCoinHistory event,
     Emitter<DevCoinState> emit,
   ) async {
     try {
-      // final data = await _FirebaseClient.getTest();
+      emit(state.copyWith(
+        status: DevCoinStatus.loading,
+        lastEvent: DevCoinGeckoFsDownloadCoinHistory(),
+      ));
       final data = await _FirebaseClient.downloadCoinHistory();
-      emit(state.copyWith(subtitle: data.toString()));
+      emit(state.copyWith(
+        status: DevCoinStatus.success,
+        data: data,
+      ));
     } catch (e) {
-      emit(state.copyWith(subtitle: e.toString()));
+      emit(
+        state.copyWith(
+          status: DevCoinStatus.failure,
+          error: e.toString(),
+        ),
+      );
     }
   }
 
@@ -1185,7 +1248,7 @@ class _RemoteCoinGecko {
   static Future<CoinsMarketsListResponse> getCoinsMarketsList() async {
     final DataState<CoinsMarketsListResponse> response =
         await serviceLocator<CoinGeckoApiRepository>().getCoinsMarketsList(
-      request: CoinsMarketsListRequest(
+      request: const CoinsMarketsListRequest(
         vsCurrency: 'usd',
         perPage: 3,
         page: 1,
@@ -1248,20 +1311,6 @@ class _RemoteCoinGecko {
 }
 
 class _FirebaseClient {
-  static Future<TaskSnapshot> putTest() async {
-    var jsonFile = await rootBundle
-        .loadString(
-            'lib/development/coins_response_examples/gecko/coin_history.json')
-        .catchError((err) => throw err);
-    var editedJson = jsonDecode(jsonFile);
-    TaskSnapshot snapshot =
-        await serviceLocator<FirebaseStorageClient>().putTest(
-      request: const CoinHistoryRequest(id: 'bitcoin', date: '26-01-2024'),
-      data: editedJson as Map<String, dynamic>,
-    );
-    return Future.value(snapshot);
-  }
-
   static Future<UploadTask> uploadCoinHistory() async {
     var jsonFile = await rootBundle
         .loadString(
@@ -1276,26 +1325,86 @@ class _FirebaseClient {
       date: '30-12-2022',
     );
 
-    final uploadTask =
-        serviceLocator<FirebaseStorageClient>().uploadCoinHistory(
+    final StorageDataState<List<UploadTask>> storageDataState =
+        serviceLocator<FirebaseStorageApiRepository>().uploadCoinHistory(
       response: coinHistoryResponse,
       request: coinHistoryRequest,
     );
 
-    return Future.value(uploadTask);
-  }
-
-  static Future<CoinHistoryResponse> getTest() async {
-    final CoinHistoryResponse data =
-        await serviceLocator<FirebaseStorageClient>().getTest(id: 'bitcoin');
-    return Future.value(data);
+    if (storageDataState is StorageDataUploadTasks) {
+      if (storageDataState.uploadTasks == null ||
+          storageDataState.uploadTasks!.isEmpty) {
+        String msg = 'Upload tasks list is empty at $uploadCoinHistory';
+        debugPrint('FAILED: $msg');
+        throw FormatException(msg);
+      }
+      debugPrint('SUCCESS: $uploadCoinHistory');
+      return storageDataState.uploadTasks!.first;
+    } else {
+      debugPrint('FAILED: $uploadCoinHistory');
+      throw storageDataState.error!;
+    }
   }
 
   static Future<CoinHistoryResponse> downloadCoinHistory() async {
-    final response =
-        await serviceLocator<FirebaseStorageClient>().downloadCoinHistory(
+    final StorageDataState<CoinHistoryResponse> response =
+        await serviceLocator<FirebaseStorageApiRepository>()
+            .downloadCoinHistory(
       id: 'bitcoin',
     );
-    return Future.value(response.data);
+    if (response is StorageDataDownloadSuccess) {
+      debugPrint('SUCCESS: $downloadCoinHistory');
+      return response.data!;
+    } else {
+      debugPrint('FAILED: $downloadCoinHistory');
+      throw response.error!;
+    }
+  }
+
+  static Future<UploadTask> uploadCoinsMarketsList() async {
+    var jsonFile = await rootBundle
+        .loadString(
+            'lib/development/coins_response_examples/gecko/coins_markets_list.json')
+        .catchError((err) => throw err);
+    final Map<String, dynamic> data = jsonDecode(jsonFile);
+
+    final coinsMarketsListResponse = CoinsMarketsListResponse.fromJson(data);
+
+    const coinsMarketsListRequest = CoinsMarketsListRequest(vsCurrency: 'usd');
+
+    final StorageDataState<List<UploadTask>> storageDataState =
+        serviceLocator<FirebaseStorageApiRepository>().uploadCoinsMarketsList(
+      response: coinsMarketsListResponse,
+      request: coinsMarketsListRequest,
+    );
+
+    if (storageDataState is StorageDataUploadTasks) {
+      if (storageDataState.uploadTasks == null ||
+          storageDataState.uploadTasks!.isEmpty) {
+        String msg = 'Upload tasks list is empty at $uploadCoinsMarketsList';
+        debugPrint('FAILED: $msg');
+        throw FormatException(msg);
+      }
+      debugPrint('SUCCESS: $uploadCoinsMarketsList');
+      return storageDataState.uploadTasks!.first;
+    } else {
+      debugPrint('FAILED: $uploadCoinsMarketsList');
+      throw storageDataState.error!;
+    }
+  }
+
+  static Future<CoinsMarketsListResponse> downloadCoinsMarketsList() async {
+    final StorageDataState<CoinsMarketsListResponse> response =
+        await serviceLocator<FirebaseStorageApiRepository>()
+            .downloadCoinsMarketsList(
+                request: const CoinsMarketsListRequest(vsCurrency: 'usd'));
+
+    if (response is StorageDataDownloadSuccess) {
+      debugPrint('SUCCESS: $downloadCoinsMarketsList');
+      return response.data!;
+    } else {
+      debugPrint('FAILED: $downloadCoinsMarketsList');
+      throw response.error!;
+    }
   }
 }

@@ -39,7 +39,7 @@ class _HomeView extends StatelessWidget {
         builder: (context, state) {
           switch (state.status) {
             case HomeStatus.initial:
-              context.read<HomeCubit>().getCoinsDataFromJson();
+              context.read<HomeCubit>().getCoinsData();
               return const MyLoading(
                 key: ObjectKey('__Home_Initial_loading_widget'),
               );
@@ -83,6 +83,7 @@ class _CoinsList extends StatelessWidget {
             builder: (context, state) {
               return Card(
                 margin: const EdgeInsets.all(8),
+                elevation: 4,
                 child: Stack(
                   children: [
                     CoinImage(
