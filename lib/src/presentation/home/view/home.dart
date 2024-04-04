@@ -1,4 +1,17 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    show
+        AnimatedList,
+        BuildContext,
+        Card,
+        EdgeInsets,
+        MaterialPage,
+        ObjectKey,
+        Page,
+        SafeArea,
+        Scaffold,
+        Stack,
+        StatelessWidget,
+        Widget;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../domain/models/coingecko/response/coins/coins_markets_list_response.dart';
@@ -19,7 +32,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<HomeCubit>(
       create: (context) => HomeCubit(),
-      child: const _HomeView(),
+      child: const HomeView(),
     );
   }
 
@@ -29,8 +42,8 @@ class HomePage extends StatelessWidget {
       );
 }
 
-class _HomeView extends StatelessWidget {
-  const _HomeView();
+class HomeView extends StatelessWidget {
+  const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +62,7 @@ class _HomeView extends StatelessWidget {
                 error: state.error.toString(),
               );
             case HomeStatus.success:
-              return const _CoinsList(
+              return const CoinsList(
                 key: ObjectKey('_Home_List_widget'),
               );
             case HomeStatus.loading:
@@ -64,8 +77,8 @@ class _HomeView extends StatelessWidget {
   }
 }
 
-class _CoinsList extends StatelessWidget {
-  const _CoinsList({super.key});
+class CoinsList extends StatelessWidget {
+  const CoinsList({super.key});
 
   @override
   Widget build(BuildContext context) {

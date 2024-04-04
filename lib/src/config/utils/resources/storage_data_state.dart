@@ -1,4 +1,4 @@
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_storage/firebase_storage.dart' show UploadTask;
 
 import 'firebase_storage_response.dart';
 

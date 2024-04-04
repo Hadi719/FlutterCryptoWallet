@@ -1,9 +1,9 @@
 import 'dart:io' show HttpStatus;
 
-import 'package:dio/dio.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:meta/meta.dart';
-import 'package:retrofit/retrofit.dart';
+import 'package:dio/dio.dart' show DioException;
+import 'package:firebase_storage/firebase_storage.dart' show UploadTask;
+import 'package:meta/meta.dart' show protected;
+import 'package:retrofit/retrofit.dart' show HttpResponse;
 
 import '../../../config/utils/resources/data_state.dart';
 import '../../../config/utils/resources/firebase_storage_response.dart';

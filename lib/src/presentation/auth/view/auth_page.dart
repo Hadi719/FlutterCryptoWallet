@@ -1,5 +1,15 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/material.dart'
+    show
+        BuildContext,
+        EdgeInsets,
+        MaterialPage,
+        Padding,
+        Page,
+        SafeArea,
+        Scaffold,
+        StatelessWidget,
+        Widget;
+import 'package:flutter_bloc/flutter_bloc.dart' show BlocProvider;
 
 import '../cubit/auth_cubit.dart';
 import 'auth_form.dart';

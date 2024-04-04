@@ -1,7 +1,7 @@
-import 'dart:async';
+import 'dart:async' show Future, StreamSubscription, unawaited;
 
 import 'package:authentication_repository/authentication_repository.dart';
-import 'package:bloc/bloc.dart';
+import 'package:bloc/bloc.dart' show Bloc, Emitter;
 import 'package:equatable/equatable.dart';
 
 import '../../../service_locator.dart';

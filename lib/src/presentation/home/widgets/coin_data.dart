@@ -1,4 +1,14 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/widgets.dart'
+    show
+        Axis,
+        BuildContext,
+        SizedBox,
+        StatelessWidget,
+        Text,
+        TextAlign,
+        Widget,
+        Wrap,
+        WrapAlignment;
 
 import '../../../domain/models/coingecko/response/coins/coins_markets_list_response.dart';
 

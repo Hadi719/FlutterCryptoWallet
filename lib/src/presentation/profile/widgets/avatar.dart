@@ -1,4 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    show
+        BuildContext,
+        CircleAvatar,
+        Icon,
+        Icons,
+        NetworkImage,
+        StatelessWidget,
+        Widget;
 
 const double _avatarSize = 48.0;
 

@@ -1,14 +1,17 @@
-import 'dart:ui';
+import 'dart:ui' show PlatformDispatcher;
 
-import 'package:authentication_repository/authentication_repository.dart';
-import 'package:dio/dio.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
+import 'package:authentication_repository/authentication_repository.dart'
+    show AuthenticationRepository;
+import 'package:dio/dio.dart' show Dio;
+import 'package:firebase_analytics/firebase_analytics.dart'
+    show FirebaseAnalytics;
+import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
+import 'package:firebase_core/firebase_core.dart' show Firebase, FirebaseApp;
+import 'package:firebase_crashlytics/firebase_crashlytics.dart'
+    show FirebaseCrashlytics;
+import 'package:firebase_storage/firebase_storage.dart' show FirebaseStorage;
+import 'package:flutter/material.dart' show FlutterError;
+import 'package:get_it/get_it.dart' show GetIt;
 
 import 'config/firebase/firebase_options.dart';
 import 'data/datasource/firebase/firebase_storage_client.dart';

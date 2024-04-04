@@ -1,6 +1,8 @@
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_storage/firebase_storage.dart'
+    show FirebaseException, Task, TaskSnapshot, TaskState, UploadTask;
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart'
+    show BlocBuilder, ReadContext, SelectContext;
 
 import '../../src/config/utils/constants/firebase_strings.dart';
 import '../dev_coin_bloc/dev_coin_bloc.dart';
@@ -161,12 +163,12 @@ class UploadTaskListTile extends StatelessWidget {
                           : () {
                               String? fullPath = snapshot?.ref.fullPath;
                               if (fullPath == null) return;
-                              if (fullPath
-                                  .contains(kStorageNameGeckoMarketsList)) {
+                              if (fullPath.contains(KFirebaseStorageStrings
+                                  .nameGeckoMarketsList)) {
                                 context.read<DevCoinBloc>().add(
                                     DevCoinGeckoFsDownloadCoinsMarketsList());
-                              } else if (fullPath
-                                  .contains(kStorageNameGeckoHistory)) {
+                              } else if (fullPath.contains(
+                                  KFirebaseStorageStrings.nameGeckoHistory)) {
                                 context
                                     .read<DevCoinBloc>()
                                     .add(DevCoinGeckoFsDownloadCoinHistory());

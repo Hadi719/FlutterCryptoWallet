@@ -12,14 +12,14 @@ class DevCoinApi extends StatelessWidget {
     return SafeArea(
       child: BlocProvider<DevCoinBloc>(
         create: (_) => DevCoinBloc(),
-        child: const _LayoutBuilder(),
+        child: const LayoutBuilder(),
       ),
     );
   }
 }
 
-class _LayoutBuilder extends StatelessWidget {
-  const _LayoutBuilder();
+class LayoutBuilder extends StatelessWidget {
+  const LayoutBuilder({super.key});
 
   @override
   Widget build(BuildContext context) {

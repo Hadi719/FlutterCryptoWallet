@@ -1,4 +1,14 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    show
+        BuildContext,
+        EdgeInsets,
+        FlutterLogo,
+        Image,
+        NetworkImage,
+        Padding,
+        ResizeImage,
+        StatelessWidget,
+        Widget;
 
 /// Todo: Add default image.
 class CoinImage extends StatelessWidget {

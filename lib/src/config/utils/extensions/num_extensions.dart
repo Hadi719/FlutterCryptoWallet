@@ -1,4 +1,4 @@
-import 'dart:math' as math;
+import 'dart:math' as math show pi;
 
 extension NumExtensions on num {
   /// Adds comma on every three digits on numbers.

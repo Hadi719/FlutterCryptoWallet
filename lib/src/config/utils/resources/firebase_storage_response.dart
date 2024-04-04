@@ -1,7 +1,7 @@
-import 'dart:convert';
-import 'dart:typed_data';
+import 'dart:convert' show jsonDecode;
+import 'dart:typed_data' show Uint8List;
 
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_storage/firebase_storage.dart' show FullMetadata;
 
 class FirebaseStorageResponse<T> {
   final T data;

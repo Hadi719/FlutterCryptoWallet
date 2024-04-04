@@ -1,4 +1,4 @@
-import 'dart:math' as math;
+import 'dart:math' as math show Random;
 
 extension ListExtension<T> on List<T> {
   /// Gets an random item from the list

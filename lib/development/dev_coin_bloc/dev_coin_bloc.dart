@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:bloc/bloc.dart';
+import 'package:bloc/bloc.dart' show Bloc, Emitter;
 import 'package:equatable/equatable.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
+import 'package:firebase_storage/firebase_storage.dart' show UploadTask;
+import 'package:flutter/foundation.dart' show debugPrint;
+import 'package:flutter/services.dart' show rootBundle;
 
 import '../../src/config/utils/resources/data_state.dart';
 import '../../src/config/utils/resources/storage_data_state.dart';

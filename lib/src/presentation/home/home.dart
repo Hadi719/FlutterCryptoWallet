@@ -1,1 +1,1 @@
-export 'view/home.dart';
+export 'view/home.dart' show HomePage;

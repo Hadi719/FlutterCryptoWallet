@@ -1,7 +1,17 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:flow_builder/flow_builder.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flow_builder/flow_builder.dart' show FlowBuilder;
+import 'package:flutter/material.dart'
+    show
+        BuildContext,
+        ColorScheme,
+        Colors,
+        MaterialApp,
+        StatelessWidget,
+        ThemeData,
+        ThemeMode,
+        Widget;
+import 'package:flutter_bloc/flutter_bloc.dart'
+    show BlocProvider, SelectContext;
 
 import '../../../config/router/router.dart';
 import '../../../config/utils/constants/strings.dart' show kAppTitle;

@@ -1,21 +1,27 @@
-const String kStorageNameAPIsData = 'APIsData';
-const String kStoragePathAPIsData = 'APIsData';
-const String kStorageNameGecko = 'Gecko';
-const String kStoragePathGecko = '$kStoragePathAPIsData/Gecko';
-const String kStorageNameGeckoCoins = 'Coins';
-const String kStoragePathGeckoCoins = '$kStoragePathGecko/Coins';
-const String kStorageNameGeckoHistory = 'History';
-const String kStoragePathGeckoHistory = '$kStoragePathGeckoCoins/History';
-const String kStorageNameGeckoMarketChart = 'MarketChart';
-const String kStoragePathGeckoMarketChart =
-    '$kStoragePathGeckoCoins/MarketChart';
-const String kStorageNameGeckoMarketChartRange = 'MarketChartRange';
-const String kStoragePathGeckoMarketChartRange =
-    '$kStoragePathGeckoCoins/MarketChartRange';
-const String kStorageNameGeckoMetadata = 'Metadata';
-const String kStoragePathGeckoMetadata = '$kStoragePathGeckoCoins/Metadata';
-const String kStorageNameGeckoOHLC = 'OHLC';
-const String kStoragePathGeckoOHLC = '$kStoragePathGeckoCoins/OHLC';
-const String kStorageNameGeckoMarketsList = 'MarketsList';
-const String kStoragePathGeckoMarketsList =
-    '$kStoragePathGeckoCoins/MarketsList';
+class KFirebaseStrings {
+  static const KFirebaseStorageStrings storage = KFirebaseStorageStrings();
+}
+
+class KFirebaseStorageStrings {
+  const KFirebaseStorageStrings();
+
+  static const String nameAPIsData = 'APIsData';
+  static const String pathAPIsData = 'APIsData';
+  static const String nameGecko = 'Gecko';
+  static const String pathGecko = '$pathAPIsData/Gecko';
+  static const String nameGeckoCoins = 'Coins';
+  static const String pathGeckoCoins = '$pathGecko/Coins';
+  static const String nameGeckoHistory = 'History';
+  static const String pathGeckoHistory = '$pathGeckoCoins/History';
+  static const String nameGeckoMarketChart = 'MarketChart';
+  static const String pathGeckoMarketChart = '$pathGeckoCoins/MarketChart';
+  static const String nameGeckoMarketChartRange = 'MarketChartRange';
+  static const String pathGeckoMarketChartRange =
+      '$pathGeckoCoins/MarketChartRange';
+  static const String nameGeckoMetadata = 'Metadata';
+  static const String pathGeckoMetadata = '$pathGeckoCoins/Metadata';
+  static const String nameGeckoOHLC = 'OHLC';
+  static const String pathGeckoOHLC = '$pathGeckoCoins/OHLC';
+  static const String nameGeckoMarketsList = 'MarketsList';
+  static const String pathGeckoMarketsList = '$pathGeckoCoins/MarketsList';
+}

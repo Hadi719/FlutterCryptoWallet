@@ -1,8 +1,9 @@
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:flutter/widgets.dart';
+import 'package:firebase_analytics/firebase_analytics.dart'
+    show FirebaseAnalytics;
+import 'package:flutter/widgets.dart' show Page;
 
-import '../../presentation/app/bloc/app_bloc.dart';
-import '../../presentation/auth/auth.dart';
+import '../../presentation/app/bloc/app_bloc.dart' show AppStatus;
+import '../../presentation/auth/auth.dart' show AuthPage;
 import '../../presentation/home/home.dart';
 import '../../service_locator.dart';
 

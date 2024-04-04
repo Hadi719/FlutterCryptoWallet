@@ -1,4 +1,4 @@
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_storage/firebase_storage.dart' show UploadTask;
 
 import '../../config/utils/resources/storage_data_state.dart';
 import '../models/coingecko/request/request.dart';

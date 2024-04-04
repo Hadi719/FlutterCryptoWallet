@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    show BuildContext, ScaffoldMessenger, SnackBar, SnackBarBehavior, Text;
 
 /// Helper class to show a [SnackBar] using the passed context.
 ///

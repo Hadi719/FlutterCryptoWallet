@@ -1,9 +1,9 @@
-import 'dart:convert';
+import 'dart:convert' show jsonDecode;
 
-import 'package:bloc/bloc.dart';
+import 'package:bloc/bloc.dart' show Cubit;
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 import '../../../config/utils/resources/data_state.dart';
 import '../../../domain/models/coingecko/request/request.dart';

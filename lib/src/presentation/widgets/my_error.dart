@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    show BuildContext, Center, Colors, StatelessWidget, Text, TextStyle, Widget;
 
 class MyError extends StatelessWidget {
   final String error;

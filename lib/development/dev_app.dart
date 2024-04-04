@@ -1,7 +1,16 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    show
+        BuildContext,
+        ColorScheme,
+        Colors,
+        MaterialApp,
+        StatelessWidget,
+        ThemeData,
+        ThemeMode,
+        Widget;
 
-import '../src/config/utils/constants/strings.dart';
-import 'dev_coin_api.dart';
+import '../src/config/utils/constants/strings.dart' show kAppTitle;
+import 'dev_coin_api.dart' show DevCoinApi;
 
 class DevApp extends StatelessWidget {
   const DevApp({super.key});

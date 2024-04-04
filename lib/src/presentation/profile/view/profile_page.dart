@@ -1,5 +1,24 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/material.dart'
+    show
+        Align,
+        Alignment,
+        AppBar,
+        BuildContext,
+        Column,
+        Icon,
+        IconButton,
+        Icons,
+        Key,
+        MainAxisSize,
+        MaterialPage,
+        Page,
+        Scaffold,
+        SizedBox,
+        StatelessWidget,
+        Text,
+        Theme,
+        Widget;
+import 'package:flutter_bloc/flutter_bloc.dart' show SelectContext, ReadContext;
 
 import '../../app/bloc/app_bloc.dart';
 import '../widgets/avatar.dart';

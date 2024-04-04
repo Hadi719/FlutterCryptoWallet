@@ -1,29 +1,29 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
-import '../../../config/utils/constants/strings.dart';
+import '../../../config/utils/constants/apis_strings.dart' show KGeckoStrings;
 import '../../../domain/models/coingecko/response/response.dart';
 
 part 'coingecko_remote_client.g.dart';
 
-@RestApi(baseUrl: kCoinGeckoBaseUrl, parser: Parser.JsonSerializable)
+@RestApi(baseUrl: KGeckoStrings.baseUrl, parser: Parser.JsonSerializable)
 abstract class CoinGeckoRemoteClient {
   factory CoinGeckoRemoteClient(Dio dio, {String baseUrl}) =
       _CoinGeckoRemoteClient;
 
-  @GET(kCoinGeckoPathAssetPlatformsList)
+  @GET(KGeckoStrings.pathAssetPlatformsList)
   Future<HttpResponse<AssetPlatformsListResponse>> getAssetPlatformsList({
     @Query('filter') String? filter,
   });
 
-  @GET(kCoinGeckoPathCoinHistory)
+  @GET(KGeckoStrings.pathCoinHistory)
   Future<HttpResponse<CoinHistoryResponse>> getCoinHistory({
     @Path('id') required String id,
     @Query('date') required String date,
     @Query('localization') String? localization,
   });
 
-  @GET(kCoinGeckoPathCoinMarketChart)
+  @GET(KGeckoStrings.pathCoinMarketChart)
   Future<HttpResponse<CoinMarketChartResponse>> getCoinMarketChart({
     @Path('id') required String id,
     @Query('vs_currency') required String vsCurrency,
@@ -32,7 +32,7 @@ abstract class CoinGeckoRemoteClient {
     @Query('precision') String? precision,
   });
 
-  @GET(kCoinGeckoPathCoinMarketChartRange)
+  @GET(KGeckoStrings.pathCoinMarketChartRange)
   Future<HttpResponse<CoinMarketChartRangeResponse>> getCoinMarketChartRange({
     @Path('id') required String id,
     @Query('vs_currency') required String vsCurrency,
@@ -41,7 +41,7 @@ abstract class CoinGeckoRemoteClient {
     @Query('precision') String? precision,
   });
 
-  @GET(kCoinGeckoPathCoinMetaData)
+  @GET(KGeckoStrings.pathCoinMetaData)
   Future<HttpResponse<CoinMetadataResponse>> getCoinMetadata({
     @Path('id') required String id,
     @Query('localization') String? localization,
@@ -52,7 +52,7 @@ abstract class CoinGeckoRemoteClient {
     @Query('sparkline') bool? sparkline,
   });
 
-  @GET(kCoinGeckoPathCoinOHLC)
+  @GET(KGeckoStrings.pathCoinOHLC)
   Future<HttpResponse<CoinOHLCResponse>> getCoinOHLC({
     @Path('id') required String id,
     @Query('vs_currency') required String vsCurrency,
@@ -60,7 +60,7 @@ abstract class CoinGeckoRemoteClient {
     @Query('precision') String? precision,
   });
 
-  @GET(kCoinGeckoPathCoinsMarketsList)
+  @GET(KGeckoStrings.pathCoinsMarketsList)
   Future<HttpResponse<CoinsMarketsListResponse>> getCoinsMarketsList({
     @Query('vs_currency') required String vsCurrency,
     @Query('ids') String? ids,
@@ -74,10 +74,10 @@ abstract class CoinGeckoRemoteClient {
     @Query('precision') String? precision,
   });
 
-  @GET(kCoinGeckoPathExchangeRates)
+  @GET(KGeckoStrings.pathExchangeRates)
   Future<HttpResponse<ExchangeRatesResponse>> getExchangeRates();
 
-  @GET(kCoinGeckoPathSimplePricesList)
+  @GET(KGeckoStrings.pathSimplePricesList)
   Future<HttpResponse<SimplePricesListResponse>> getSimplePricesList({
     @Query('ids') required String ids,
     @Query('vs_currencies') required String vsCurrencies,
@@ -88,7 +88,7 @@ abstract class CoinGeckoRemoteClient {
     @Query('precision') int? precision,
   });
 
-  @GET(kCoinGeckoPathSimpleSupportedVsCurrencies)
+  @GET(KGeckoStrings.pathSimpleSupportedVsCurrencies)
   Future<HttpResponse<SimpleSupportedVsCurrenciesResponse>>
       getSimpleSupportedVsCurrencies();
 }

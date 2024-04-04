@@ -1,6 +1,6 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:typed_data';
+import 'dart:async' show Future;
+import 'dart:convert' show jsonDecode, jsonEncode, utf8;
+import 'dart:typed_data' show Uint8List;
 
 import 'package:firebase_storage/firebase_storage.dart';
 
@@ -19,7 +19,7 @@ class FirebaseStorageClient {
     required String id,
   }) async {
     final storageResponse = await _downloadData(
-      fullFilePath: '$kStoragePathGeckoHistory/$id.json',
+      fullFilePath: '${KFirebaseStorageStrings.pathGeckoHistory}/$id.json',
     );
 
     final value = CoinHistoryResponse.fromJson(storageResponse.jsonData!);
@@ -35,7 +35,8 @@ class FirebaseStorageClient {
     required CoinHistoryRequest request,
   }) {
     UploadTask uploadTask = _uploadData(
-      fullFilePath: '$kStoragePathGeckoHistory/${request.id}.json',
+      fullFilePath:
+          '${KFirebaseStorageStrings.pathGeckoHistory}/${request.id}.json',
       data: response.toJson(),
       request: request.toJson(),
     );
@@ -53,7 +54,8 @@ class FirebaseStorageClient {
     List<UploadTask> uploadTasks = [];
 
     UploadTask uploadResponseTask = _uploadData(
-      fullFilePath: '$kStoragePathGeckoMarketsList/response.json',
+      fullFilePath:
+          '${KFirebaseStorageStrings.pathGeckoMarketsList}/response.json',
       data: response.toJson(),
       request: request.toJson(),
     );
@@ -65,7 +67,8 @@ class FirebaseStorageClient {
       if (cmd.id == null) continue;
 
       UploadTask uploadCMDTask = _uploadData(
-        fullFilePath: '$kStoragePathGeckoMarketsList/${cmd.id}.json',
+        fullFilePath:
+            '${KFirebaseStorageStrings.pathGeckoMarketsList}/${cmd.id}.json',
         data: cmd.toJson(),
       );
 
@@ -80,7 +83,8 @@ class FirebaseStorageClient {
     required String? ids,
   }) async {
     StorageResponse storageResponse = await _downloadData(
-      fullFilePath: '$kStoragePathGeckoMarketsList/response.json',
+      fullFilePath:
+          '${KFirebaseStorageStrings.pathGeckoMarketsList}/response.json',
     );
 
     CoinsMarketsListResponse result;
@@ -92,7 +96,7 @@ class FirebaseStorageClient {
       for (int i = 0; i < splitIds.length; i++) {
         StorageResponse sr = await _downloadData(
           fullFilePath:
-              '$kStoragePathGeckoMarketsList/${splitIds[i].trim()}.json',
+              '${KFirebaseStorageStrings.pathGeckoMarketsList}/${splitIds[i].trim()}.json',
         );
 
         cmds.add(CoinMarketData.fromJson(sr.jsonData!));

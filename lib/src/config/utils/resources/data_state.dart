@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' show DioException, Response;
 
 abstract class DataState<T> {
   final T? data;

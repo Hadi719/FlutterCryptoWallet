@@ -1,5 +1,5 @@
-import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
+import 'package:bloc/bloc.dart' show Bloc;
+import 'package:flutter/material.dart' show WidgetsFlutterBinding, runApp;
 
 import 'src/presentation/app/app.dart';
 import 'src/service_locator.dart';
